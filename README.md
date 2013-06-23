@@ -43,3 +43,7 @@ savegame was parsed correctly, when the contrary is true.  After parsing or
 updating each entity, a validation check must be performed and a failure results
 in an exception being thrown.  This also alerts us to possible bugs in the
 parsing sooner than if we allowed more flexible input.
+
+StyleCop - A (minor) goal of this project is to make it appear that one
+developer wrote it.  This ensures consistency and a high level of programming.
+While I can scan through all changes, I will make mistakes.  StyleCop doesn't.
