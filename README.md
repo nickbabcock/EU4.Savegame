@@ -1,4 +1,4 @@
-# EUIVSave
+# EUIVSavegame
 
 ## What happens when a new patch is released
 
@@ -35,3 +35,11 @@ machines.  .Net 4.0 is the lowest common denominator.
 This project's first priority is Windows; however, Linux/Mac may be reached one
 day with Mono.  Caveat, I do not know Mono, so this is a great opportunity to
 help!
+
+## Design Guidelines
+
+Fail early, fail hard - The last desired outcome is for the user to believe the
+savegame was parsed correctly, when the contrary is true.  After parsing or
+updating each entity, a validation check must be performed and a failure results
+in an exception being thrown.  This also alerts us to possible bugs in the
+parsing sooner than if we allowed more flexible input.
