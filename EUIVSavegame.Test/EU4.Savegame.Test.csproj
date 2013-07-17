@@ -36,6 +36,10 @@
     <Reference Include="nunit.framework">
       <HintPath>..\packages\NUnit.2.6.2\lib\nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="Pdoxcl2Sharp, Version=0.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\dependencies\Pdoxcl2Sharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -48,12 +52,12 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="vanilla\BasicSettings.cs" />
+    <Compile Include="ProvinceCollectionTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\EUIVSavegame\EUIVSavegame.csproj">
+    <ProjectReference Include="..\EUIVSavegame\EU4.Savegame.csproj">
       <Project>{ccacdf91-fd68-4c91-836e-7e5e90dfae4c}</Project>
-      <Name>EUIVSavegame</Name>
+      <Name>EU4.Savegame</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

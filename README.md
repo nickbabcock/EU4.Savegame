@@ -1,5 +1,23 @@
 # EUIVSavegame
 
+## Contributing
+
+So you want to help?  Great!  Here are a series of steps to get you on your way!
+Let me first say that if you have any troubles, file an issue.
+
+- Get a github account
+- Fork the repo
+- Add a failing test.  The purpose of this is to show that what you are adding couldn't have been done before, or was wrong.
+- Add your changes
+- Commit your changes in such a way there is only a single commit difference between the main branch here and yours.  If you need help, check out [git workflow][]
+- Push changes to your repo
+- Submit a pull request and I'll review it!
+    
+## License
+
+Pdoxcl2Sharp is licensed under MIT, so feel free to do whatever you want, as
+long as this license follows the code.
+
 ## What happens when a new patch is released
 
 - Add a reprseentative savegame to the test suite
@@ -47,3 +65,12 @@ parsing sooner than if we allowed more flexible input.
 StyleCop - A (minor) goal of this project is to make it appear that one
 developer wrote it.  This ensures consistency and a high level of programming.
 While I can scan through all changes, I will make mistakes.  StyleCop doesn't.
+
+Custom collections - throughout the code, the API exposes custom collections and
+not traditional collections such as a `IList<T>`.  There are several reasons to this, including some found in Framework Design Guidelines
+
+- Exposes internal implementation 
+- Exposes memebers not applicable to the class (Binary searching a list of provinces isn't very intuitive)
+- Provinces are indexed at 1.  This might not seem like a huge deal, but I have been burned one too many times when looping through a collection of provinces and using the loop counter as an index only to get an out of range error (or worse, inaccurate results).  
+
+[git workflow]: https://sandofsky.com/blog/git-workflow.html
