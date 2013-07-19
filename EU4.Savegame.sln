@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EU4.Savegame", "EUIVSavegame\EU4.Savegame.csproj", "{CCACDF91-FD68-4C91-836E-7E5E90DFAE4C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EU4.Savegame", "EU4.Savegame\EU4.Savegame.csproj", "{CCACDF91-FD68-4C91-836E-7E5E90DFAE4C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EU4.Savegame.Test", "EUIVSavegame.Test\EU4.Savegame.Test.csproj", "{F876DC20-2BD4-4C5B-BBE0-D742DA5C72D1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EU4.Savegame.Test", "EU4.Savegame.Test\EU4.Savegame.Test.csproj", "{F876DC20-2BD4-4C5B-BBE0-D742DA5C72D1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D28CF6FC-7FEE-43AA-9367-70C6D8F64D7D}"
 	ProjectSection(SolutionItems) = preProject

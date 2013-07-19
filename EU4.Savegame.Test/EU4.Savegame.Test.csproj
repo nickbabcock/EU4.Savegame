@@ -55,7 +55,7 @@
     <Compile Include="ProvinceCollectionTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\EUIVSavegame\EU4.Savegame.csproj">
+    <ProjectReference Include="..\EU4.Savegame\EU4.Savegame.csproj">
       <Project>{ccacdf91-fd68-4c91-836e-7e5e90dfae4c}</Project>
       <Name>EU4.Savegame</Name>
     </ProjectReference>
