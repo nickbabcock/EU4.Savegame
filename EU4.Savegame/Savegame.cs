@@ -7,16 +7,19 @@ using Pdoxcl2Sharp;
 
 namespace EU4.Savegame
 {
-    public class Savegame : IParadoxRead, IParadoxWrite 
+    public class Savegame
     {
-        private int currentParsedProvince;
-        private string currentParsedProvinceStr;
         public Savegame(Stream stream)
         {
-            this.Provinces = new ProvinceCollection();
-            this.currentParsedProvince = 1;
-            this.currentParsedProvinceStr = this.currentParsedProvince.ToString();
-            Pdoxcl2Sharp.ParadoxParser.Parse(stream, this);
+            this.Init(stream);
+        }
+
+        public Savegame(string filepath)
+        {
+            using (FileStream fs = new FileStream(filepath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+            {
+                this.Init(fs);
+            }
         }
 
         public string Player { get; set; }
@@ -27,19 +30,15 @@ namespace EU4.Savegame
             throw new NotImplementedException();
         }
 
-        public void TokenCallback(ParadoxParser parser, string token)
-        {
-            if (token == this.currentParsedProvinceStr && parser.CurrentIndent == 0)
-            {
-                var newProv = new SaveProvince(this.currentParsedProvince++);
-                this.Provinces.Add(parser.Parse<SaveProvince>(newProv));
-                this.currentParsedProvinceStr = this.currentParsedProvince.ToString();
-            }
-        }
-
-        public void Write(ParadoxSaver writer)
+        public void Save(string filepath)
         {
             throw new NotImplementedException();
+        }
+
+        private void Init(Stream data)
+        {
+            this.Provinces = new ProvinceCollection();
+            ParadoxParser.Parse(data, new SavegameParser(this));
         }
     }
 }
