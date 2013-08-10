@@ -13,9 +13,9 @@ namespace EU4.Savegame.Test.Vanilla
         public void ProvinceCollectionGetCorrectInOrder()
         {
             ProvinceCollection pc = new ProvinceCollection();
-            pc.Add(new SaveProvince(1));
-            pc.Add(new SaveProvince(2));
-            pc.Add(new SaveProvince(3));
+            pc.Add(new Province(1));
+            pc.Add(new Province(2));
+            pc.Add(new Province(3));
 
             CollectionAssert.AreEqual(new[] { 1, 2, 3 }, pc.Select(x => x.Id));
             Assert.AreEqual(1, pc.Get(1).Id);
@@ -27,9 +27,9 @@ namespace EU4.Savegame.Test.Vanilla
         public void ProvinceCollectionGetCorrectOutOfOrder()
         {
             ProvinceCollection pc = new ProvinceCollection();
-            pc.Add(new SaveProvince(2));
-            pc.Add(new SaveProvince(3));
-            pc.Add(new SaveProvince(1));
+            pc.Add(new Province(2));
+            pc.Add(new Province(3));
+            pc.Add(new Province(1));
 
             CollectionAssert.AreEqual(new[] { 1, 2, 3 }, pc.Select(x => x.Id));
             Assert.AreEqual(1, pc.Get(1).Id);
@@ -41,9 +41,9 @@ namespace EU4.Savegame.Test.Vanilla
         public void ProvinceCollectionGetCorrectGaps()
         {
             ProvinceCollection pc = new ProvinceCollection();
-            pc.Add(new SaveProvince(3));
-            pc.Add(new SaveProvince(5));
-            pc.Add(new SaveProvince(1));
+            pc.Add(new Province(3));
+            pc.Add(new Province(5));
+            pc.Add(new Province(1));
 
             CollectionAssert.AreEqual(new[] { 1, 3, 5 }, pc.Select(x => x.Id));
             Assert.AreEqual(1, pc.Get(1).Id);
@@ -55,8 +55,8 @@ namespace EU4.Savegame.Test.Vanilla
         public void ProvinceCollectionUniqueIds()
         {
             ProvinceCollection pc = new ProvinceCollection();
-            pc.Add(new SaveProvince(1));
-            Assert.Throws<ArgumentException>(() => pc.Add(new SaveProvince(1)));
+            pc.Add(new Province(1));
+            Assert.Throws<ArgumentException>(() => pc.Add(new Province(1)));
         }
     }
 }

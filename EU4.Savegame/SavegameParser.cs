@@ -43,8 +43,8 @@ namespace EU4.Savegame
         {
             if (token == this.currentParsedProvinceStr && parser.CurrentIndent == 0)
             {
-                var newProv = new SaveProvince(this.currentParsedProvince++);
-                this.game.Provinces.Add(parser.Parse<SaveProvince>(newProv));
+                var newProv = new Province(this.currentParsedProvince++);
+                this.game.Provinces.Add(parser.Parse<Province>(newProv));
                 this.currentParsedProvinceStr = this.currentParsedProvince.ToString();
             }
         }

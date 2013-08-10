@@ -6,21 +6,21 @@ using System.Text;
 
 namespace EU4.Savegame
 {
-    public class ProvinceCollection : IEnumerable<SaveProvince>
+    public class ProvinceCollection : IEnumerable<Province>
     {
         // This is a sorted set of provinces based on Ids.
         // It tries to take advantage of provinces that have
         // Ids that are monotomically increasing; however it
         // still works if there gaps in province Ids
-        private SortedList<int, SaveProvince> provinces;
+        private SortedList<int, Province> provinces;
 
         public ProvinceCollection()
         {
             const int ProvincesEstimate = 2048;
-            this.provinces = new SortedList<int, SaveProvince>(ProvincesEstimate);
+            this.provinces = new SortedList<int, Province>(ProvincesEstimate);
         }
 
-        public SaveProvince Get(int provinceId)
+        public Province Get(int provinceId)
         {
             if (provinceId - 1 < this.provinces.Count && this.provinces.Values[provinceId - 1].Id == provinceId)
             {
@@ -34,12 +34,12 @@ namespace EU4.Savegame
             throw new ArgumentException(string.Format("Province with an Id of {0} was not found", provinceId), "id");
         }
 
-        public void Add(SaveProvince prov)
+        public void Add(Province prov)
         {
             this.provinces.Add(prov.Id, prov);
         }
 
-        public IEnumerator<SaveProvince> GetEnumerator()
+        public IEnumerator<Province> GetEnumerator()
         {
             return this.provinces.Values.GetEnumerator();
         }

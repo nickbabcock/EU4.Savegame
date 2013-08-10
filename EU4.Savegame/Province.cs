@@ -6,7 +6,7 @@ using Pdoxcl2Sharp;
 
 namespace EU4.Savegame
 {
-    public class SaveProvince : IParadoxRead, IParadoxWrite
+    public class Province : IParadoxRead, IParadoxWrite
     {
         private string name;
         private string owner;
@@ -16,7 +16,7 @@ namespace EU4.Savegame
         private IList<string> cores;
         private bool isInHre;
 
-        public SaveProvince(int id)
+        public Province(int id)
         {
             this.Id = id;
             this.cores = new List<string>();
