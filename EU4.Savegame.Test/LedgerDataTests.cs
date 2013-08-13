@@ -6,7 +6,7 @@ using System.Text;
 using EU4.Savegame;
 using NUnit.Framework;
 
-namespace EUIVSavegame.Test
+namespace EU4.Savegame.Test
 {
     [TestFixture]
     public class LedgerDataTests
