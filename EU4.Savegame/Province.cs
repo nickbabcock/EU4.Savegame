@@ -78,7 +78,7 @@ namespace EU4.Savegame
             }
         }
 
-        public void Write(ParadoxSaver writer)
+        public void Write(ParadoxStreamWriter writer)
         {
             throw new NotImplementedException();
         }

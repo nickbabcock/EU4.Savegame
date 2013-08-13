@@ -24,6 +24,10 @@ namespace EU4.Savegame
 
         public string Player { get; set; }
         public ProvinceCollection Provinces { get; private set; }
+        public IList<LedgerData> NationSizeStatistics { get; private set; }
+        public IList<LedgerData> IncomeStatistics { get; private set; }
+        public IList<LedgerData> ScoreStatistics { get; private set; }
+        public IList<LedgerData> InflationStatistics { get; private set; }
 
         public void Save(Stream stream)
         {
@@ -38,6 +42,10 @@ namespace EU4.Savegame
         private void Init(Stream data)
         {
             this.Provinces = new ProvinceCollection();
+            this.NationSizeStatistics = new List<LedgerData>();
+            this.IncomeStatistics = new List<LedgerData>();
+            this.ScoreStatistics = new List<LedgerData>();
+            this.InflationStatistics = new List<LedgerData>();
             ParadoxParser.Parse(data, new SavegameParser(this));
         }
     }

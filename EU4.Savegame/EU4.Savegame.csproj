@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LedgerData.cs" />
     <Compile Include="ProvinceCollection.cs" />
     <Compile Include="Savegame.cs" />
     <Compile Include="..\SharedAssemblyInfo.cs">

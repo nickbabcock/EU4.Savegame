@@ -41,12 +41,33 @@ namespace EU4.Savegame
 
         public void TokenCallback(ParadoxParser parser, string token)
         {
-            if (token == this.currentParsedProvinceStr && parser.CurrentIndent == 0)
+            if (token == "nation_size_statistics")
+            {
+                this.ParseLedger(parser, this.game.NationSizeStatistics);
+            }
+            else if (token == "income_statistics")
+            {
+                this.ParseLedger(parser, this.game.IncomeStatistics);
+            }
+            else if (token == "score_statistics")
+            {
+                this.ParseLedger(parser, this.game.ScoreStatistics);
+            }
+            else if (token == "inflation_statistics")
+            {
+                this.ParseLedger(parser, this.game.InflationStatistics);
+            }
+            else if (token == this.currentParsedProvinceStr && parser.CurrentIndent == 0)
             {
                 var newProv = new Province(this.currentParsedProvince++);
                 this.game.Provinces.Add(parser.Parse<Province>(newProv));
                 this.currentParsedProvinceStr = this.currentParsedProvince.ToString();
             }
+        }
+
+        private void ParseLedger(ParadoxParser parser, IList<LedgerData> ledgerList)
+        {
+            parser.Parse((p, s) => ledgerList.Add(parser.Parse(new LedgerData())));
         }
     }
 }

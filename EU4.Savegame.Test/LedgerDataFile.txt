@@ -1,0 +1,10 @@
+ledger_data=
+{
+	ledger_data_y=
+	{
+0 1 0 2 0 0 		}
+	ledger_data_x=
+	{
+1445 1446 1447 1448 1449 1450 		}
+	name="---"
+}
