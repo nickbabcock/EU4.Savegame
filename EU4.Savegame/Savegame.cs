@@ -28,6 +28,8 @@ namespace EU4.Savegame
         public IList<LedgerData> IncomeStatistics { get; private set; }
         public IList<LedgerData> ScoreStatistics { get; private set; }
         public IList<LedgerData> InflationStatistics { get; private set; }
+        public IList<PreviousWar> PreviousWars { get; private set; }
+        public IList<ActiveWar> ActiveWars { get; private set; }
 
         public void Save(Stream stream)
         {
@@ -46,6 +48,8 @@ namespace EU4.Savegame
             this.IncomeStatistics = new List<LedgerData>();
             this.ScoreStatistics = new List<LedgerData>();
             this.InflationStatistics = new List<LedgerData>();
+            this.PreviousWars = new List<PreviousWar>();
+            this.ActiveWars = new List<ActiveWar>();
             ParadoxParser.Parse(data, new SavegameParser(this));
         }
     }

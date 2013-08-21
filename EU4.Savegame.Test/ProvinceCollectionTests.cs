@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using NUnit.Framework;
 
-namespace EU4.Savegame.Test.Vanilla
+namespace EU4.Savegame.Test
 {
     [TestFixture]
     public class ProvinceCollectionTests

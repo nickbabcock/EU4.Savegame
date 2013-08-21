@@ -1,0 +1,10 @@
+attacker=
+{
+	cavalry=2000
+	infantry=18000
+	artillery=1000
+	losses=12000
+	country="POL"
+	war_goal=0
+	commander="Wladyslaw III"
+}

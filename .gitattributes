@@ -7,3 +7,6 @@
 
 # Declare files that will always have CRLF line endings on checkout.
 *.sln text eol=crlf
+
+# Text files are going to need to have crlf as they are used as the test data
+*.txt text eol=crlf

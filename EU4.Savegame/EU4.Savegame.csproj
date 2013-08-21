@@ -46,7 +46,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActiveWar.cs" />
+    <Compile Include="HistoricBattle.cs" />
+    <Compile Include="HistoricCombatant.cs" />
+    <Compile Include="HistoricEvent.cs" />
+    <Compile Include="History.cs" />
     <Compile Include="LedgerData.cs" />
+    <Compile Include="PreviousWar.cs" />
+    <Compile Include="PreviousWarHistory.cs" />
     <Compile Include="ProvinceCollection.cs" />
     <Compile Include="Savegame.cs" />
     <Compile Include="..\SharedAssemblyInfo.cs">
@@ -54,6 +61,9 @@
     </Compile>
     <Compile Include="SavegameParser.cs" />
     <Compile Include="Province.cs" />
+    <Compile Include="War.cs" />
+    <Compile Include="WarDiplomacyEvent.cs" />
+    <Compile Include="WarGoal.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

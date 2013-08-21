@@ -1,0 +1,27 @@
+battle=
+{
+	name="Temes"
+	location=156
+	result=yes
+	attacker=
+	{
+		cavalry=2000
+		infantry=18000
+		artillery=1000
+		losses=12000
+		country="POL"
+		war_goal=0
+		commander="Wladyslaw III"
+	}
+	defender=
+	{
+		galley=3
+		light_ship=15
+		heavy_ship=12
+		transport=15
+		losses=0
+		country="ENG"
+		war_goal=0
+		commander="Matthew Leicester"
+	}
+}

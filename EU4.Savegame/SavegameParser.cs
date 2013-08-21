@@ -57,6 +57,14 @@ namespace EU4.Savegame
             {
                 this.ParseLedger(parser, this.game.InflationStatistics);
             }
+            else if (token == "previous_war")
+            {
+                this.game.PreviousWars.Add(parser.Parse(new PreviousWar()));
+            }
+            else if (token == "active_war")
+            {
+                this.game.ActiveWars.Add(parser.Parse(new ActiveWar()));
+            }
             else if (token == this.currentParsedProvinceStr && parser.CurrentIndent == 0)
             {
                 var newProv = new Province(this.currentParsedProvince++);
