@@ -1,7 +1,7 @@
 ﻿#r @"..\EU4.Savegame\bin\Pdoxcl2Sharp.dll"
 #r @"..\EU4.Savegame\bin\EU4.Savegame.dll"
 open EU4.Savegame
-let savefile = @"H:\Tuesday_Ottoman.eu4"
+let savefile = Seq.last fsi.CommandLineArgs
 let save = new Savegame(savefile)
 
 // Calculates and prints out the top 10 greatest increases in recorded history
