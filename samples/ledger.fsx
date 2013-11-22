@@ -9,7 +9,7 @@ let save = new Savegame(savefile)
 // in the list. The algorithm works by only looking at successive years of data
 // for each country where the y-values are not zero. This cuts down
 // on the countries that had their increase skyrocket due to country formation
-let greatest_yearly_increase (data:seq<LedgerData>) =
+let GreatestYearlyIncrease (data:seq<LedgerData>) =
     data
     |> Seq.map (fun d ->
         seq { for (y1, y2) in Seq.zip d.XData d.YData |> Seq.pairwise do yield (d.Name, y1, y2) }
@@ -17,24 +17,35 @@ let greatest_yearly_increase (data:seq<LedgerData>) =
     |> Seq.map (fun s -> Seq.map(fun (name, (x1, y1), (x2, y2)) -> (name, x1, y2 - y1)) s)
     |> Seq.collect(fun s -> s)
     |> Seq.sortBy(fun (_,_,diff) -> (~-)(diff))
+
+let ConcatWithReverse data =
+    data
+    |> Seq.toList
+    |> List.rev
+    |> Seq.zip data
+
+let PrintLedger title data = 
+    printfn "----- Greatest Change in %s in a Year -----" title
+    printfn "Greatest Increase   | Greatest Decrease"
+    data
     |> Seq.take 10
-    |> Seq.iter(fun (name, x1, diff) -> printfn "%s %d %d" name x1 diff)
+    |> Seq.iter(fun ((name1, x1, diff1),(name2, x2, diff2)) ->
+                printfn "%-5s %6d %6d | %-5s %6d %6d" name1 x1 diff1 name2 x2 diff2)
+    printfn ""
+    printfn ""
 
-printfn "Greatest Annual Income Increase"
-printfn "--------------------"
-greatest_yearly_increase save.IncomeStatistics
+GreatestYearlyIncrease save.IncomeStatistics
+|> ConcatWithReverse
+|> PrintLedger "Income"
 
-printfn ""
-printfn "Greatest Annual Inflation Increase"
-printfn "--------------------"
-greatest_yearly_increase save.InflationStatistics
+GreatestYearlyIncrease save.InflationStatistics
+|> ConcatWithReverse
+|> PrintLedger "Inflation"
 
-printfn ""
-printfn "Greatest Annual Nation Size Increase"
-printfn "--------------------"
-greatest_yearly_increase save.NationSizeStatistics
+GreatestYearlyIncrease save.NationSizeStatistics
+|> ConcatWithReverse
+|> PrintLedger "Nation Size"
 
-printfn ""
-printfn "Greatest Annual Score Increase"
-printfn "--------------------"
-greatest_yearly_increase save.ScoreStatistics
+GreatestYearlyIncrease save.ScoreStatistics
+|> ConcatWithReverse
+|> PrintLedger "Score"
