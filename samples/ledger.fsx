@@ -92,6 +92,43 @@ let YearsOfFirst data =
                       |> Seq.length))
     |> Seq.sortBy (fun (_, years) -> (~-) years)
 
+// Creates a sequence of (name, date, rank difference) where
+// the date is the year of occurrence. A negative rank difference
+// is a good thing, depicting moving "up" in the ranks.
+let GreatestChangeInRelativity (data:seq<string * int * int>) =
+    data
+    |> Seq.groupBy (fun (name, _, _) -> name)
+    |> Seq.collect(fun (name, group) ->
+        group
+        |> Seq.sortBy (fun (_, date, _) -> date)
+        |> Seq.pairwise
+        |> Seq.map(fun ((name, x1, y1), (_, _, y2)) -> (name, x1, y2 - y1)))
+    |> Seq.sortBy (fun (_, _, diff) -> diff)
+
+save.IncomeStatistics
+|> RelativeRank
+|> GreatestChangeInRelativity
+|> ConcatWithReverse
+|> PrintLedger "Income Rank"
+
+save.InflationStatistics
+|> RelativeRank
+|> GreatestChangeInRelativity
+|> ConcatWithReverse
+|> PrintLedger "Inflation Rank"
+
+save.NationSizeStatistics
+|> RelativeRank
+|> GreatestChangeInRelativity
+|> ConcatWithReverse
+|> PrintLedger "Size Rank"
+
+save.ScoreStatistics
+|> RelativeRank
+|> GreatestChangeInRelativity
+|> ConcatWithReverse
+|> PrintLedger "Score Rank"
+
 let firstIncome = YearsOfFirst (RelativeRank save.IncomeStatistics)
 let firstInflation = YearsOfFirst (RelativeRank save.InflationStatistics)
 let firstSize = YearsOfFirst (RelativeRank save.NationSizeStatistics)
