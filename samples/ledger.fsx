@@ -11,11 +11,10 @@ let save = new Savegame(savefile)
 // on the countries that had their increase skyrocket due to country formation
 let GreatestYearlyIncrease (data:seq<LedgerData>) =
     data
-    |> Seq.map (fun d ->
+    |> Seq.collect (fun d ->
         seq { for (y1, y2) in Seq.zip d.XData d.YData |> Seq.pairwise do yield (d.Name, y1, y2) }
-        |> Seq.filter (fun (_, (_,y1), (_,y2)) -> y1 <> 0 && y2 <> 0))
-    |> Seq.map (fun s -> Seq.map(fun (name, (x1, y1), (x2, y2)) -> (name, x1, y2 - y1)) s)
-    |> Seq.collect(fun s -> s)
+        |> Seq.filter (fun (_, (_,y1), (_,y2)) -> y1 <> 0 && y2 <> 0)
+        |> Seq.map (fun (name, (x1, y1), (_, y2)) -> (name, x1, y2 - y1)))
     |> Seq.sortBy(fun (_,_,diff) -> (~-)(diff))
 
 let ConcatWithReverse data =
