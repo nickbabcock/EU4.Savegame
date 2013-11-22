@@ -94,6 +94,8 @@ let YearsOfFirst data =
 // Creates a sequence of (name, date, rank difference) where
 // the date is the year of occurrence. A negative rank difference
 // is a good thing, depicting moving "up" in the ranks.
+// Takes only values where a country is either exiting or entering
+// the top 30, as, in general, we don't care about the bottom feeders
 let GreatestChangeInRelativity (data:seq<string * int * int>) =
     data
     |> Seq.groupBy (fun (name, _, _) -> name)
@@ -101,6 +103,7 @@ let GreatestChangeInRelativity (data:seq<string * int * int>) =
         group
         |> Seq.sortBy (fun (_, date, _) -> date)
         |> Seq.pairwise
+        |> Seq.filter (fun ((name, x1, y1), (_, _, y2)) -> y2 < 30 || y1 < 30)
         |> Seq.map(fun ((name, x1, y1), (_, _, y2)) -> (name, x1, y2 - y1)))
     |> Seq.sortBy (fun (_, _, diff) -> diff)
 
