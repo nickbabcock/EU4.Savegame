@@ -24,3 +24,15 @@ Seq.zip (TopLevelAttribute (fun x -> x.OriginalAttacker) wars)
         (TopLevelAttribute (fun x -> x.OriginalDefender) wars) 
 |> Seq.take 10
 |> Seq.iter (fun ((n1, s1), (n2, s2)) -> printfn "%-9s %-12d  |  %-9s %d" n1 s1 n2 s2)
+
+printfn ""
+printfn ""
+
+printfn "---- Wars with the Most Stalled Years ----"
+wars
+|> Seq.sortBy (fun x -> (~-) x.StalledYears)
+|> Seq.take 10
+|> Seq.map (fun x -> 
+            if x.Name.Length > 40 then x.Name <- x.Name.[0..39] + "..."
+            x)
+|> Seq.iter (fun x -> printfn "%-43s %d" x.Name x.StalledYears)
