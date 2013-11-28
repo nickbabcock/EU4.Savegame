@@ -4,6 +4,8 @@ open EU4.Savegame
 let savefile = Seq.last fsi.CommandLineArgs
 let save = new Savegame(savefile)
 
+// Analyze all wars (those that ocurred in the past and the ones ocurring now).
+// Since some wars have long names, shorten them.
 let wars : seq<War> = 
     Seq.append (Seq.cast save.ActiveWars) (Seq.cast save.PreviousWars)
     |> Seq.map(fun (x:War) -> 
@@ -37,7 +39,8 @@ wars
 |> Seq.take 10
 |> Seq.iter (fun x -> printfn "%-43s %d" x.Name x.StalledYears)
 
-
+// To calculate the losses in a war, add defender and attacker losses for all
+// battles
 let warLosses (w:War) = 
     w.GetBattles()
     |> Seq.fold (fun acc elem ->
