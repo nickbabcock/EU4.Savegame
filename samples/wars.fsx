@@ -6,6 +6,9 @@ let save = new Savegame(savefile)
 
 let wars : seq<War> = 
     Seq.append (Seq.cast save.ActiveWars) (Seq.cast save.PreviousWars)
+    |> Seq.map(fun (x:War) -> 
+               if x.Name.Length > 40 then x.Name <- x.Name.[0..39] + "..."
+               x)
 
 let ConcatWithReverse data =
     data
@@ -32,7 +35,28 @@ printfn "---- Wars with the Most Stalled Years ----"
 wars
 |> Seq.sortBy (fun x -> (~-) x.StalledYears)
 |> Seq.take 10
-|> Seq.map (fun x -> 
-            if x.Name.Length > 40 then x.Name <- x.Name.[0..39] + "..."
-            x)
 |> Seq.iter (fun x -> printfn "%-43s %d" x.Name x.StalledYears)
+
+
+let warLosses (w:War) = 
+    w.GetBattles()
+    |> Seq.fold (fun acc elem ->
+                 acc + elem.Attacker.Losses + elem.Defender.Losses) 0
+
+let startDate (w:War) =
+    w.History.Events
+    |> Seq.map (fun (d, es) -> d)
+    |> Seq.min
+
+printfn ""
+printfn ""
+printfn "---- Wars with the Most Losses ----"
+printfn "%-43s %11s %12s %s" "War Name" "Losses" "Start Date" "Opponents"
+wars
+|> Seq.sortBy (fun w -> warLosses w |> (~-))
+|> Seq.take 10
+|> Seq.iter (fun war ->
+             printfn "%-43s %11s %s %s vs %s"
+                      war.Name ((warLosses war).ToString("n0"))
+                      ((startDate war).ToString("MMM dd, yyyy"))
+                      war.OriginalAttacker war.OriginalDefender)
