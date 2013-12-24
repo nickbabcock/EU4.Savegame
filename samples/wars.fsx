@@ -12,6 +12,8 @@ let wars : seq<War> =
                if x.Name.Length > 40 then x.Name <- x.Name.[0..39] + "..."
                x)
 
+let battles = wars |> Seq.collect (fun w -> w.GetBattles())
+
 let ConcatWithReverse data =
     data
     |> Seq.toList
@@ -63,3 +65,25 @@ wars
                       war.Name ((warLosses war).ToString("n0"))
                       ((startDate war).ToString("MMM dd, yyyy"))
                       war.OriginalAttacker war.OriginalDefender)
+
+printfn ""
+printfn ""
+printfn "---- Top Commanders With More Kills than Casualties ----"
+printfn "%-30s %8s %8s %8s %8s" "Commander" "Country" "Kills" "Losses" "Difference"
+battles
+|> Seq.collect(fun x ->
+  seq {
+    yield (x.Attacker.Commander, x.Defender.Country, x.Attacker.Losses, x.Defender.Losses, x.Result)
+    yield (x.Defender.Commander, x.Attacker.Country, x.Defender.Losses, x.Attacker.Losses, not x.Result)
+  })
+|> Seq.filter (fun (name, _, _, _, _) -> name <> "")
+|> Seq.groupBy(fun (name, country, _, _, _) -> (name, country))
+|> Seq.map(
+    fun ((name, country), s) ->
+        (name, country, s |> Seq.length,
+            s |> Seq.fold(fun acc (_, _, _, kills, _) -> acc + kills) 0,
+            s |> Seq.fold(fun acc (_, _, losses, _, _) -> acc + losses) 0))
+|> Seq.sortBy(fun (_, _, battles, kills, losses) -> (~-) (kills - losses))
+|> Seq.take(10)
+|> Seq.iter(fun (name, country, battles, kills, losses) -> 
+    printfn "%-30s %8s %8d %8d %8d" name country kills losses (kills - losses))
