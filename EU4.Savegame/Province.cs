@@ -14,12 +14,14 @@ namespace EU4.Savegame
         private string culture;
         private string religion;
         private IList<string> cores;
+        private IList<string> claims;
         private bool isInHre;
 
         public Province(int id)
         {
             this.Id = id;
             this.cores = new List<string>();
+            this.claims = new List<string>();
         }
 
         public int Id { get; private set; }
@@ -59,6 +61,12 @@ namespace EU4.Savegame
             set { this.cores = value; }
         }
 
+        public IList<string> Claims
+        {
+            get { return this.claims; }
+            set { this.claims = value; }
+        }
+
         public bool IsInHre
         {
             get { return this.isInHre; }
@@ -75,6 +83,7 @@ namespace EU4.Savegame
                 case "culture": this.culture = parser.ReadString(); break;
                 case "religion": this.religion = parser.ReadString(); break;
                 case "core": this.cores.Add(parser.ReadString()); break;
+                case "claim": this.claims.Add(parser.ReadString()); break;
             }
         }
 

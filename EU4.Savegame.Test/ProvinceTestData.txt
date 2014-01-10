@@ -1,0 +1,112 @@
+﻿-111=
+	{
+		name="Friuli"
+		owner="VEN"
+		controller="VEN"
+		core="VEN"
+		claim="HAB"
+		claim="HUN"
+		trade="venice"
+		culture=lombard
+		religion=catholic
+		capital="Udine"
+		is_city=yes
+		garrison=2000.000
+		base_tax=4.000
+		manpower=2.000
+		hre=yes
+		trade_goods=fish
+		blockade=no
+		fort1=yes
+		history=
+		{
+			owner="AQU"
+			controller=
+			{
+				controller="AQU"
+			}
+			culture=lombard
+			religion=catholic
+			hre=yes
+			base_tax=4.000
+			trade_goods=fish
+			manpower=2.000
+			fort1=yes
+			capital="Udine"
+			citysize=16000.000
+			add_core="AQU"
+			discovered_by="western"
+			discovered_by="eastern"
+			discovered_by="muslim"
+			discovered_by="ottoman"
+			1420.1.1=
+			{
+				owner="VEN"
+				controller=
+				{
+					controller="VEN"
+				}
+				add_core="VEN"
+				remove_core="AQU"
+			}
+			1444.11.11=
+			{
+				advisor=
+				{
+					name="Giovanni Bassano"
+					type=treasurer
+					skill=1
+					location=111
+					date="1444.11.11"
+					hire_date="1460.10.5"
+					death_date="9999.1.1"
+					id=
+					{
+						id=2844
+						type=31
+					}
+				}
+			}
+			1454.4.13=
+			{
+				add_claim="HAB"
+			}
+			1455.5.18=
+			{
+				add_claim="HUN"
+			}
+		}
+		patrol=0
+		discovery_dates=
+		{
+"9999.1.1"
+"1.1.1"
+"1.1.1"
+"1.1.1"
+"1.1.1"
+"9999.1.1"
+"9999.1.1"
+"9999.1.1"
+"9999.1.1"
+"9999.1.1"
+		}
+		discovery_religion_dates=
+		{
+"9999.1.1"
+"1444.11.11"
+"9999.1.1"
+"9999.1.1"
+"1444.11.11"
+"1444.11.11"
+"1444.11.11"
+"9999.1.1"
+"9999.1.1"
+"9999.1.1"
+"9999.1.1"
+"9999.1.1"
+"9999.1.1"
+		}
+		discovered_by={SWE DAN NOR SHL ALB ATH BOS BYZ CEP CYP KNI MOL NAX RAG SER WAL HUN TUR CNN ENG LEI MNS SCO TYR LIT LIV MAZ POL RIG TEU ALS AMG AUV BOU BRI BUR FOI FRA ORL PRO AAC ANH ANS AUG BAD BAV BOH BRA BRE BRU EFR FRN HAB HES KLE KOL LAU LOR LUN MAG MAI MKL MUN OLD PAL POM SAX SIL SLZ SWI THU TIR TRI ULM WBG WUR ARA CAS GRA NAV POR FER GEN MAN MLO MOD NAP PAP SAV SIE TUS URB VEN FRI GEL LIE UTR GEO MOS NOV PSK RYA TVE YAR PRM ADE ALH OMA NAJ HED CND DUL KAR TRE RAM ALG MAM MOR TRP TUN BAL HSA }
+		trade_power=2.250
+		hre_liberated=no
+	}

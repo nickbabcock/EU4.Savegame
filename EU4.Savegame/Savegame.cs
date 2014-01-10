@@ -16,7 +16,7 @@ namespace EU4.Savegame
 
         public Savegame(string filepath)
         {
-            using (FileStream fs = new FileStream(filepath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+            
             {
                 this.Init(fs);
             }
@@ -36,9 +36,21 @@ namespace EU4.Savegame
             throw new NotImplementedException();
         }
 
-        public void Save(string filepath)
+        public void Save(string old, string filepath)
         {
-            throw new NotImplementedException();
+            using (var open = new FileStream(old, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+            using (var sr = new StreamReader(open, Encoding.GetEncoding(Globals.WindowsCodePage)))
+            using (var fs = new FileStream(filepath, FileMode.CreateNew, FileAccess.Write, FileShare.ReadWrite))
+            {
+                var writer = new ParadoxSaver(fs);
+                for (string line; (line = sr.ReadLine()) != "active_war="; writer.Write(line))
+                    ;
+
+                foreach (var war in this.ActiveWars)
+                {
+                    writer.Write("active_war", war);
+                }
+            }
         }
 
         private void Init(Stream data)
