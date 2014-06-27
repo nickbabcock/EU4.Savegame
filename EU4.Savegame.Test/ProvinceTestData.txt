@@ -1,4 +1,4 @@
-﻿-111=
+-111=
 	{
 		name="Friuli"
 		owner="VEN"
@@ -110,3 +110,4 @@
 		trade_power=2.250
 		hre_liberated=no
 	}
+}

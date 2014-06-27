@@ -18,7 +18,7 @@ namespace EU4.Savegame.Test
         {
             ParadoxParser.Parse(
                 File.OpenRead("ProvinceTestData.txt"), 
-                (p, id) => this.prov = p.Parse(new Province(int.Parse(id.Substring(4)))));
+                (p, id) => this.prov = p.Parse(new Province(-int.Parse(id))));
         }
 
         [Test]

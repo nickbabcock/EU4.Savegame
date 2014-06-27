@@ -33,7 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Pdoxcl2Sharp, Version=0.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Pdoxcl2Sharp, Version=0.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\dependencies\Pdoxcl2Sharp.dll</HintPath>
     </Reference>
@@ -52,6 +52,11 @@
     <Compile Include="HistoricEvent.cs" />
     <Compile Include="History.cs" />
     <Compile Include="LedgerData.cs" />
+    <Compile Include="ParseTemplate.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ParseTemplate.tt</DependentUpon>
+    </Compile>
     <Compile Include="PreviousWar.cs" />
     <Compile Include="PreviousWarHistory.cs" />
     <Compile Include="ProvinceCollection.cs" />
@@ -67,6 +72,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="ParseTemplate.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ParseTemplate.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

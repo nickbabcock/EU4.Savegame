@@ -1,0 +1,407 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<# // CHANGE ME: The next line should be something like:
+// $(SolutionDir)\dependencies\Pdoxcl2Sharp.dll #>
+<#@ assembly name="$(SolutionDir)\dependencies\Pdoxcl2Sharp.dll" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="Pdoxcl2Sharp" #>  
+<#@ output extension=".cs" #>
+using System;
+using Pdoxcl2Sharp;
+using System.Collections.Generic;
+
+namespace EU4.Savegame
+{
+<#
+
+// Here is where you add any classes to be deserialized. Here is a tiny sample
+// to get you started.
+
+var classes = new[] {
+	new {
+		Name = "Trade",
+		Props = new[] {
+			new Property() { Type = "IList<TradeNode>", Name = "Nodes" },
+		}
+	},
+	new {
+		Name = "TradeNode",
+		Props = new[] {
+			new Property() { Type = "string", Name = "Definitions", Quoted = true },
+			new Property() { Type = "double", Name = "Current" },
+			new Property() { Type = "double", Name = "LocalValue" },
+			new Property() { Type = "double", Name = "Outgoing" },
+			new Property() { Type = "double", Name = "ValueAddedOutgoing" },
+			new Property() { Type = "double", Name = "Retention" },
+			new Property() { Type = "double", Name = "SteerPower" },
+			new Property() { Type = "double", Name = "Total" },
+			new Property() { Type = "double", Name = "ProvincePower" },
+			new Property() { Type = "double", Name = "Max" },
+			new Property() { Type = "double", Name = "CollectorPower" },
+			new Property() { Type = "double", Name = "PullPower" },
+			new Property() { Type = "double", Name = "RetainPower" },
+			new Property() { Type = "double", Name = "HighestPower" },
+			new Property() { Type = "[ConsecutiveElements] IList<double>", Name = "TradeGoodsSize" },
+			new Property() { Type = "[ConsecutiveElements] IList<string>", Name = "TopProvinces", Quoted = true },
+			new Property() { Type = "[ConsecutiveElements] IList<double>", Name = "TopProvincesValues" },
+			new Property() { Type = "[ConsecutiveElements] IList<string>", Name = "TopPower", Quoted = true },
+			new Property() { Type = "[ConsecutiveElements] IList<double>", Name = "TopPowerValues" },
+			new Property() { Type = "bool", Name = "TradeCompanyRegion" }
+		}
+	},
+	new {
+		Name = "TradePower",
+		Props = new[] {
+			new Property() { Type = "string", Name = "Country", Quoted = true },
+			new Property() { Type = "double", Name = "Current" },
+			new Property() { Type = "double", Name = "Prev" },
+			new Property() { Type = "double", Name = "MaxPower" },
+			new Property() { Type = "double", Name = "ProvincePower" },
+			new Property() { Type = "double", Name = "ShipPower" },
+			new Property() { Type = "double", Name = "PrivateerMission" },
+			new Property() { Type = "double", Name = "PowerFraction" },
+			new Property() { Type = "double", Name = "PowerFractionPush" },
+			new Property() { Type = "double", Name = "Money" },
+			new Property() { Type = "double", Name = "Total" },
+			new Property() { Type = "double", Name = "SteerPower" },
+			new Property() { Type = "int", Name = "Type" },
+			new Property() { Type = "double", Name = "ActualAddedValue" },
+			new Property() { Type = "bool", Name = "HasTrader" },
+			new Property() { Type = "bool", Name = "HasCapital" },
+			new Property() { Type = "bool", Name = "HasSubject" },
+			new Property() { Type = "double", Name = "LightShip" },
+			new Property() { Type = "double", Name = "TransferredOut" },
+			new Property() { Type = "double", Name = "TransferredIn" },
+			new Property() { Type = "PowerModifier", Name = "Modified" }
+		}
+	},
+	new {
+		Name = "Papacy",
+		Props = new[] {
+			new Property() { Type = "string", Name = "PapalState", Quoted = true },
+			new Property() { Type = "string", Name = "Controller", Quoted = true },
+			new Property() { Type = "string", Name = "CrusadeTarget", Quoted = true },
+			new Property() { Type = "DateTime", Name = "CrusadeStart" },
+			new Property() { Type = "DateTime", Name = "LastExcommunication", Alias = "last_excom" },
+			new Property() { Type = "bool", Name = "PapacyActive" },
+			new Property() { Type = "int", Name = "WeightedCardinal" },
+			new Property() { Type = "double", Name = "ReformDesire" },
+			new Property() { Type = "Cardinals", Name = "ActiveCardinals" },
+			new Property() { Type = "Cardinals", Name = "FutureCardinals" }
+		}
+	},
+	new {
+		Name = "Cardinals",
+		Props = new[] { new Property() { Type = "IList<Cardinal>", Name = "HolyMen" }}
+	},
+	new {
+		Name = "Cardinal",
+		Props = new[] {
+			new Property() { Type = "string", Name = "Name", Quoted = true },
+			new Property() { Type = "int", Name = "CardinalAge" },
+			new Property() { Type = "int", Name = "Location" },
+			new Property() { Type = "string", Name = "Controller", Quoted = true },
+			new Property() { Type = "[ConsecutiveElements] IList<int>", Name = "Votes" },
+			new Property() { Type = "ParadoxId", Name = "Id" }
+		}
+	},
+	new {
+		Name = "ParadoxId",
+		Props = new[] {
+			new Property() { Type = "int", Name = "Id" },
+			new Property() { Type = "int", Name = "Type" }
+		}
+	},
+	new {
+		Name = "Province",
+		Props = new[] {
+			new Property() { Type = "string", Name = "Name", Quoted = true },
+			new Property() { Type = "string", Name = "Owner", Quoted = true },
+			new Property() { Type = "IList<string>", Name = "Core", Quoted = true },
+			new Property() { Type = "IList<string>", Name = "Claims", Quoted = true },
+			new Property() { Type = "string", Name = "Trade", Quoted = true },
+			new Property() { Type = "string", Name = "Culture" },
+			new Property() { Type = "string", Name = "Religion" },
+			new Property() { Type = "string", Name = "Capital", Quoted = true },
+			new Property() { Type = "bool", Name = "IsCity" },
+			new Property() { Type = "double", Name = "Garrison" },
+			new Property() { Type = "double", Name = "Manpower" },
+			new Property() { Type = "double?", Name = "MissionaryProgress" },
+			new Property() { Type = "string", Name = "TradeGoods" },
+			new Property() { Type = "bool", Name = "Blockade" },
+			new Property() { Type = "double", Name = "BlockadeEfficiency" },
+			new Property() { Type = "ProvinceHistory", Name = "History" },
+			new Property() { Type = "int", Name = "Patrol" },
+			new Property() { Type = "[ConsecutiveElements] IList<DateTime>", Name = "DiscoveryDates" },
+			new Property() { Type = "[ConsecutiveElements] IList<DateTime>", Name = "DiscoveryReligionDates" },
+			new Property() { Type = "[ConsecutiveElements] IList<string>", Name = "DiscoveredBy" },
+			new Property() { Type = "double", Name = "NativeSize" },
+			new Property() { Type = "int", Name = "NativeFerocity" },
+			new Property() { Type = "int", Name = "NativeHostileness" },
+			new Property() { Type = "int?", Name = "Nationalism" },
+			new Property() { Type = "IList<ProvinceModifier>", Name = "Modifiers" },
+			new Property() { Type = "IList<MerchantConstruction>", Name = "MerchantConstructions" },
+			new Property() { Type = "IList<DiplomacyConstruction>", Name = "DiplomacyConstructions" },
+			new Property() { Type = "BuildingConstruction", Name = "BuildingConstruction" },
+			new Property() { Type = "double", Name = "TradePower" },
+			new Property() { Type = "bool", Name = "HreLiberated" },
+			new Property() { Type = "bool", Name = "UserChangedName" }
+		}
+	},
+	new {
+		Name = "ProvinceHistory",
+		Props = new[] {
+			new Property() { Type = "string", Name = "Owner", Quoted = true }
+		}
+	},
+	new {
+		Name = "BuildingConstruction",
+		Props = new[] {
+			new Property() { Type = "DateTime", Name = "StartDate" },
+			new Property() { Type = "int", Name = "Total" },
+			new Property() { Type = "double", Name = "Progress" },
+			new Property() { Type = "DateTime", Name = "Date" },
+			new Property() { Type = "int", Name = "Envoy" },
+			new Property() { Type = "string", Name = "Country", Quoted = true },
+			new Property() { Type = "bool", Name = "End" },
+			new Property() { Type = "double", Name = "Cost" },
+			new Property() { Type = "int", Name = "Building" }
+		}
+	},
+	new {
+		Name = "ProvinceModifier",
+		Props = new[] {
+			new Property() { Type = "string", Name = "Name", Quoted = true, Alias = "modifier" },
+			new Property() { Type = "DateTime", Name = "Date" },
+			new Property() { Type = "bool", Name = "RulerModifier" },
+			new Property() { Type = "bool", Name = "Permanent" },
+			new Property() { Type = "bool", Name = "Hidden" }
+		}
+	},
+	new {
+		Name = "PowerModifier",
+		Props = new[] {
+			new Property() { Type = "string", Name = "Name", Quoted = true, Alias = "key" },
+			new Property() { Type = "int", Name = "Duration" },
+			new Property() { Type = "double", Name = "Power" }
+		}
+	},
+	new {
+		Name = "DiplomacyConstruction",
+		Props = new[] {
+			new Property() { Type = "DateTime", Name = "StartDate" },
+			new Property() { Type = "int", Name = "Total" },
+			new Property() { Type = "double", Name = "Progress" },
+			new Property() { Type = "DateTime", Name = "Date" },
+			new Property() { Type = "int", Name = "Envoy" },
+			new Property() { Type = "string", Name = "Country", Quoted = true },
+			new Property() { Type = "bool", Name = "End" },
+			new Property() { Type = "int", Name = "Cost" },
+			new Property() { Type = "string", Name = "Actor", Quoted = true },
+			new Property() { Type = "string", Name = "Recipient", Quoted = true },
+			new Property() { Type = "string", Name = "Action", Quoted = true },
+			new Property() { Type = "int", Name = "FromProvince" },
+			new Property() { Type = "int", Name = "ToProvince" },
+			new Property() { Type = "bool", Name = "Once" },
+			new Property() { Type = "string", Name = "ActionToken" }
+		}
+	},
+	new {
+		Name = "MerchantConstruction",
+		Props = new[] {
+			new Property() { Type = "DateTime", Name = "StartDate" },
+			new Property() { Type = "int", Name = "Total" },
+			new Property() { Type = "double", Name = "Progress" },
+			new Property() { Type = "DateTime", Name = "Date" },
+			new Property() { Type = "int", Name = "Envoy" },
+			new Property() { Type = "string", Name = "Country", Quoted = true },
+			new Property() { Type = "bool", Name = "End" },
+			new Property() { Type = "int", Name = "Cost" },
+			new Property() { Type = "int", Name = "Node" },
+			new Property() { Type = "int", Name = "From" },
+			new Property() { Type = "int", Name = "To" },
+			new Property() { Type = "int", Name = "Direction" },
+			new Property() { Type = "int", Name = "Type" },
+		}
+	}
+};
+
+// end add
+
+INamingConvention naming = new ParadoxNamingConvention();
+
+var dict = new Dictionary<string, string>()
+{
+    { "int", "parser.ReadInt32()" },
+    { "string", "parser.ReadString()" },
+    { "bool", "parser.ReadBool()" },
+    { "byte", "parser.ReadByte()" },
+    { "DateTime", "parser.ReadDateTime()" },
+    { "double", "parser.ReadDouble()" },
+    { "short", "parser.ReadInt16()" },
+    { "sbyte", "parser.ReadSByte()" },
+    { "float", "parser.ReadFloat()" },
+    { "ushort", "parser.ReadUInt16()" },
+    { "uint", "parser.ReadUInt32()" },
+	{ "int?", "parser.ReadInt32()" },
+    { "bool?", "parser.ReadBool()" },
+    { "byte?", "parser.ReadByte()" },
+    { "DateTime?", "parser.ReadDateTime()" },
+    { "double?", "parser.ReadDouble()" },
+    { "short?", "parser.ReadInt16()" },
+    { "sbyte?", "parser.ReadSByte()" },
+    { "float?", "parser.ReadFloat()" },
+    { "ushort?", "parser.ReadUInt16()" },
+    { "uint?", "parser.ReadUInt32()" },
+    { "[ConsecutiveElements] IEnumerable<string>", "parser.ReadStringList()" },
+    { "[ConsecutiveElements] ICollection<string>", "parser.ReadStringList()" },
+    { "[ConsecutiveElements] IList<string>", "parser.ReadStringList()" },
+    { "[ConsecutiveElements] List<string>", "parser.ReadStringList()" },
+    { "[ConsecutiveElements] IEnumerable<int>", "parser.ReadIntList()" },
+    { "[ConsecutiveElements] ICollection<int>", "parser.ReadIntList()" },
+    { "[ConsecutiveElements] IList<int>", "parser.ReadIntList()" },
+    { "[ConsecutiveElements] List<int>", "parser.ReadIntList()" },
+    { "[ConsecutiveElements] IEnumerable<double>", "parser.ReadDoubleList()" },
+    { "[ConsecutiveElements] ICollection<double>", "parser.ReadDoubleList()" },
+    { "[ConsecutiveElements] IList<double>", "parser.ReadDoubleList()" },
+    { "[ConsecutiveElements] List<double>", "parser.ReadDoubleList()" },
+    { "[ConsecutiveElements] IEnumerable<DateTime>", "parser.ReadDateTimeList()" },
+    { "[ConsecutiveElements] ICollection<DateTime>", "parser.ReadDateTimeList()" },
+    { "[ConsecutiveElements] IList<DateTime>", "parser.ReadDateTimeList()" },
+    { "[ConsecutiveElements] List<DateTime>", "parser.ReadDateTimeList()" }
+};
+
+foreach (var clazz in classes) { #>
+	public partial class <#= clazz.Name #> : IParadoxRead, IParadoxWrite
+	{
+<# foreach (var prop in clazz.Props) { #>
+		public <#= prop.Type.Replace("[ConsecutiveElements] ", "") #> <#= prop.Name #> { get; set; }
+<# } #>
+
+		public <#= clazz.Name #>()
+		{
+<#  var lists = clazz.Props.Where(x => x.IsNonConsecutiveList);
+    foreach (var list in lists)
+    {
+        var str = list.ExtractInnerListType();
+        WriteLine("            " + list.Name + " = new List<" + str + ">();");
+    }#>
+		}
+
+		public void TokenCallback(ParadoxParser parser, string token)
+		{
+			switch (token)
+			{
+<#
+        ClearIndent();
+        PushIndent("            "); 
+        foreach (var prop in clazz.Props) {
+            Write("case " + '"');
+            Write(prop.GetStr(naming));
+            Write("\": ");
+            
+            string res;
+            string fallback = "parser.Parse(new " + prop.Type + "())";
+            if (dict.TryGetValue(prop.Type, out res))
+                Write(prop.Name + " = " + res);
+            else if (prop.IsNonConsecutiveList)
+            {
+                var str = prop.ExtractInnerListType();
+                fallback = "parser.Parse(new " + str + "())";
+                Write(prop.Name + ".Add(" + (dict.TryGetValue(str, out res)
+                    ? res : fallback) + ")");
+            }
+            else
+                Write(prop.Name + " = " + fallback);
+            WriteLine("; break;");
+        }
+        
+        WriteLine("}");
+        ClearIndent();
+         #>
+		}
+
+		public void Write(ParadoxStreamWriter writer)
+		{
+<#
+        ClearIndent();
+        PushIndent("            "); 
+        foreach (var prop in clazz.Props) {
+            var qStr = !prop.Quoted ? "" : ", ValueWrite.Quoted";
+
+			// eg. nullables
+			if (prop.Type.Contains('?')) {
+				WriteLine("if (" + prop.Name + ".HasValue)");
+				WriteLine("{");
+                PushIndent("    ");
+				WriteLine("writer.WriteLine(\"" + prop.GetStr(naming) + "\", " + prop.Name + ".Value);");
+                PopIndent();
+				WriteLine("}");
+			}
+
+            // eg. List<string>, add_core
+            else if (prop.IsNonConsecutiveList && dict.ContainsKey(prop.ExtractInnerListType())) {
+                WriteLine("foreach(var val in " + prop.Name + ")");
+                WriteLine("{");
+                PushIndent("    ");
+                WriteLine("writer.WriteLine(\"" + prop.GetStr(naming) + "\", val" + qStr + ");");
+                PopIndent();
+                WriteLine("}");
+            }
+             
+            // eg. List<Army>
+            else if (prop.IsNonConsecutiveList && !dict.ContainsKey(prop.ExtractInnerListType())) {
+                WriteLine("foreach(var val in " + prop.Name + ")");
+                WriteLine("{");
+                PushIndent("    ");
+                WriteLine("writer.Write(\"" + prop.GetStr(naming) + "\", val);");
+                PopIndent();
+                WriteLine("}");
+            }
+
+            // eg. string, int, etc
+            else if (dict.ContainsKey(prop.Type) && !prop.Type.Contains("[ConsecutiveElements]")) {
+                if (prop.Type == "string") {
+                    WriteLine("if (" + prop.Name + " != null)");
+                    WriteLine("{");
+                    PushIndent("    ");
+                }
+
+                WriteLine("writer.WriteLine(\"" + prop.GetStr(naming) + "\", " + prop.Name + qStr + ");");
+
+                if (prop.Type == "string") {
+                    PopIndent();
+                    WriteLine("}");
+                }
+            }
+
+            // eg. List<string> { you me them }
+            else if (dict.ContainsKey(prop.Type)) {
+                WriteLine("writer.Write(\"" + prop.GetStr(naming) + "={ \");");
+                WriteLine("foreach (var val in " + prop.Name + ")");
+                WriteLine("{");
+                PushIndent("    ");
+                WriteLine("writer.Write(val" + qStr + ");");
+                WriteLine("writer.Write(\" \");");
+                PopIndent();
+                WriteLine("}");
+                WriteLine("writer.WriteLine(\"}\");");
+            }
+            else {
+                WriteLine("if (" + prop.Name + " != null)");
+                WriteLine("{");
+                PushIndent("    ");
+                WriteLine("writer.Write(\"" + prop.GetStr(naming) + "\", " + prop.Name + ");");
+                PopIndent();
+                WriteLine("}");
+            }
+        }
+
+        ClearIndent();
+    #>
+        }
+    }
+<# } #>
+}

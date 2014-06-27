@@ -16,7 +16,7 @@ namespace EU4.Savegame
 
         public Savegame(string filepath)
         {
-            
+            using (var fs = File.OpenRead(filepath))
             {
                 this.Init(fs);
             }
