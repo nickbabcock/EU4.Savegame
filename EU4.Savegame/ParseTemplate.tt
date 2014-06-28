@@ -352,6 +352,23 @@ var classes = new[] {
 			new Property() { Type = "[ConsecutiveElements] IList<int>", Name = "OwnedProvinces" },
 			new Property() { Type = "[ConsecutiveElements] IList<int>", Name = "ClaimProvinces" },
 			new Property() { Type = "[ConsecutiveElements] IList<int>", Name = "IdeaMayCache" },
+			new Property() { Type = "bool", Name = "UpdateOpinionCache" },
+			new Property() { Type = "bool", Name = "NeedsRefresh" },
+			new Property() { Type = "bool", Name = "NeedsRebelUnitRefresh" },
+			new Property() { Type = "DateTime", Name = "LastBankrupt" },
+			new Property() { Type = "DateTime", Name = "Wartax" },
+			new Property() { Type = "double", Name = "WarExhaustion" },
+			new Property() { Type = "double", Name = "LandMaintenance" },
+			new Property() { Type = "double", Name = "NavalMaintenance" },
+			new Property() { Type = "double", Name = "ColonialMaintenance" },
+			new Property() { Type = "double", Name = "MissionaryMaintenance" },
+			new Property() { Type = "double", Name = "ArmyTradition" },
+			new Property() { Type = "double", Name = "NavyTradition" },
+			new Property() { Type = "int", Name = "MilitaryRating" },
+			new Property() { Type = "int", Name = "MilitaryRatingCache" },
+			new Property() { Type = "double", Name = "NavalForcelimit" },
+			new Property() { Type = "DateTime", Name = "LastWarEnded" },
+			new Property() { Type = "int", Name = "NumUncontestedCores" }
 		}
 	},
 	new {
