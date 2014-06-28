@@ -48,6 +48,8 @@
   <ItemGroup>
     <Compile Include="ActiveWar.cs" />
     <Compile Include="CardinalCollection.cs" />
+    <Compile Include="Country.cs" />
+    <Compile Include="CountryCollection.cs" />
     <Compile Include="GameplaySettings.cs" />
     <Compile Include="HistoricBattle.cs" />
     <Compile Include="HistoricCombatant.cs" />
@@ -64,12 +66,15 @@
     <Compile Include="PreviousWar.cs" />
     <Compile Include="PreviousWarHistory.cs" />
     <Compile Include="ProvinceCollection.cs" />
+    <Compile Include="Religion.cs" />
+    <Compile Include="ReligionCollection.cs" />
     <Compile Include="Savegame.cs" />
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Province.cs" />
     <Compile Include="TopFlags.cs" />
+    <Compile Include="TradeNodeCollection.cs" />
     <Compile Include="War.cs" />
     <Compile Include="WarDiplomacyEvent.cs" />
     <Compile Include="WarGoal.cs" />

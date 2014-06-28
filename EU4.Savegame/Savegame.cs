@@ -12,7 +12,7 @@ namespace EU4.Savegame
         public Savegame(Stream stream)
             : this()
         {
-            ParadoxParser.Parse(stream, this);
+            ParadoxParser.Parse(stream, TokenCallback);
         }
 
         public Savegame(string filepath)
@@ -20,7 +20,7 @@ namespace EU4.Savegame
         {
             using (var fs = File.OpenRead(filepath))
             {
-                ParadoxParser.Parse(fs, this);
+                ParadoxParser.Parse(fs, TokenCallback);
             }
         }
     }
