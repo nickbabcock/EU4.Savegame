@@ -4,3 +4,5 @@ obj/
 
 *.cache
 *.suo
+
+EU4.Savegame/ParseTemplate.cs
