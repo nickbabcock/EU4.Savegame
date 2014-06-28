@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30501.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EU4.Savegame", "EU4.Savegame\EU4.Savegame.csproj", "{CCACDF91-FD68-4C91-836E-7E5E90DFAE4C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EU4.Savegame.Test", "EU4.Savegame.Test\EU4.Savegame.Test.csproj", "{F876DC20-2BD4-4C5B-BBE0-D742DA5C72D1}"
@@ -23,6 +25,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{62BD
 		samples\wars.fsx = samples\wars.fsx
 	EndProjectSection
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "EU4.Stats", "EU4.Stats\EU4.Stats.fsproj", "{DAED58F2-6250-47F3-BC94-D2AD1616648B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +41,10 @@ Global
 		{F876DC20-2BD4-4C5B-BBE0-D742DA5C72D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F876DC20-2BD4-4C5B-BBE0-D742DA5C72D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F876DC20-2BD4-4C5B-BBE0-D742DA5C72D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DAED58F2-6250-47F3-BC94-D2AD1616648B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DAED58F2-6250-47F3-BC94-D2AD1616648B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DAED58F2-6250-47F3-BC94-D2AD1616648B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DAED58F2-6250-47F3-BC94-D2AD1616648B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -47,15 +47,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActiveWar.cs" />
+    <Compile Include="CardinalCollection.cs" />
+    <Compile Include="GameplaySettings.cs" />
     <Compile Include="HistoricBattle.cs" />
     <Compile Include="HistoricCombatant.cs" />
     <Compile Include="HistoricEvent.cs" />
     <Compile Include="History.cs" />
     <Compile Include="LedgerData.cs" />
+    <Compile Include="LedgerDataCollection.cs" />
     <Compile Include="ParseTemplate.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ParseTemplate.tt</DependentUpon>
+      <ExcludeFromStyleCop>true</ExcludeFromStyleCop>
     </Compile>
     <Compile Include="PreviousWar.cs" />
     <Compile Include="PreviousWarHistory.cs" />
@@ -64,8 +68,8 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="SavegameParser.cs" />
     <Compile Include="Province.cs" />
+    <Compile Include="TopFlags.cs" />
     <Compile Include="War.cs" />
     <Compile Include="WarDiplomacyEvent.cs" />
     <Compile Include="WarGoal.cs" />

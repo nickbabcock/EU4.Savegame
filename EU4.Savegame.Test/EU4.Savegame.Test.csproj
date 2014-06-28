@@ -62,7 +62,6 @@
     <Compile Include="HistoricCombatantTests.cs" />
     <Compile Include="LedgerDataTests.cs" />
     <Compile Include="PreviousWarTests.cs" />
-    <Compile Include="ProvinceCollectionTests.cs" />
     <Compile Include="ProvinceTests.cs" />
   </ItemGroup>
   <ItemGroup>
