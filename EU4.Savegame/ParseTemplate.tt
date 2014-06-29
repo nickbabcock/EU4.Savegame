@@ -152,6 +152,8 @@ var classes = new[] {
 			new Property() { Type = "double", Name = "PullPower" },
 			new Property() { Type = "double", Name = "RetainPower" },
 			new Property() { Type = "double", Name = "HighestPower" },
+			new Property() { Type = "IList<TradePower>", Name = "Powers" },
+			new Property() { Type = "IList<IncomingTrade>", Name = "Incomings" },
 			new Property() { Type = "[ConsecutiveElements] IList<double>", Name = "TradeGoodsSize" },
 			new Property() { Type = "[ConsecutiveElements] IList<string>", Name = "TopProvinces", Quoted = true },
 			new Property() { Type = "[ConsecutiveElements] IList<double>", Name = "TopProvincesValues" },
@@ -184,6 +186,14 @@ var classes = new[] {
 			new Property() { Type = "double", Name = "TransferredOut" },
 			new Property() { Type = "double", Name = "TransferredIn" },
 			new Property() { Type = "PowerModifier", Name = "Modified" }
+		}
+	},
+	new {
+		Name = "IncomingTrade",
+		Props = new[] {
+			new Property() { Type = "double", Name = "ActualAddedValue" },
+			new Property() { Type = "double", Name = "Value" },
+			new Property() { Type = "int", Name = "From" }
 		}
 	},
 	new {
