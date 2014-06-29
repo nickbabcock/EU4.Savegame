@@ -46,10 +46,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActiveAdvisor.cs" />
+    <Compile Include="ActiveAdvisorCollection.cs" />
     <Compile Include="ActiveWar.cs" />
     <Compile Include="CardinalCollection.cs" />
     <Compile Include="Country.cs" />
     <Compile Include="CountryCollection.cs" />
+    <Compile Include="EnvoyCollection.cs" />
     <Compile Include="GameplaySettings.cs" />
     <Compile Include="HistoricBattle.cs" />
     <Compile Include="HistoricCombatant.cs" />
