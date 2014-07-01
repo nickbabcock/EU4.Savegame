@@ -269,6 +269,8 @@ var classes = new[] {
 	new {
 		Name = "Country",
 		Props = new[] {
+			new Property() { Type = "bool?", Name = "Player" },
+			new Property() { Type = "bool?", Name = "WasPlayer" },
 			new Property() { Type = "CountryHistory", Name = "History" },
 			new Property() { Type = "TopFlags", Name = "Flags" },
 			new Property() { Type = "TopFlags", Name = "HiddenFlags" },
@@ -409,7 +411,7 @@ var classes = new[] {
 			new Property() { Type = "double", Name = "OverextensionPercentage" },
 			new Property() { Type = "IList<Army>", Name = "Armies" },
 			new Property() { Type = "IList<Navy>", Name = "Navies" },
-			//active_relations
+			new Property() { Type = "ActiveRelationCollection", Name = "ActiveRelations" },
 			new Property() { Type = "IList<ParadoxId>", Name = "Leaders" },
 			new Property() { Type = "ParadoxId", Name = "Monarch" },
 			new Property() { Type = "ParadoxId", Name = "Heir" },
@@ -418,7 +420,8 @@ var classes = new[] {
 			new Property() { Type = "IList<ParadoxId>", Name = "PreviousMonarchs" },
 			new Property() { Type = "DateTime", Name = "LastMajorMissionPick" },
 			new Property() { Type = "DateTime", Name = "LastMajorMissionCancel" },
-			new Property() { Type = "DateTime", Name = "LastMajorMission" },
+			new Property() { Type = "string", Name = "LastMajorMission", Quoted = true },
+			new Property() { Type = "int?", Name = "LastStrategyIndex" },
 			new Property() { Type = "Ai", Name = "Ai" },
 			new Property() { Type = "[ConsecutiveElements] IList<int>", Name = "TradedBonus" },
 			new Property() { Type = "[ConsecutiveElements] IList<string>", Name = "HistoricalFriends" },
@@ -492,6 +495,39 @@ var classes = new[] {
 		}
 	},
 	new {
+		Name = "ActiveRelation",
+		Props = new[] {
+			new Property() { Type = "IList<Opinion>", Name = "Opinions" },
+			new Property() { Type = "int?", Name = "CachedSum" },
+			new Property() { Type = "bool?", Name = "TruceWith" },
+			new Property() { Type = "int?", Name = "Trust" },
+			new Property() { Type = "bool?", Name = "HasChanged" },
+			new Property() { Type = "bool?", Name = "HasColonyClaim" },
+			new Property() { Type = "bool?", Name = "TradeRefusal" },
+			new Property() { Type = "DateTime?", Name = "LastSendDiplomat" },
+			new Property() { Type = "DateTime?", Name = "LastWar" },
+			new Property() { Type = "string", Name = "Attitude", Quoted = true },
+			new Property() { Type = "int?", Name = "IsFightingWarTogether" },
+			new Property() { Type = "string", Name = "RelationCostingPower" },
+			new Property() { Type = "string", Name = "HasReligionGroupClaim" },
+			new Property() { Type = "bool?", Name = "RecalcAttitude" },
+			new Property() { Type = "bool?", Name = "HasClaim" },
+			new Property() { Type = "int?", Name = "FabricatingClaimProvince" },
+			new Property() { Type = "bool?", Name = "IsFabricatingClaim" },
+			new Property() { Type = "bool?", Name = "IsSowingDiscontent" }
+		}
+	},
+	new {
+		Name = "Opinion",
+		Props = new[] {
+			new Property() { Type = "string", Name = "Modifier", Quoted = true },
+			new Property() { Type = "DateTime", Name = "Date" },
+			new Property() { Type = "double", Name = "CurrentOpinion" },
+			new Property() { Type = "bool", Name = "ExpiryDate" },
+			new Property() { Type = "bool", Name = "DelayedDecay" }
+		}
+	},
+	new {
 		Name = "Army",
 		Props = new[] {
 			new Property() { Type = "ParadoxId", Name = "Id" },
@@ -502,7 +538,7 @@ var classes = new[] {
 			new Property() { Type = "[ConsecutiveElements] IList<int>", Name = "Path" },
 			new Property() { Type = "int", Name = "Location" },
 			new Property() { Type = "IList<Unit>", Name = "Regiments" },
-			new Property() { Type = "ParadoxId", Name = "GraphicalCulture" },
+			new Property() { Type = "string", Name = "GraphicalCulture" },
 			new Property() { Type = "bool", Name = "MainArmy" },
 			new Property() { Type = "bool", Name = "HunterKiller" },
 			new Property() { Type = "int", Name = "Target" },
@@ -521,7 +557,7 @@ var classes = new[] {
 			new Property() { Type = "[ConsecutiveElements] IList<int>", Name = "Path" },
 			new Property() { Type = "int", Name = "Location" },
 			new Property() { Type = "IList<Unit>", Name = "Ships" },
-			new Property() { Type = "ParadoxId", Name = "GraphicalCulture" },
+			new Property() { Type = "string", Name = "GraphicalCulture" },
 			new Property() { Type = "IList<Army>", Name = "Armies" },
 			new Property() { Type = "bool", Name = "AtSea" },
 			new Property() { Type = "int?", Name = "Node" },

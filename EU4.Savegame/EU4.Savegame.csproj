@@ -48,6 +48,8 @@
   <ItemGroup>
     <Compile Include="ActiveAdvisor.cs" />
     <Compile Include="ActiveAdvisorCollection.cs" />
+    <Compile Include="ActiveRelation.cs" />
+    <Compile Include="ActiveRelationCollection.cs" />
     <Compile Include="ActiveWar.cs" />
     <Compile Include="CardinalCollection.cs" />
     <Compile Include="Country.cs" />

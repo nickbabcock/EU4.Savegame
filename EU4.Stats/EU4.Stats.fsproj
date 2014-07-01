@@ -58,6 +58,7 @@
     <Compile Include="Types.fs" />
     <Compile Include="ProvinceStats.fs" />
     <Compile Include="LedgerStats.fs" />
+    <Compile Include="CountryStats.fs" />
     <None Include="Script.fsx" />
     <None Include="packages.config" />
     <None Include="app.config" />
