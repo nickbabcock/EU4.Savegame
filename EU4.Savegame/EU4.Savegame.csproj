@@ -48,12 +48,14 @@
   <ItemGroup>
     <Compile Include="ActiveAdvisor.cs" />
     <Compile Include="ActiveAdvisorCollection.cs" />
+    <Compile Include="ActiveIdeaGroups.cs" />
     <Compile Include="ActiveRelation.cs" />
     <Compile Include="ActiveRelationCollection.cs" />
     <Compile Include="ActiveWar.cs" />
     <Compile Include="CardinalCollection.cs" />
     <Compile Include="Country.cs" />
     <Compile Include="CountryCollection.cs" />
+    <Compile Include="CountryHistory.cs" />
     <Compile Include="EnvoyCollection.cs" />
     <Compile Include="GameplaySettings.cs" />
     <Compile Include="HistoricBattle.cs" />
@@ -71,6 +73,7 @@
     <Compile Include="PreviousWar.cs" />
     <Compile Include="PreviousWarHistory.cs" />
     <Compile Include="ProvinceCollection.cs" />
+    <Compile Include="ProvinceHistory.cs" />
     <Compile Include="Religion.cs" />
     <Compile Include="ReligionCollection.cs" />
     <Compile Include="Savegame.cs" />

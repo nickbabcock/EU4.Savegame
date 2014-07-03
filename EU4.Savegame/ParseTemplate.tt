@@ -132,7 +132,7 @@ var classes = new[] {
 			new Property() { Type = "int", Name = "First" },
 			new Property() { Type = "int", Name = "Second" },
 			new Property() { Type = "int", Name = "Third" },
-			new Property() { Type = "int", Name = "Fourth" }
+			new Property() { Type = "int", Name = "Fourth", Alias = "forth" }
 		}
 	},
 	new {
@@ -185,7 +185,7 @@ var classes = new[] {
 			new Property() { Type = "double", Name = "LightShip" },
 			new Property() { Type = "double", Name = "TransferredOut" },
 			new Property() { Type = "double", Name = "TransferredIn" },
-			new Property() { Type = "PowerModifier", Name = "Modified" }
+			new Property() { Type = "PowerModifier", Name = "Modifier" }
 		}
 	},
 	new {
@@ -234,15 +234,20 @@ var classes = new[] {
 		Props = new[] {
 			new Property() { Type = "string", Name = "Name", Quoted = true },
 			new Property() { Type = "string", Name = "Owner", Quoted = true },
+			new Property() { Type = "string", Name = "Controller", Quoted = true },
 			new Property() { Type = "IList<string>", Name = "Core", Quoted = true },
 			new Property() { Type = "IList<string>", Name = "Claims", Quoted = true },
 			new Property() { Type = "string", Name = "Trade", Quoted = true },
+			new Property() { Type = "IList<ParadoxId>", Name = "Units" },
 			new Property() { Type = "string", Name = "Culture" },
 			new Property() { Type = "string", Name = "Religion" },
 			new Property() { Type = "string", Name = "Capital", Quoted = true },
 			new Property() { Type = "bool", Name = "IsCity" },
-			new Property() { Type = "double", Name = "Garrison" },
-			new Property() { Type = "double", Name = "Manpower" },
+			new Property() { Type = "double?", Name = "Garrison" },
+			new Property() { Type = "double?", Name = "Siege" },
+			new Property() { Type = "double?", Name = "BaseTax" },
+			new Property() { Type = "double?", Name = "Manpower" },
+			new Property() { Type = "string", Name = "LikelyRebels" },
 			new Property() { Type = "double?", Name = "MissionaryProgress" },
 			new Property() { Type = "string", Name = "TradeGoods" },
 			new Property() { Type = "bool", Name = "Blockade" },
@@ -276,6 +281,7 @@ var classes = new[] {
 			new Property() { Type = "TopFlags", Name = "HiddenFlags" },
 			new Property() { Type = "[ConsecutiveElements] IList<string>", Name = "Variables" },
 			new Property() { Type = "int", Name = "Capital" },
+			new Property() { Type = "int", Name = "TradePort" },
 			new Property() { Type = "bool", Name = "InitializedRivals" },
 			new Property() { Type = "bool", Name = "DirtyColony" },
 			new Property() { Type = "string", Name = "PrimaryCulture" },
@@ -285,18 +291,25 @@ var classes = new[] {
 			new Property() { Type = "double", Name = "LibertyDesire" },
 			new Property() { Type = "string", Name = "UnitType" },
 			new Property() { Type = "Technology", Name = "Technology" },
-			new Property() { Type = "IList<string>", Name = "Rivals", Quoted = true },
-			new Property() { Type = "IList<int>", Name = "RivalTimes" },
+			new Property() { Type = "IList<Rival>", Name = "Rivals" },
 			new Property() { Type = "IList<string>", Name = "Enemies", Quoted = true },
+			new Property() { Type = "int?", Name = "GoldType" },
+			new Property() { Type = "string", Name = "CoalitionTarget" },
+			new Property() { Type = "DateTime?", Name = "CoalitionDate" },
 			new Property() { Type = "int", Name = "RebelThreat" },
+			new Property() { Type = "bool?", Name = "Luck" },
 			new Property() { Type = "DateTime", Name = "LastElection" },
 			new Property() { Type = "int", Name = "DiplomaticPowerCache" },
 			new Property() { Type = "int", Name = "AvailableDiploRelationsCache" },
 			new Property() { Type = "int", Name = "RelationsOverLimit" },
 			new Property() { Type = "double", Name = "DelayedTreasure" },
-			new Property() { Type = "int", Name = "NumTradeEmbargos" },
+			new Property() { Type = "double", Name = "CurrentPowerProjection" },
+			new Property() { Type = "IList<PowerProjection>", Name = "PowerProjections" },
+			new Property() { Type = "int", Name = "NumOfTradeEmbargos" },
 			new Property() { Type = "int", Name = "NumOfNonRivalTradeEmbargos" },
 			new Property() { Type = "double", Name = "MilitaryStrength" },
+			new Property() { Type = "double", Name = "ArmyStrength" },
+			new Property() { Type = "double", Name = "NavyStrength" },
 			new Property() { Type = "double", Name = "LandMorale" },
 			new Property() { Type = "double", Name = "NavalMorale" },
 			new Property() { Type = "double", Name = "MaxLandMorale" },
@@ -333,6 +346,7 @@ var classes = new[] {
 			new Property() { Type = "[ConsecutiveElements] IList<int>", Name = "NumOfGoodsProduced" },
 			new Property() { Type = "[ConsecutiveElements] IList<int>", Name = "NumOfReligions" },
 			new Property() { Type = "[ConsecutiveElements] IList<int>", Name = "NumOfLeaders" },
+			new Property() { Type = "[ConsecutiveElements] IList<int>", Name = "NumOfFreeLeaders" },
 			new Property() { Type = "[ConsecutiveElements] IList<double>", Name = "BorderPercentage" },
 			new Property() { Type = "[ConsecutiveElements] IList<double>", Name = "BorderSizeInTax" },
 			new Property() { Type = "bool", Name = "UpdateBorderDistance" },
@@ -340,14 +354,16 @@ var classes = new[] {
 			new Property() { Type = "[ConsecutiveElements] IList<double>", Name = "BorderDistance" },
 			new Property() { Type = "[ConsecutiveElements] IList<double>", Name = "BorderDistanceOverseas" },
 			new Property() { Type = "[ConsecutiveElements] IList<int>", Name = "Range" },
-			new Property() { Type = "[ConsecutiveElements] IList<string>", Name = "Neighbors", Quoted = true },
-			new Property() { Type = "[ConsecutiveElements] IList<string>", Name = "HomeNeighbors", Quoted = true },
-			new Property() { Type = "[ConsecutiveElements] IList<string>", Name = "CoreNeighbors", Quoted = true },
-			new Property() { Type = "[ConsecutiveElements] IList<int>", Name = "IsNeighbor" },
-			new Property() { Type = "[ConsecutiveElements] IList<int>", Name = "IsHomeNeighbor" },
-			new Property() { Type = "[ConsecutiveElements] IList<int>", Name = "IsCoreNeighbor" },
+			new Property() { Type = "[ConsecutiveElements] IList<string>", Name = "Neighbors", Quoted = true, Alias = "neighbours" },
+			new Property() { Type = "[ConsecutiveElements] IList<string>", Name = "HomeNeighbors", Quoted = true, Alias = "home_neighbours" },
+			new Property() { Type = "[ConsecutiveElements] IList<string>", Name = "CoreNeighbors", Quoted = true, Alias = "core_neighbours" },
+			new Property() { Type = "[ConsecutiveElements] IList<int>", Name = "IsNeighbor", Alias = "is_neighbour" },
+			new Property() { Type = "[ConsecutiveElements] IList<int>", Name = "IsHomeNeighbor", Alias = "is_home_neighbour" },
+			new Property() { Type = "[ConsecutiveElements] IList<int>", Name = "IsCoreNeighbor", Alias = "is_core_neighbour" },
 			new Property() { Type = "[ConsecutiveElements] IList<string>", Name = "Friends", Quoted = true },
 			new Property() { Type = "[ConsecutiveElements] IList<string>", Name = "Allies", Quoted = true },
+			new Property() { Type = "[ConsecutiveElements] IList<string>", Name = "CoalitionFriends", Quoted = true },
+			new Property() { Type = "[ConsecutiveElements] IList<string>", Name = "Warnings", Quoted = true },
 			new Property() { Type = "[ConsecutiveElements] IList<string>", Name = "TradeEmbargoedBy", Quoted = true },
 			new Property() { Type = "double", Name = "Score" },
 			new Property() { Type = "[ConsecutiveElements] IList<double>", Name = "ScoreRating" },
@@ -355,20 +371,22 @@ var classes = new[] {
 			new Property() { Type = "double", Name = "Prestige" },
 			new Property() { Type = "double", Name = "Stability" },
 			new Property() { Type = "double", Name = "Treasury" },
-			new Property() { Type = "double", Name = "CallForPease" },
+			new Property() { Type = "double", Name = "CallForPeace" },
 			new Property() { Type = "double", Name = "EstimatedMonthlyIncome" },
 			new Property() { Type = "double", Name = "Inflation" },
 			new Property() { Type = "[ConsecutiveElements] IList<double>", Name = "InflationHistory" },
-			new Property() { Type = "[ConsecutiveElements] IList<int>", Name = "InflationCache" },
+			new Property() { Type = "[ConsecutiveElements] IList<int>", Name = "OpinionCache" },
 			new Property() { Type = "[ConsecutiveElements] IList<int>", Name = "UnderConstruction" },
 			new Property() { Type = "[ConsecutiveElements] IList<int>", Name = "UnderConstructionQueued" },
 			new Property() { Type = "[ConsecutiveElements] IList<int>", Name = "TotalCount" },
 			new Property() { Type = "[ConsecutiveElements] IList<int>", Name = "OwnedProvinces" },
+			new Property() { Type = "[ConsecutiveElements] IList<int>", Name = "CoreProvinces" },
 			new Property() { Type = "[ConsecutiveElements] IList<int>", Name = "ClaimProvinces" },
 			new Property() { Type = "[ConsecutiveElements] IList<int>", Name = "IdeaMayCache" },
 			new Property() { Type = "bool", Name = "UpdateOpinionCache" },
 			new Property() { Type = "bool", Name = "NeedsRefresh" },
 			new Property() { Type = "bool", Name = "NeedsRebelUnitRefresh" },
+			new Property() { Type = "bool", Name = "RefreshModifier" },
 			new Property() { Type = "DateTime", Name = "LastBankrupt" },
 			new Property() { Type = "DateTime", Name = "Wartax" },
 			new Property() { Type = "double", Name = "WarExhaustion" },
@@ -387,10 +405,13 @@ var classes = new[] {
 			new Property() { Type = "int", Name = "LoanSize" },
 			new Property() { Type = "double", Name = "EstimatedLoan" },
 			new Property() { Type = "IList<Loan>", Name = "Loans" },
-			new Property() { Type = "double", Name = "ReligionUnity" },
+			new Property() { Type = "double", Name = "ReligiousUnity" },
+			new Property() { Type = "double?", Name = "Piety" },
+			new Property() { Type = "double?", Name = "PatriarchAuthority" },
+			new Property() { Type = "double?", Name = "PapalInfluence" },
 			new Property() { Type = "double", Name = "Legitimacy" },
 			new Property() { Type = "double", Name = "Mercantilism" },
-			//active_idea_groups
+			new Property() { Type = "ActiveIdeaGroups", Name = "ActiveIdeaGroups" },
 			new Property() { Type = "IList<ParadoxId>", Name = "Advisors" },
 			new Property() { Type = "string", Name = "Government" },
 			new Property() { Type = "EnvoyCollection", Name = "Colonists" },
@@ -457,6 +478,13 @@ var classes = new[] {
 		}
 	},
 	new {
+		Name = "Rival",
+		Props = new[] {
+			new Property() { Type = "string", Name = "Country", Quoted = true },
+			new Property() { Type = "DateTime", Name = "Date" }
+		}
+	},
+	new {
 		Name = "Technology",
 		Props = new[] {
 			new Property() { Type = "byte", Name = "AdmTech" },
@@ -473,6 +501,7 @@ var classes = new[] {
 			new Property() { Type = "double", Name = "LastMonthIncome", Alias = "lastmonthincome" },
 			new Property() { Type = "[ConsecutiveElements] IList<double>", Name = "LastMonthIncomeTable", Alias = "lastmonthincometable" },
 			new Property() { Type = "double", Name = "LastMonthExpense", Alias = "lastmonthexpense" },
+			new Property() { Type = "[ConsecutiveElements] IList<double>", Name = "LastMonthExpenseTable", Alias = "lastmonthexpensetable" },
 			new Property() { Type = "[ConsecutiveElements] IList<double>", Name = "LastYearIncome", Alias = "lastyearincome" },
 			new Property() { Type = "[ConsecutiveElements] IList<double>", Name = "LastYearExpense", Alias = "lastyearexpense" }
 		}
@@ -482,6 +511,14 @@ var classes = new[] {
 		Props = new[] {
 			new Property() { Type = "int", Name = "Home" },
 			new Property() { Type = "string", Name = "Type", Quoted = true }
+		}
+	},
+	new {
+		Name = "PowerProjection",
+		Props = new[] {
+			new Property() { Type = "string", Name = "Target", Quoted = true },
+			new Property() { Type = "string", Name = "Modifier", Quoted = true },
+			new Property() { Type = "double", Name = "Current" }
 		}
 	},
 	new {
@@ -509,6 +546,7 @@ var classes = new[] {
 			new Property() { Type = "string", Name = "Attitude", Quoted = true },
 			new Property() { Type = "int?", Name = "IsFightingWarTogether" },
 			new Property() { Type = "string", Name = "RelationCostingPower" },
+			new Property() { Type = "string", Name = "HasCultureGroupClaim" },
 			new Property() { Type = "string", Name = "HasReligionGroupClaim" },
 			new Property() { Type = "bool?", Name = "RecalcAttitude" },
 			new Property() { Type = "bool?", Name = "HasClaim" },
@@ -575,19 +613,8 @@ var classes = new[] {
 			new Property() { Type = "string", Name = "Type", Quoted = true },
 			new Property() { Type = "double", Name = "Morale" },
 			new Property() { Type = "double", Name = "Strength" },
+			new Property() { Type = "bool?", Name = "Mercenary" },
 			new Property() { Type = "ParadoxId", Name = "LastTarget" }
-		}
-	},
-	new {
-		Name = "ProvinceHistory",
-		Props = new[] {
-			new Property() { Type = "string", Name = "Owner", Quoted = true }
-		}
-	},
-	new {
-		Name = "CountryHistory",
-		Props = new[] {
-			new Property() { Type = "string", Name = "Owner", Quoted = true }
 		}
 	},
 	new {
@@ -682,7 +709,9 @@ var classes = new[] {
 			new Property() { Type = "int", Name = "Cost" },
 			new Property() { Type = "string", Name = "Type", Quoted = true },
 			new Property() { Type = "ParadoxId", Name = "Unit" },
-			new Property() { Type = "ParadoxId", Name = "Regiment" }
+			new Property() { Type = "ParadoxId", Name = "Regiment" },
+			new Property() { Type = "int?", Name = "Mercenary" },
+			new Property() { Type = "Mercenary", Name = "PossibleMercenary" }
 		}
 	},
 	new {
@@ -726,6 +755,7 @@ var classes = new[] {
 // end add
 
 INamingConvention naming = new ParadoxNamingConvention();
+bool exhaustive = true;
 
 var dict = new Dictionary<string, string>()
 {
@@ -740,7 +770,7 @@ var dict = new Dictionary<string, string>()
     { "float", "parser.ReadFloat()" },
     { "ushort", "parser.ReadUInt16()" },
     { "uint", "parser.ReadUInt32()" },
-	{ "int?", "parser.ReadInt32()" },
+    { "int?", "parser.ReadInt32()" },
     { "bool?", "parser.ReadBool()" },
     { "byte?", "parser.ReadByte()" },
     { "DateTime?", "parser.ReadDateTime()" },
@@ -769,26 +799,26 @@ var dict = new Dictionary<string, string>()
 };
 
 foreach (var clazz in classes) { #>
-	public partial class <#= clazz.Name #> : IParadoxRead, IParadoxWrite
-	{
+    public partial class <#= clazz.Name #> : IParadoxRead, IParadoxWrite
+    {
 <# foreach (var prop in clazz.Props) { #>
-		public <#= prop.Type.Replace("[ConsecutiveElements] ", "") #> <#= prop.Name #> { get; set; }
+        public <#= prop.Type.Replace("[ConsecutiveElements] ", "") #> <#= prop.Name #> { get; set; }
 <# } #>
 
-		public <#= clazz.Name #>()
-		{
+        public <#= clazz.Name #>()
+        {
 <#  var lists = clazz.Props.Where(x => x.IsNonConsecutiveList);
     foreach (var list in lists)
     {
         var str = list.ExtractInnerListType();
         WriteLine("            " + list.Name + " = new List<" + str + ">();");
     }#>
-		}
+        }
 
-		public void TokenCallback(ParadoxParser parser, string token)
-		{
-			switch (token)
-			{
+        public void TokenCallback(ParadoxParser parser, string token)
+        {
+            switch (token)
+            {
 <#
         ClearIndent();
         PushIndent("            "); 
@@ -812,29 +842,33 @@ foreach (var clazz in classes) { #>
                 Write(prop.Name + " = " + fallback);
             WriteLine("; break;");
         }
+
+        if (exhaustive && clazz.Name != "Savegame" && clazz.Name != "Province") {
+            WriteLine("default: throw new ApplicationException(\"Unrecognized token: \" + token);");
+        }
         
         WriteLine("}");
         ClearIndent();
          #>
-		}
+        }
 
-		public void Write(ParadoxStreamWriter writer)
-		{
+        public void Write(ParadoxStreamWriter writer)
+        {
 <#
         ClearIndent();
         PushIndent("            "); 
         foreach (var prop in clazz.Props) {
             var qStr = !prop.Quoted ? "" : ", ValueWrite.Quoted";
 
-			// eg. nullables
-			if (prop.Type.Contains('?')) {
-				WriteLine("if (" + prop.Name + ".HasValue)");
-				WriteLine("{");
+            // eg. nullables
+            if (prop.Type.Contains('?')) {
+                WriteLine("if (" + prop.Name + ".HasValue)");
+                WriteLine("{");
                 PushIndent("    ");
-				WriteLine("writer.WriteLine(\"" + prop.GetStr(naming) + "\", " + prop.Name + ".Value);");
+                WriteLine("writer.WriteLine(\"" + prop.GetStr(naming) + "\", " + prop.Name + ".Value);");
                 PopIndent();
-				WriteLine("}");
-			}
+                WriteLine("}");
+            }
 
             // eg. List<string>, add_core
             else if (prop.IsNonConsecutiveList && dict.ContainsKey(prop.ExtractInnerListType())) {
@@ -874,6 +908,9 @@ foreach (var clazz in classes) { #>
 
             // eg. List<string> { you me them }
             else if (dict.ContainsKey(prop.Type)) {
+                WriteLine("if (" + prop.Name + " != null)");
+                WriteLine("{");
+                PushIndent("    ");
                 WriteLine("writer.Write(\"" + prop.GetStr(naming) + "={ \");");
                 WriteLine("foreach (var val in " + prop.Name + ")");
                 WriteLine("{");
@@ -883,6 +920,8 @@ foreach (var clazz in classes) { #>
                 PopIndent();
                 WriteLine("}");
                 WriteLine("writer.WriteLine(\"}\");");
+                PopIndent();
+                WriteLine("}");
             }
             else {
                 WriteLine("if (" + prop.Name + " != null)");
@@ -898,5 +937,6 @@ foreach (var clazz in classes) { #>
     #>
         }
     }
+
 <# } #>
 }
