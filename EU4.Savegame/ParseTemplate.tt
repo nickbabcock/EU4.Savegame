@@ -310,6 +310,7 @@ var classes = new[] {
 			new Property() { Type = "int?", Name = "TopFaction" },
 			new Property() { Type = "bool?", Name = "IsSubject" },
 			new Property() { Type = "bool?", Name = "IsVassal" },
+			new Property() { Type = "bool?", Name = "IsLesserInUnion" },
 			new Property() { Type = "string", Name = "Overlord", Quoted = true },
 			new Property() { Type = "int?", Name = "Goldtype" },
 			new Property() { Type = "string", Name = "CoalitionAgainstUs", Quoted = true },
@@ -387,6 +388,7 @@ var classes = new[] {
 			new Property() { Type = "[ConsecutiveElements] IList<int>", Name = "IsCoreNeighbor", Alias = "is_core_neighbour" },
 			new Property() { Type = "[ConsecutiveElements] IList<string>", Name = "Friends", Quoted = true },
 			new Property() { Type = "[ConsecutiveElements] IList<string>", Name = "Allies", Quoted = true },
+			new Property() { Type = "[ConsecutiveElements] IList<string>", Name = "LesserUnionPartners", Quoted = true },
 			new Property() { Type = "[ConsecutiveElements] IList<string>", Name = "Subjects", Quoted = true },
 			new Property() { Type = "[ConsecutiveElements] IList<string>", Name = "Vassals", Quoted = true },
 			new Property() { Type = "[ConsecutiveElements] IList<string>", Name = "TransferTradePowerTo", Quoted = true },
@@ -834,6 +836,7 @@ var classes = new[] {
 			new Property() { Type = "IList<DiplomacyEvent>", Name = "Warnings" },
 			new Property() { Type = "IList<DiplomacyEvent>", Name = "RoyalMarriages" },
 			new Property() { Type = "IList<DiplomacyEvent>", Name = "ImproveRelations" },
+			new Property() { Type = "IList<DiplomacyEvent>", Name = "TransferTradePowers" },
 			new Property() { Type = "IList<DiplomacyEvent>", Name = "Guarantees" },
 			new Property() { Type = "IList<DiplomacyEvent>", Name = "IsColonials" },
 			new Property() { Type = "IList<DiplomacyEvent>", Name = "Protectorates" },
@@ -854,8 +857,10 @@ var classes = new[] {
 			new Property() { Type = "DateTime", Name = "StartDate" },
 			new Property() { Type = "bool?", Name = "EnforcePeace" },
 			new Property() { Type = "double?", Name = "Amount" },
+			new Property() { Type = "bool?", Name = "IsEnforced" },
 			new Property() { Type = "int?", Name = "Duration" },
 			new Property() { Type = "int?", Name = "Envoy" },
+			new Property() { Type = "bool?", Name = "Inactive" }
 		}
 	}
 };
