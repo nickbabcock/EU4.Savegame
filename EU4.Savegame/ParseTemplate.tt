@@ -185,6 +185,10 @@ var classes = new[] {
 			new Property() { Type = "double", Name = "LightShip" },
 			new Property() { Type = "double", Name = "TransferredOut" },
 			new Property() { Type = "double", Name = "TransferredIn" },
+			new Property() { Type = "[ConsecutiveElements] IList<int>", Name = "TransferredFromIndex", Alias = "transfered_from_index" },
+			new Property() { Type = "[ConsecutiveElements] IList<int>", Name = "TransferredFromValue", Alias = "transfered_from_value" },
+			new Property() { Type = "[ConsecutiveElements] IList<int>", Name = "TransferredToIndex", Alias = "transfered_to_index" },
+			new Property() { Type = "[ConsecutiveElements] IList<int>", Name = "TransferredToValue", Alias = "transfered_to_value" },
 			new Property() { Type = "PowerModifier", Name = "Modifier" }
 		}
 	},
@@ -274,17 +278,21 @@ var classes = new[] {
 	new {
 		Name = "Country",
 		Props = new[] {
-			new Property() { Type = "bool?", Name = "Player" },
+			new Property() { Type = "bool?", Name = "Human" },
 			new Property() { Type = "bool?", Name = "WasPlayer" },
 			new Property() { Type = "CountryHistory", Name = "History" },
 			new Property() { Type = "TopFlags", Name = "Flags" },
 			new Property() { Type = "TopFlags", Name = "HiddenFlags" },
 			new Property() { Type = "[ConsecutiveElements] IList<string>", Name = "Variables" },
+			new Property() { Type = "IList<ParadoxId>", Name = "AutoInvestInCardinals" },
 			new Property() { Type = "int", Name = "Capital" },
+			new Property() { Type = "int?", Name = "OriginalCapital" },
 			new Property() { Type = "int", Name = "TradePort" },
 			new Property() { Type = "bool", Name = "InitializedRivals" },
+			new Property() { Type = "int?", Name = "HreVote" },
 			new Property() { Type = "bool", Name = "DirtyColony" },
 			new Property() { Type = "string", Name = "PrimaryCulture" },
+			new Property() { Type = "string", Name = "CultureGroupUnion" },
 			new Property() { Type = "IList<string>", Name = "AcceptedCultures" },
 			new Property() { Type = "string", Name = "Religion" },
 			new Property() { Type = "string", Name = "TechnologyGroup" },
@@ -293,11 +301,17 @@ var classes = new[] {
 			new Property() { Type = "Technology", Name = "Technology" },
 			new Property() { Type = "IList<Rival>", Name = "Rivals" },
 			new Property() { Type = "IList<string>", Name = "Enemies", Quoted = true },
-			new Property() { Type = "int?", Name = "GoldType" },
+			new Property() { Type = "bool?", Name = "IsSubject" },
+			new Property() { Type = "bool?", Name = "IsVassal" },
+			new Property() { Type = "string", Name = "Overlord", Quoted = true },
+			new Property() { Type = "int?", Name = "Goldtype" },
+			new Property() { Type = "string", Name = "CoalitionAgainstUs", Quoted = true },
 			new Property() { Type = "string", Name = "CoalitionTarget" },
 			new Property() { Type = "DateTime?", Name = "CoalitionDate" },
 			new Property() { Type = "int", Name = "RebelThreat" },
 			new Property() { Type = "bool?", Name = "Luck" },
+			new Property() { Type = "bool?", Name = "IsAtWar" },
+			new Property() { Type = "string", Name = "Parent", Quoted = true },
 			new Property() { Type = "DateTime", Name = "LastElection" },
 			new Property() { Type = "int", Name = "DiplomaticPowerCache" },
 			new Property() { Type = "int", Name = "AvailableDiploRelationsCache" },
@@ -305,6 +319,9 @@ var classes = new[] {
 			new Property() { Type = "double", Name = "DelayedTreasure" },
 			new Property() { Type = "double", Name = "CurrentPowerProjection" },
 			new Property() { Type = "IList<PowerProjection>", Name = "PowerProjections" },
+			new Property() { Type = "string", Name = "PreferredEmperor", Quoted = true },
+			new Property() { Type = "bool?", Name = "Elector" },
+			new Property() { Type = "DateTime?", Name = "LastHreVote" },
 			new Property() { Type = "int", Name = "NumOfTradeEmbargos" },
 			new Property() { Type = "int", Name = "NumOfNonRivalTradeEmbargos" },
 			new Property() { Type = "double", Name = "MilitaryStrength" },
@@ -362,6 +379,12 @@ var classes = new[] {
 			new Property() { Type = "[ConsecutiveElements] IList<int>", Name = "IsCoreNeighbor", Alias = "is_core_neighbour" },
 			new Property() { Type = "[ConsecutiveElements] IList<string>", Name = "Friends", Quoted = true },
 			new Property() { Type = "[ConsecutiveElements] IList<string>", Name = "Allies", Quoted = true },
+			new Property() { Type = "[ConsecutiveElements] IList<string>", Name = "Subjects", Quoted = true },
+			new Property() { Type = "[ConsecutiveElements] IList<string>", Name = "Vassals", Quoted = true },
+			new Property() { Type = "[ConsecutiveElements] IList<string>", Name = "TransferTradePowerTo", Quoted = true },
+			new Property() { Type = "[ConsecutiveElements] IList<string>", Name = "TransferTradePowerFrom", Quoted = true },
+			new Property() { Type = "[ConsecutiveElements] IList<string>", Name = "CurrentAtWarWith", Quoted = true },
+			new Property() { Type = "[ConsecutiveElements] IList<string>", Name = "CurrentWarAllies", Quoted = true },
 			new Property() { Type = "[ConsecutiveElements] IList<string>", Name = "CoalitionFriends", Quoted = true },
 			new Property() { Type = "[ConsecutiveElements] IList<string>", Name = "Warnings", Quoted = true },
 			new Property() { Type = "[ConsecutiveElements] IList<string>", Name = "TradeEmbargoedBy", Quoted = true },
@@ -409,6 +432,7 @@ var classes = new[] {
 			new Property() { Type = "double?", Name = "Piety" },
 			new Property() { Type = "double?", Name = "PatriarchAuthority" },
 			new Property() { Type = "double?", Name = "PapalInfluence" },
+			new Property() { Type = "double?", Name = "RepublicanTradition" },
 			new Property() { Type = "double", Name = "Legitimacy" },
 			new Property() { Type = "double", Name = "Mercantilism" },
 			new Property() { Type = "ActiveIdeaGroups", Name = "ActiveIdeaGroups" },
@@ -433,12 +457,14 @@ var classes = new[] {
 			new Property() { Type = "IList<Army>", Name = "Armies" },
 			new Property() { Type = "IList<Navy>", Name = "Navies" },
 			new Property() { Type = "ActiveRelationCollection", Name = "ActiveRelations" },
+			new Property() { Type = "RoyalMarriage", Name = "RoyalMarriage" },
 			new Property() { Type = "IList<ParadoxId>", Name = "Leaders" },
 			new Property() { Type = "ParadoxId", Name = "Monarch" },
 			new Property() { Type = "ParadoxId", Name = "Heir" },
 			new Property() { Type = "DateTime", Name = "Inauguration" },
 			new Property() { Type = "DateTime", Name = "LastMigration" },
 			new Property() { Type = "IList<ParadoxId>", Name = "PreviousMonarchs" },
+			new Property() { Type = "Mission", Name = "ActiveMajorMission" },
 			new Property() { Type = "DateTime", Name = "LastMajorMissionPick" },
 			new Property() { Type = "DateTime", Name = "LastMajorMissionCancel" },
 			new Property() { Type = "string", Name = "LastMajorMission", Quoted = true },
@@ -446,7 +472,10 @@ var classes = new[] {
 			new Property() { Type = "Ai", Name = "Ai" },
 			new Property() { Type = "[ConsecutiveElements] IList<int>", Name = "TradedBonus" },
 			new Property() { Type = "[ConsecutiveElements] IList<string>", Name = "HistoricalFriends" },
+			new Property() { Type = "[ConsecutiveElements] IList<string>", Name = "HistoricalRivals" },
 			new Property() { Type = "[ConsecutiveElements] IList<int>", Name = "Powers" },
+			new Property() { Type = "[ConsecutiveElements] IList<int>", Name = "InterestingCountries" },
+			new Property() { Type = "double?", Name = "BlockadedPercent" }
 		}
 	},
 	new {
@@ -460,20 +489,31 @@ var classes = new[] {
 			new Property() { Type = "bool", Name = "HreInterest" },
 			new Property() { Type = "bool", Name = "PapacyInterest" },
 			new Property() { Type = "[ConsecutiveElements] IList<int>", Name = "Powers" },
-			new Property() { Type = "IList<AiPriority>", Name = "ConquerProvs" },
-			new Property() { Type = "IList<AiPriority>", Name = "Threats" },
-			new Property() { Type = "IList<AiPriority>", Name = "Antagonizes" },
-			new Property() { Type = "IList<AiPriority>", Name = "Befriends" },
-			new Property() { Type = "IList<AiPriority>", Name = "Protects" },
-			new Property() { Type = "IList<AiPriority>", Name = "Rivals" },
-			new Property() { Type = "IList<AiPriority>", Name = "Vassals" },
-			new Property() { Type = "IList<AiPriority>", Name = "MilitaryAccesses" }
+			new Property() { Type = "IList<AiProvincePriority>", Name = "ColonizeProvs" },
+			new Property() { Type = "IList<AiProvincePriority>", Name = "ConquerProvs" },
+			new Property() { Type = "IList<AiCountryPriority>", Name = "Threats" },
+			new Property() { Type = "IList<AiCountryPriority>", Name = "Antagonizes" },
+			new Property() { Type = "IList<AiCountryPriority>", Name = "Befriends" },
+			new Property() { Type = "IList<AiCountryPriority>", Name = "Protects" },
+			new Property() { Type = "IList<AiCountryPriority>", Name = "Protectorates" },
+			new Property() { Type = "IList<AiCountryPriority>", Name = "Rivals" },
+			new Property() { Type = "IList<AiCountryPriority>", Name = "Vassals" },
+			new Property() { Type = "IList<AiCountryPriority>", Name = "MilitaryAccesses" },
+			new Property() { Type = "int?", Name = "HeavyShip" },
+			new Property() { Type = "int?", Name = "LightShip" }
 		}
 	},
 	new {
-		Name = "AiPriority",
+		Name = "AiProvincePriority",
 		Props = new[] {
 			new Property() { Type = "int", Name = "Id" },
+			new Property() { Type = "int", Name = "Value" }
+		}
+	},
+	new {
+		Name = "AiCountryPriority",
+		Props = new[] {
+			new Property() { Type = "string", Name = "Id", Quoted = true },
 			new Property() { Type = "int", Name = "Value" }
 		}
 	},
@@ -493,12 +533,47 @@ var classes = new[] {
 		}
 	},
 	new {
+		Name = "RoyalMarriage",
+		Props = new[] {
+			new Property() { Type = "int", Name = "Type" },
+			new Property() { Type = "string", Name = "Actor", Quoted = true },
+			new Property() { Type = "string", Name = "Original", Quoted = true },
+			new Property() { Type = "string", Name = "Recipient", Quoted = true },
+			new Property() { Type = "DateTime", Name = "Date" },
+			new Property() { Type = "bool", Name = "Value" },
+			new Property() { Type = "DateTime", Name = "LastCommandDate" },
+			new Property() { Type = "int", Name = "Envoy" }
+		}
+	},
+	new {
+		Name = "Mission",
+		Props = new[] {
+			new Property() { Type = "string", Name = "Type", Quoted = true },
+			new Property() { Type = "Scope", Name = "Scope" },
+			new Property() { Type = "[ConsecutiveElements] IList<int>", Name = "TargetProvinces" },
+			new Property() { Type = "DateTime", Name = "StartDate" },
+			new Property() { Type = "string", Name = "Owner", Quoted = true }
+		}
+	},
+	new {
+		Name = "Scope",
+		Props = new[] {
+			new Property() { Type = "string", Name = "Country", Quoted = true },
+			new Property() { Type = "int?", Name = "Province" },
+			new Property() { Type = "bool", Name = "ScopeIsValid" },
+			new Property() { Type = "int", Name = "Seed" },
+			new Property() { Type = "int", Name = "Random" },
+			new Property() { Type = "Scope", Name = "From" }
+		}
+	},
+	new {
 		Name = "CountryLedger",
 		Props = new[] {
 			new Property() { Type = "[ConsecutiveElements] IList<double>", Name = "Income" },
 			new Property() { Type = "[ConsecutiveElements] IList<double>", Name = "Expense" },
-			new Property() { Type = "[ConsecutiveElements] IList<double>", Name = "ThisMonthExpense", Alias = "thismonthexpense" },
+			new Property() { Type = "[ConsecutiveElements] IList<double>", Name = "ThisMonthIncome", Alias = "thismonthincome" },
 			new Property() { Type = "double", Name = "LastMonthIncome", Alias = "lastmonthincome" },
+			new Property() { Type = "[ConsecutiveElements] IList<double>", Name = "ThisMonthExpense", Alias = "thismonthexpense" },
 			new Property() { Type = "[ConsecutiveElements] IList<double>", Name = "LastMonthIncomeTable", Alias = "lastmonthincometable" },
 			new Property() { Type = "double", Name = "LastMonthExpense", Alias = "lastmonthexpense" },
 			new Property() { Type = "[ConsecutiveElements] IList<double>", Name = "LastMonthExpenseTable", Alias = "lastmonthexpensetable" },
@@ -546,6 +621,7 @@ var classes = new[] {
 			new Property() { Type = "string", Name = "Attitude", Quoted = true },
 			new Property() { Type = "int?", Name = "IsFightingWarTogether" },
 			new Property() { Type = "string", Name = "RelationCostingPower" },
+			new Property() { Type = "bool?", Name = "HasCoreClaim" },
 			new Property() { Type = "string", Name = "HasCultureGroupClaim" },
 			new Property() { Type = "string", Name = "HasReligionGroupClaim" },
 			new Property() { Type = "bool?", Name = "RecalcAttitude" },
@@ -576,9 +652,15 @@ var classes = new[] {
 			new Property() { Type = "[ConsecutiveElements] IList<int>", Name = "Path" },
 			new Property() { Type = "int", Name = "Location" },
 			new Property() { Type = "IList<Unit>", Name = "Regiments" },
+			new Property() { Type = "string", Name = "Friend", Quoted = true },
+			new Property() { Type = "DateTime?", Name = "EndDate" },
+			new Property() { Type = "[ConsecutiveElements] IList<ParadoxId>", Name = "Attachments" },
 			new Property() { Type = "string", Name = "GraphicalCulture" },
-			new Property() { Type = "bool", Name = "MainArmy" },
-			new Property() { Type = "bool", Name = "HunterKiller" },
+			new Property() { Type = "bool?", Name = "ExileStatus" },
+			new Property() { Type = "bool?", Name = "MainArmy" },
+			new Property() { Type = "bool?", Name = "NeedsHelp" },
+			new Property() { Type = "bool?", Name = "HunterKiller" },
+			new Property() { Type = "bool?", Name = "Invasion" },
 			new Property() { Type = "int", Name = "Target" },
 			new Property() { Type = "int", Name = "StagingProvince" },
 			new Property() { Type = "int", Name = "Base" }
@@ -601,7 +683,9 @@ var classes = new[] {
 			new Property() { Type = "int?", Name = "Node" },
 			new Property() { Type = "IList<int>", Name = "Trades" },
 			new Property() { Type = "int", Name = "CurrentRouteTarget" },
-			new Property() { Type = "DateTime", Name = "LastAtSea" }
+			new Property() { Type = "DateTime", Name = "LastAtSea" },
+			new Property() { Type = "double", Name = "BlockadeEfficiency" },
+			new Property() { Type = "[ConsecutiveElements] IList<int>", Name = "Blockade" }
 		}
 	},
 	new {
@@ -838,6 +922,9 @@ foreach (var clazz in classes) { #>
                 Write(prop.Name + ".Add(" + (dict.TryGetValue(str, out res)
                     ? res : fallback) + ")");
             }
+			else if (prop.Type.Contains("[ConsecutiveElements]"))
+                Write(prop.Name + " = parser.ReadList(() => parser.Parse " +
+					"(new " + prop.ExtractInnerListType() + "()))");
             else
                 Write(prop.Name + " = " + fallback);
             WriteLine("; break;");
@@ -923,6 +1010,26 @@ foreach (var clazz in classes) { #>
                 PopIndent();
                 WriteLine("}");
             }
+
+			else if (prop.Type.Contains("[ConsecutiveElements]")) {
+                WriteLine("if (" + prop.Name + " != null)");
+                WriteLine("{");
+                PushIndent("    ");
+                WriteLine("writer.Write(\"" + prop.GetStr(naming) + "\", w =>");
+                WriteLine("{");
+                PushIndent("    ");
+                WriteLine("foreach (var val in " + prop.Name + ")");
+                WriteLine("{");
+                PushIndent("    ");
+                WriteLine("w.Write(String.Empty, val);");
+                PopIndent();
+                WriteLine("}");
+                PopIndent();
+                WriteLine("});");
+                PopIndent();
+                WriteLine("}");
+            }
+
             else {
                 WriteLine("if (" + prop.Name + " != null)");
                 WriteLine("{");
