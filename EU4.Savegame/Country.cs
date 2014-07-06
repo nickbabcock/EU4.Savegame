@@ -7,12 +7,12 @@ namespace EU4.Savegame
 {
     public partial class Country
     {
-        public string Name { get; private set; }
+        public string Abbreviation { get; private set; }
 
-        public Country(string name)
+        public Country(string abbreviation)
             : this()
         {
-            Name = name;
+            Abbreviation = abbreviation;
         }
     }
 }

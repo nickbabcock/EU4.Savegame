@@ -289,8 +289,13 @@ var classes = new[] {
 			new Property() { Type = "int?", Name = "OriginalCapital" },
 			new Property() { Type = "int", Name = "TradePort" },
 			new Property() { Type = "bool", Name = "InitializedRivals" },
+			new Property() { Type = "string", Name = "Name", Quoted = true },
+			new Property() { Type = "string", Name = "Adjective", Quoted = true },
+			new Property() { Type = "[ConsecutiveElements] IList<int>", Name = "MapColor" },
+			new Property() { Type = "[ConsecutiveElements] IList<int>", Name = "CountryColor" },
 			new Property() { Type = "int?", Name = "HreVote" },
 			new Property() { Type = "bool", Name = "DirtyColony" },
+			new Property() { Type = "string", Name = "GraphicalCulture", Quoted = true },
 			new Property() { Type = "string", Name = "PrimaryCulture" },
 			new Property() { Type = "string", Name = "CultureGroupUnion" },
 			new Property() { Type = "IList<string>", Name = "AcceptedCultures" },
@@ -301,6 +306,8 @@ var classes = new[] {
 			new Property() { Type = "Technology", Name = "Technology" },
 			new Property() { Type = "IList<Rival>", Name = "Rivals" },
 			new Property() { Type = "IList<string>", Name = "Enemies", Quoted = true },
+			new Property() { Type = "IList<Faction>", Name = "Factions" },
+			new Property() { Type = "int?", Name = "TopFaction" },
 			new Property() { Type = "bool?", Name = "IsSubject" },
 			new Property() { Type = "bool?", Name = "IsVassal" },
 			new Property() { Type = "string", Name = "Overlord", Quoted = true },
@@ -311,6 +318,7 @@ var classes = new[] {
 			new Property() { Type = "int", Name = "RebelThreat" },
 			new Property() { Type = "bool?", Name = "Luck" },
 			new Property() { Type = "bool?", Name = "IsAtWar" },
+			new Property() { Type = "bool?", Name = "Convert" },
 			new Property() { Type = "string", Name = "Parent", Quoted = true },
 			new Property() { Type = "DateTime", Name = "LastElection" },
 			new Property() { Type = "int", Name = "DiplomaticPowerCache" },
@@ -489,6 +497,11 @@ var classes = new[] {
 			new Property() { Type = "bool", Name = "HreInterest" },
 			new Property() { Type = "bool", Name = "PapacyInterest" },
 			new Property() { Type = "[ConsecutiveElements] IList<int>", Name = "Powers" },
+			new Property() { Type = "string", Name = "WarTarget", Quoted = true },
+			new Property() { Type = "bool?", Name = "NavalWar" },
+			new Property() { Type = "bool?", Name = "Opportunism" },
+			new Property() { Type = "bool?", Name = "Major" },
+			new Property() { Type = "DateTime?", Name = "WarDate" },
 			new Property() { Type = "IList<AiProvincePriority>", Name = "ColonizeProvs" },
 			new Property() { Type = "IList<AiProvincePriority>", Name = "ConquerProvs" },
 			new Property() { Type = "IList<AiCountryPriority>", Name = "Threats" },
@@ -594,6 +607,14 @@ var classes = new[] {
 			new Property() { Type = "string", Name = "Target", Quoted = true },
 			new Property() { Type = "string", Name = "Modifier", Quoted = true },
 			new Property() { Type = "double", Name = "Current" }
+		}
+	},
+	new {
+		Name = "Faction",
+		Props = new[] {
+			new Property() { Type = "double", Name = "Influence" },
+			new Property() { Type = "string", Name = "Type" },
+			new Property() { Type = "double", Name = "OldInfluence" }
 		}
 	},
 	new {
@@ -817,18 +838,21 @@ var classes = new[] {
 			new Property() { Type = "IList<DiplomacyEvent>", Name = "IsColonials" },
 			new Property() { Type = "IList<DiplomacyEvent>", Name = "Protectorates" },
 			new Property() { Type = "IList<DiplomacyEvent>", Name = "Vassals" },
-			new Property() { Type = "IList<DiplomacyEvent>", Name = "Subsidies", Alias = "subsidies" }
+			new Property() { Type = "IList<DiplomacyEvent>", Name = "Subsidies", Alias = "subsidies" },
+			new Property() { Type = "IList<DiplomacyEvent>", Name = "AnnulTreaties", Alias = "annul_treaties" }
 		}
 	},
 	new {
 		Name = "DiplomacyEvent",
 		Props = new[] {
+			new Property() { Type = "int?", Name = "CappedOpinionValue" },
 			new Property() { Type = "string", Name = "Type", Quoted = true },
 			new Property() { Type = "string", Name = "First", Quoted = true },
 			new Property() { Type = "string", Name = "Second", Quoted = true },
 			new Property() { Type = "DateTime?", Name = "EndDate" },
 			new Property() { Type = "bool", Name = "Cancel" },
 			new Property() { Type = "DateTime", Name = "StartDate" },
+			new Property() { Type = "bool?", Name = "EnforcePeace" },
 			new Property() { Type = "double?", Name = "Amount" },
 			new Property() { Type = "int?", Name = "Duration" },
 			new Property() { Type = "int?", Name = "Envoy" },
