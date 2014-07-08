@@ -13,7 +13,7 @@ namespace EU4.Savegame.Test
         [Test]
         public void ParseHistoricBattleCorrectly()
         {
-            var result = ParadoxParser.Parse(File.OpenRead("HistoricBattle.txt"), new HistoricBattle(new DateTime(1, 1, 1)));
+            var result = ParadoxParser.Parse(File.OpenRead("HistoricBattle.txt"), new BattleResult(new DateTime(1, 1, 1)));
             Assert.AreEqual("Temes", result.Name);
             Assert.AreEqual(156, result.Location);
             Assert.AreEqual(true, result.Result);
@@ -22,7 +22,7 @@ namespace EU4.Savegame.Test
         [Test]
         public void SaveHistoricBattleCorrectly()
         {
-            var expected = new HistoricBattle(new DateTime(1, 1, 1))
+            var expected = new BattleResult(new DateTime(1, 1, 1))
             {
                 Attacker = HistoricCombatantTests.GetOffensiveLandCombatant(),
                 Defender = HistoricCombatantTests.GetDefensiveNavalCombatant(),

@@ -14,7 +14,7 @@ namespace EU4.Savegame.Test
         [Test]
         public void BlankPreviousWarParsedCorrectly()
         {
-            var previousWar = ParadoxParser.Parse(File.OpenRead("BlankWarFile.txt"), new PreviousWar());
+            var previousWar = ParadoxParser.Parse(File.OpenRead("BlankWarFile.txt"), new War());
             Assert.AreEqual(string.Empty, previousWar.Name);
             Assert.AreEqual("---", previousWar.OriginalAttacker);
             Assert.AreEqual("---", previousWar.OriginalDefender);
@@ -32,10 +32,10 @@ namespace EU4.Savegame.Test
         [Test]
         public void SaveBlankPreviousWarCorrectly()
         {
-            var previousWar = new PreviousWar()
+            var previousWar = new War()
             {
                 Name = string.Empty,
-                History = new PreviousWarHistory(),
+                History = new WarHistory(),
                 OriginalAttacker = "---",
                 OriginalDefender = "---",
                 Action = new DateTime(1, 1, 1),

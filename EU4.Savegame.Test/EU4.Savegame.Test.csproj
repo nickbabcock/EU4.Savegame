@@ -56,8 +56,6 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="ActiveWarTests.cs" />
-    <Compile Include="BattleHistoryTests.cs" />
     <Compile Include="HistoricBattleTests.cs" />
     <Compile Include="HistoricCombatantTests.cs" />
     <Compile Include="LedgerDataTests.cs" />
@@ -74,12 +72,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ActiveWar.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="BattleHistory.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="BlankWarFile.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

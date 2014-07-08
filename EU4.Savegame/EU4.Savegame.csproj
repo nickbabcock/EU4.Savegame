@@ -51,17 +51,14 @@
     <Compile Include="ActiveIdeaGroups.cs" />
     <Compile Include="ActiveRelation.cs" />
     <Compile Include="ActiveRelationCollection.cs" />
-    <Compile Include="ActiveWar.cs" />
     <Compile Include="CardinalCollection.cs" />
     <Compile Include="Country.cs" />
     <Compile Include="CountryCollection.cs" />
     <Compile Include="CountryHistory.cs" />
     <Compile Include="EnvoyCollection.cs" />
     <Compile Include="GameplaySettings.cs" />
-    <Compile Include="HistoricBattle.cs" />
-    <Compile Include="HistoricCombatant.cs" />
-    <Compile Include="HistoricEvent.cs" />
     <Compile Include="History.cs" />
+    <Compile Include="IHistory.cs" />
     <Compile Include="LedgerData.cs" />
     <Compile Include="LedgerDataCollection.cs" />
     <Compile Include="ParseTemplate.cs">
@@ -70,8 +67,6 @@
       <DependentUpon>ParseTemplate.tt</DependentUpon>
       <ExcludeFromStyleCop>true</ExcludeFromStyleCop>
     </Compile>
-    <Compile Include="PreviousWar.cs" />
-    <Compile Include="PreviousWarHistory.cs" />
     <Compile Include="ProvinceCollection.cs" />
     <Compile Include="ProvinceHistory.cs" />
     <Compile Include="Religion.cs" />
@@ -83,9 +78,7 @@
     <Compile Include="Province.cs" />
     <Compile Include="TopFlags.cs" />
     <Compile Include="TradeNodeCollection.cs" />
-    <Compile Include="War.cs" />
-    <Compile Include="WarDiplomacyEvent.cs" />
-    <Compile Include="WarGoal.cs" />
+    <Compile Include="WarHistory.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -6,39 +6,14 @@ using Pdoxcl2Sharp;
 
 namespace EU4.Savegame
 {
-    public class History : IEnumerable<HistoricEvent>, IParadoxRead, IParadoxWrite
+    public abstract class History<T> :  IEnumerable<IHistory<T>>, IParadoxRead, IParadoxWrite
+        where T : IParadoxWrite
     {
-        private IList<Tuple<DateTime, List<HistoricEvent>>> events;
+        private IList<IHistory<T>> history = new List<IHistory<T>>();
 
-        public History()
+        public IEnumerator<IHistory<T>> GetEnumerator()
         {
-            this.events = new List<Tuple<DateTime, List<HistoricEvent>>>();
-        }
-
-        public IList<Tuple<DateTime, List<HistoricEvent>>> Events
-        {
-            get { return this.events; }
-            set { this.events = value; }
-        }
-
-        public virtual void TokenCallback(ParadoxParser parser, string token)
-        {
-            DateTime d;
-            if (ParadoxParser.TryParseDate(token, out d))
-            {
-                this.events.Add(Tuple.Create(d, History.EventParser(parser, d)));
-            }
-        }
-
-        public IEnumerator<HistoricEvent> GetEnumerator()
-        {
-            foreach (var group in this.events)
-            {
-                foreach (var e in group.Item2)
-                {
-                    yield return e;
-                }
-            }
+            return history.GetEnumerator();
         }
 
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
@@ -48,37 +23,41 @@ namespace EU4.Savegame
 
         public virtual void Write(ParadoxStreamWriter writer)
         {
-            foreach (var group in this.events)
+            foreach (var pair in history.GroupBy(x => x.EventDate))
             {
-                writer.Write(
-                    group.Item1.ToParadoxString(),
-                    (w) =>
-                    {
-                        foreach (var e in group.Item2)
-                        {
-                            e.Write(w);
-                        }
-                    });
+                if (pair.Key.Equals(DateTime.MinValue))
+                {
+                    foreach (var val in pair)
+                        val.Write(writer);
+                }
+                else
+                {
+                    string header = pair.Key.ToParadoxString();
+                    foreach (var val in pair)
+                        writer.Write(header, val);
+                }
             }
         }
 
-        private static List<HistoricEvent> EventParser(ParadoxParser parser, DateTime date)
+        public void TokenCallback(ParadoxParser parser, string token)
         {
-            var result = new List<HistoricEvent>();
-
-            parser.Parse((p, s) =>
-                {
-                    switch (s)
+            DateTime evt;
+            if (ParadoxParser.TryParseDate(token, out evt))
+            {
+                parser.Parse((p, s) =>
                     {
-                        case "battle": result.Add(p.Parse(new HistoricBattle(date))); break;
-                        case "add_attacker": result.Add(new WarDiplomacyEvent(date, p.ReadString(), WarDiplomacyType.AddAttacker)); break;
-                        case "add_defender": result.Add(new WarDiplomacyEvent(date, p.ReadString(), WarDiplomacyType.AddDefender)); break;
-                        case "rem_defender": result.Add(new WarDiplomacyEvent(date, p.ReadString(), WarDiplomacyType.RemoveDefender)); break;
-                        case "rem_attacker": result.Add(new WarDiplomacyEvent(date, p.ReadString(), WarDiplomacyType.RemoveAttacker)); break;
-                    }
-                });
-
-            return result;
+                        history.Add(InnerToken(p, s, evt));
+                    });
+            }
+            else
+            {
+                history.Add(InnerToken(parser, token, evt));
+            }
         }
+
+        protected abstract IHistory<T> InnerToken(
+            ParadoxParser parser,
+            string token,
+            DateTime date);
     }
 }
