@@ -55,6 +55,7 @@
     <Compile Include="Country.cs" />
     <Compile Include="CountryCollection.cs" />
     <Compile Include="CountryHistory.cs" />
+    <Compile Include="Demands.cs" />
     <Compile Include="EnvoyCollection.cs" />
     <Compile Include="GameplaySettings.cs" />
     <Compile Include="History.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="Province.cs" />
     <Compile Include="TopFlags.cs" />
     <Compile Include="TradeNodeCollection.cs" />
+    <Compile Include="War.cs" />
     <Compile Include="WarHistory.cs" />
   </ItemGroup>
   <ItemGroup>

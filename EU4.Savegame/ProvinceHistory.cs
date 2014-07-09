@@ -6,14 +6,15 @@ using System.Text;
 
 namespace EU4.Savegame
 {
-    public class ProvinceHistory : IParadoxRead, IParadoxWrite
+    public class ProvinceHistory : History<Province>
     {
-        public void TokenCallback(ParadoxParser parser, string token)
+        protected override IHistory<Province> InnerToken(ParadoxParser parser, string token, DateTime date)
         {
-        }
-
-        public void Write(ParadoxStreamWriter writer)
-        {
+            if (token == "controller" || token == "advisor" || token == "revolt")
+                parser.Parse((p, s) => { });
+            else
+                parser.ReadString();
+            return null;
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Text;
 
 namespace EU4.Savegame
 {
-    public interface IHistory<T> : IParadoxRead, IParadoxWrite
+    public interface IHistory<T> : IParadoxWrite
     {
         void Apply(T obj, bool advance);
         DateTime EventDate { get; }
