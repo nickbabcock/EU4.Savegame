@@ -17,7 +17,7 @@ let highestAiPriorities (save:Savegame) (fn:Ai -> seq<AiProvincePriority>) =
         (key, summation))
 
 /// Creates a five number summary on countries in a tech group
-let techSummary (save:Savegame) (fn:Technology -> int) =
+let techSummary (save:Savegame) (fn:Technology -> byte) =
     save.Countries
     |> Seq.where (fun x -> x.NumOfCities > 0)
     |> Seq.groupBy (fun x -> x.TechnologyGroup)

@@ -982,7 +982,36 @@ var classes = new[] {
             new Property() { Type = "string", Name = "Tag", Quoted = true },
             new Property() { Type = "string", Name = "CasusBelli", Quoted = true }
         }
-    }
+    },
+	new {
+		Name = "Revolt",
+		Props = new[] {
+            new Property() { Type = "string", Name = "Type", Quoted = true },
+            new Property() { Type = "string", Name = "Name", Quoted = true },
+            new Property() { Type = "string", Name = "Leader", Quoted = true },
+            new Property() { Type = "int", Name = "Size" }
+		}
+	},
+	new {
+		Name = "ControllerChange",
+		Props = new[] {
+            new Property() { Type = "string", Name = "Controller", Quoted = true },
+            new Property() { Type = "string", Name = "Rebel", Quoted = true }
+		}
+	},
+	new {
+		Name = "Advisor",
+		Props = new[] {
+            new Property() { Type = "string", Name = "Name", Quoted = true },
+            new Property() { Type = "string", Name = "Type" },
+            new Property() { Type = "int", Name = "Skill" },
+            new Property() { Type = "int", Name = "Location" },
+            new Property() { Type = "DateTime", Name = "Date" },
+            new Property() { Type = "DateTime", Name = "HireDate" },
+            new Property() { Type = "DateTime", Name = "DeathDate" },
+            new Property() { Type = "ParadoxId", Name = "Id" }
+		}
+	}
 };
 
 // end add

@@ -1,0 +1,12 @@
+﻿<html>
+{{#newline}}
+	<body>
+	{{#newline}}
+	<p>
+	{{#newline}}
+	{{Player}}
+	</p>
+	{{#newline}}
+	</body>
+{{#newline}}
+</html>

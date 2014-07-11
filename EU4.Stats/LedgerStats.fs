@@ -74,8 +74,7 @@ let rankings (data:seq<LedgerData>) =
     |> Seq.groupBy (fun (_, date, _) -> date)
     |> Seq.collect(fun (_, col) ->
         col
-        |> Seq.map(fun (_, _, y) -> y)
-        |> Seq.cast<float>
+        |> Seq.map(fun (_, _, y) -> float y)
         |> (fun l -> Statistics.Ranks(l, RankDefinition.Sports))
         |> Seq.zip col
         |> Seq.map(fun ((name, x, y), (rank)) -> (name, x, int rank)))

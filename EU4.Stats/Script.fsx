@@ -4,7 +4,10 @@
 #r @"C:\Projects\EUIVSavegame\EU4.Stats\bin\Debug\EU4.Stats.dll"
 
 #load "LedgerStats.fs"
+#load "CountryStats.fs"
+#load "Types.fs"
 open EU4.Savegame
+open Types
 
 let savefile = Seq.last fsi.CommandLineArgs
 let save = new Savegame(savefile)

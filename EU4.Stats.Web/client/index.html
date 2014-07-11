@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eu4 Savegame Stats</title>
+  </head>
+  <body>
+    <header>
+      <h1>Europa Universalis IV Savegame Stats</h1>
+      <p>Performs a series of statistics on an uploaded savegame and then
+      redirects to a permanent web page with these statistics</p>
+    </header>
+    <div>
+      <h2>Steps:</h2>
+      <ul>
+        <li>Locate your local savegame</li>
+        <li>Compress your savegame to .zip or .tar.gz</li>
+        <li>Upload the compressed file</li>
+        <li>Wait</li>
+      </ul>
+    </div>
+    <div>
+      <input id='savefile' type='file' accept='.eu4, .gz'/>
+      <button id='submit'>Submit</button>
+    </div>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/main.js"></script>
+  </body>
+</html>
