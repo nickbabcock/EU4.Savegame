@@ -1,19 +1,25 @@
 # EU4.Savegame
 
-This is currently pre-pre-pre-pre alpha and the following is mostly conceptual.
+If you're not a programmer, this is probably not what you're looking for (yet!).
 
-EU4.Savegame is a library designed to read and write save games from Europa
-Universalis 4.  Notice that this is not intended (initially) to be a GUI
-program.  This doesn't mean that this can't be used.  On the contrary, everyone
-who could run a GUI can use the utilities provided by this library, though it
-may not be the easiest way.
+EU4.Savegame is a C# library currently in the alpha stage designed to read and
+write save games from Europa Universalis 4. A design goal of this library is to
+be mod and savegame version agnostic, relying on the client to provide more
+contextual information.
+
+To integrate the library into your code, please download this repository and
+build the project. From there, add a reference from your own solution to the
+newly built library.
+
+You can also skip creating your own solution and access the library directly by
+using a third party solution. These would be easiest if your use case would be
+writing scripts using the library.
 
 The easiest way would probably be [CsharpRepl][].  The following instructions
 for CsharpRepl are for Linux users.  Other users will have to modify them to
 fit their needs.  
 
-- Download Pdoxcl2Sharp.dll (the parser) and EU4.Savegame.dll and store them in
-  ~/.config/csharp
+- Download and EU4.Savegame.dll and store them in ~/.config/csharp
 - Start the repl by calling `csharp`
 - Execute the code
 
@@ -35,12 +41,11 @@ Another example is with [LINQPad][].
 But I understand if there is resentment to downloading additional programs,
 so there is a way that you can use pre-installed software!
 
-- Download Pdoxcl2Sharp.dll (the parser) and EU4.Savegame.dll.  Sorry couldn't
-  get away with this
+- Download EU4.Savegame.dll.  Sorry couldn't get away with this
 - Open your favorite text editor or Notepad if you don't have one
 - Write the code snippet shown below
 - Compile the code with %windir%\Microsoft.NET\Framework\v4.0.30319\csc.exe
-  /reference:Pdoxcl2Sharp.dll /reference:EU4.Savegame.dll
+  /reference:EU4.Savegame.dll
 - Run the output executable
 
 ```csharp
@@ -61,8 +66,6 @@ Let me first say that if you have any troubles, file an issue.
 
 - Get a github account
 - Fork the repo
-- Add a failing test.  The purpose of this is to show that what you are adding
-  couldn't have been done before, or was wrong.
 - Add your changes
 - Commit your changes in such a way there is only a single commit difference
   between the main branch here and yours.  If you need help, check out [git
@@ -75,14 +78,6 @@ Let me first say that if you have any troubles, file an issue.
 EU4.Savegame is licensed under MIT, so feel free to do whatever you want, as
 long as this license follows the code.
 
-## What happens when a new patch is released
-
-- Add a reprseentative savegame to the test suite
-- Try to fix breaking changes such that backward compatibility is still preserved
-- If compatbility canoot be saved, branch off old version
-  - Fix only major bugs in old version
-  - Main development continues with new version
-
 ## Mod compatibility
 
 Mods are of a huge importance to the community and likewise in this project.
@@ -90,9 +85,7 @@ Those who play mods are the same people who are most likely to use a tool like
 this.  Therefore, it is the project's best interest to have 100% mod
 compatilbity.  However, no one has the time to test all mods and ensure smooth
 execution, so as a modder, it is your duty to contribute to the testing part of
-this project.  Add a representative savegame to the repository and write a
-series of tests to ensure compatibility.  If everything works, great.  If not,
-file an issue and someone can take a look at it.
+this project.
 
 ## Who can contribute
 
@@ -103,13 +96,15 @@ Make changes, add issues, start a discussion.
 ## Why not use .Net 4.5
 
 Since EU4 can be ran on Windows XP and .Net 4.5 can't be installed on XP
-machines.  .Net 4.0 is the lowest common denominator.
+machines.  .Net 4.0 is the lowest common denominator. This doesn't mean that
+clients who use this library shouldn't use .Net 4.5, it is a great platform,
+and use it if you can.
 
 ## What about Linux/Mac
 
-This project's first priority is Windows; however, Linux/Mac may be reached one
-day with Mono.  Caveat, I do not know Mono, so this is a great opportunity to
-help!
+This project works with [Mono][], which is an alternative .Net implementation.
+
+[Mono]: http://www.mono-project.com/Main_Page
 
 ## Design Guidelines
 
@@ -118,10 +113,6 @@ savegame was parsed correctly, when the contrary is true.  After parsing or
 updating each entity, a validation check must be performed and a failure results
 in an exception being thrown.  This also alerts us to possible bugs in the
 parsing sooner than if we allowed more flexible input.
-
-StyleCop - A (minor) goal of this project is to make it appear that one
-developer wrote it.  This ensures consistency and a high level of programming.
-While I can scan through all changes, I will make mistakes.  StyleCop doesn't.
 
 Custom collections - throughout the code, the API exposes custom collections
 and not traditional collections such as a `IList<T>`.  There are several
