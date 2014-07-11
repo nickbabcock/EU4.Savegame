@@ -45,6 +45,9 @@ namespace EU4.Savegame
         public double NativeSize { get; set; }
         public int NativeFerocity { get; set; }
         public int NativeHostileness { get; set; }
+        public int? Winter { get; set; }
+        public int? PreviousWinter { get; set; }
+        public bool? HasWinterModifier { get; set; }
         public int? Nationalism { get; set; }
         public IList<Modifier> Modifiers { get; set; }
         public IList<MilitaryConstruction> MilitaryConstructions { get; set; }
@@ -113,6 +116,9 @@ namespace EU4.Savegame
                 case "native_size": NativeSize = parser.ReadDouble(); break;
                 case "native_ferocity": NativeFerocity = parser.ReadInt32(); break;
                 case "native_hostileness": NativeHostileness = parser.ReadInt32(); break;
+                case "winter": Winter = parser.ReadInt32(); break;
+                case "previous_winter": PreviousWinter = parser.ReadInt32(); break;
+                case "has_winter_modifier": HasWinterModifier = parser.ReadBool(); break;
                 case "nationalism": Nationalism = parser.ReadInt32(); break;
                 case "modifier": Modifiers.Add(parser.Parse(new Modifier())); break;
                 case "military_construction": MilitaryConstructions.Add(parser.Parse(new MilitaryConstruction())); break;
@@ -280,6 +286,18 @@ namespace EU4.Savegame
             writer.WriteLine("native_size", NativeSize);
             writer.WriteLine("native_ferocity", NativeFerocity);
             writer.WriteLine("native_hostileness", NativeHostileness);
+            if (Winter.HasValue)
+            {
+                writer.WriteLine("winter", Winter.Value);
+            }
+            if (PreviousWinter.HasValue)
+            {
+                writer.WriteLine("previous_winter", PreviousWinter.Value);
+            }
+            if (HasWinterModifier.HasValue)
+            {
+                writer.WriteLine("has_winter_modifier", HasWinterModifier.Value);
+            }
             if (Nationalism.HasValue)
             {
                 writer.WriteLine("nationalism", Nationalism.Value);

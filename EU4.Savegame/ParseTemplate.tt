@@ -272,6 +272,9 @@ var classes = new[] {
             new Property() { Type = "double", Name = "NativeSize" },
             new Property() { Type = "int", Name = "NativeFerocity" },
             new Property() { Type = "int", Name = "NativeHostileness" },
+            new Property() { Type = "int?", Name = "Winter" },
+            new Property() { Type = "int?", Name = "PreviousWinter" },
+            new Property() { Type = "bool?", Name = "HasWinterModifier" },
             new Property() { Type = "int?", Name = "Nationalism" },
             new Property() { Type = "IList<Modifier>", Name = "Modifiers" },
             new Property() { Type = "IList<MilitaryConstruction>", Name = "MilitaryConstructions" },
@@ -1062,8 +1065,10 @@ var dict = new Dictionary<string, string>()
 
 foreach (var clazz in classes) { #>
     public partial class <#= clazz.Name #> : IParadoxRead, IParadoxWrite
-    {<# foreach (var prop in clazz.Props) { #>
-        public <#= prop.Type.Replace("[ConsecutiveElements] ", "") #> <#= prop.Name #> { get; set; }<# } #>
+    {
+<# foreach (var prop in clazz.Props) { #>
+        public <#= prop.Type.Replace("[ConsecutiveElements] ", "") #> <#= prop.Name #> { get; set; }
+<# } #>
 
         public <#= clazz.Name #>()
         {
