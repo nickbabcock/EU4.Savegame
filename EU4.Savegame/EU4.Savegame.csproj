@@ -83,7 +83,6 @@
     <Compile Include="WarHistory.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
     <None Include="ParseTemplate.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ParseTemplate.cs</LastGenOutput>
