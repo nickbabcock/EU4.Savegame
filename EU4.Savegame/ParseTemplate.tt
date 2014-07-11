@@ -282,6 +282,7 @@ var classes = new[] {
             new Property() { Type = "IList<DiplomacyConstruction>", Name = "DiplomacyConstructions" },
             new Property() { Type = "BuildingConstruction", Name = "BuildingConstruction" },
             new Property() { Type = "BuildCoreConstruction", Name = "BuildCoreConstruction" },
+            new Property() { Type = "BuildCoreConstruction", Name = "ChangeCultureConstruction" },
             new Property() { Type = "MissionaryConstruction", Name = "MissionaryConstruction" },
             new Property() { Type = "MissionaryConstruction", Name = "ColonyConstruction" },
             new Property() { Type = "double", Name = "TradePower" },

@@ -55,6 +55,7 @@ namespace EU4.Savegame
         public IList<DiplomacyConstruction> DiplomacyConstructions { get; set; }
         public BuildingConstruction BuildingConstruction { get; set; }
         public BuildCoreConstruction BuildCoreConstruction { get; set; }
+        public BuildCoreConstruction ChangeCultureConstruction { get; set; }
         public MissionaryConstruction MissionaryConstruction { get; set; }
         public MissionaryConstruction ColonyConstruction { get; set; }
         public double TradePower { get; set; }
@@ -126,6 +127,7 @@ namespace EU4.Savegame
                 case "diplomacy_construction": DiplomacyConstructions.Add(parser.Parse(new DiplomacyConstruction())); break;
                 case "building_construction": BuildingConstruction = parser.Parse(new BuildingConstruction()); break;
                 case "build_core_construction": BuildCoreConstruction = parser.Parse(new BuildCoreConstruction()); break;
+                case "change_culture_construction": ChangeCultureConstruction = parser.Parse(new BuildCoreConstruction()); break;
                 case "missionary_construction": MissionaryConstruction = parser.Parse(new MissionaryConstruction()); break;
                 case "colony_construction": ColonyConstruction = parser.Parse(new MissionaryConstruction()); break;
                 case "trade_power": TradePower = parser.ReadDouble(); break;
@@ -321,6 +323,10 @@ namespace EU4.Savegame
             if (BuildingConstruction != null)
             {
                 writer.Write("building_construction", BuildingConstruction);
+            }
+            if (BuildCoreConstruction != null)
+            {
+                writer.Write("build_core_construction", BuildCoreConstruction);
             }
             if (BuildCoreConstruction != null)
             {
