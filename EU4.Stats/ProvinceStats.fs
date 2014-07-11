@@ -1,6 +1,6 @@
-﻿module ProvinceStats
+﻿module EU4.Stats.ProvinceStats
 open EU4.Savegame;
-open Types;
+open EU4.Stats.Types;
 open MathNet.Numerics.Statistics;
 
 let ProvinceSummary (save:Savegame) (fn:Province -> double) : FiveNumberSummary = 

@@ -1,7 +1,7 @@
-﻿module CountryStats
+﻿module EU4.Stats.CountryStats
 
 open EU4.Savegame;
-open Types
+open EU4.Stats.Types
 
 /// Calculates the desire for various AI countries to want something
 let highestAiPriorities (save:Savegame) (fn:Ai -> seq<AiProvincePriority>) =

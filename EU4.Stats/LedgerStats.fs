@@ -3,7 +3,7 @@
 open System;
 open System.Collections.Generic;
 open EU4.Savegame;
-open Types;
+open EU4.Stats.Types
 open MathNet.Numerics.Statistics;
 
 type LedgerStat = {

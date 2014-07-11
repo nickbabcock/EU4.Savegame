@@ -1,4 +1,4 @@
-﻿module Types
+﻿module EU4.Stats.Types
 
 open MathNet.Numerics.Statistics;
 
