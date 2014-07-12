@@ -14,10 +14,17 @@ namespace EU4.Stats.Web
     public class StatsModule : NancyModule
     {
         static int id;
+        static readonly string basedir;
+        static readonly string gamedir;
 
         static StatsModule()
         {
-            var q = Directory.EnumerateFiles("/var/www/stats/games")
+            basedir = Environment.GetEnvironmentVariable("EU4_STATS_LOC");
+            if (string.IsNullOrWhiteSpace(basedir))
+                throw new ApplicationException("Env EU4_STATS_LOC must be set");
+
+            gamedir = Path.Combine(basedir, "games");
+            var q = Directory.EnumerateFiles(gamedir)
                 .Select(x => Path.GetFileNameWithoutExtension(x))
                 .Select(x => int.Parse(x))
                 .DefaultIfEmpty();
@@ -38,8 +45,9 @@ namespace EU4.Stats.Web
                 string template = File.ReadAllText("template.hb");
                 Generator generator = compiler.Compile(template);
                 string contents = generator.Render(savegame);
-                string loc = "/games/" + Interlocked.Increment(ref id) + ".html";
-                File.WriteAllText("/var/www/stats" + loc, contents);
+                string filename = Interlocked.Increment(ref id) + ".html";
+                string loc = Path.Combine(gamedir, filename);
+                File.WriteAllText(loc, contents);
                 return loc;
             };
         }
