@@ -28,6 +28,7 @@ var classes = new[] {
             new Property() { Type = "SavegameVersion", Name = "SavegameVersion" },
             new Property() { Type = "[ConsecutiveElements] IList<string>", Name = "DlcEnabled", Quoted = true },
             new Property() { Type = "[ConsecutiveElements] IList<string>", Name = "PlayersCountries", Quoted = true },
+            new Property() { Type = "[ConsecutiveElements] IList<string>", Name = "UsedColonialNames", Quoted = true },
             new Property() { Type = "int", Name = "Speed" },
             new Property() { Type = "int", Name = "MultiplayerRandomSeed" },
             new Property() { Type = "int", Name = "MultiplayerRandomCount" },
@@ -39,12 +40,13 @@ var classes = new[] {
             new Property() { Type = "int", Name = "NextUnitId", Alias = "unit" },
             new Property() { Type = "TopFlags", Name = "Flags" },
             new Property() { Type = "GameplaySettings", Name = "GameplaySettings", Alias = "gameplaysettings" },
+            new Property() { Type = "DateTime", Name = "StartDate" },
             new Property() { Type = "TradeNodeCollection", Name = "Trade" },
             new Property() { Type = "[ConsecutiveElements] IList<string>", Name = "ProductionLeaderTag", Quoted = true },
             new Property() { Type = "[ConsecutiveElements] IList<string>", Name = "DynamicCountries", Quoted = true },
             new Property() { Type = "[ConsecutiveElements] IList<double>", Name = "TradegoodsSupply" },
             new Property() { Type = "[ConsecutiveElements] IList<double>", Name = "TradegoodsDemand" },
-            new Property() { Type = "[ConsecutiveElements] IList<double>", Name = "TradegoodsProduced" },
+            new Property() { Type = "[ConsecutiveElements] IList<double>", Name = "TradegoodsTotalProduced" },
             new Property() { Type = "[ConsecutiveElements] IList<int>", Name = "TradegoodsNumSupplyProvinces" },
             new Property() { Type = "[ConsecutiveElements] IList<int>", Name = "TradegoodsNumDemandProvinces" },
             //new Property() { Type = "IList<ParadoxId>", Name = "UndocumentedIds", Alias = "id" },
@@ -1072,7 +1074,7 @@ var dict = new Dictionary<string, string>()
     { "[ConsecutiveElements] List<DateTime>", "parser.ReadDateTimeList()" }
 };
 
-var specials = new[] {"Savegame", "Province", "War"};
+var specials = new[] {"Save", "Province", "War"};
 var qt = classes.Select(x => x.Name).Except(specials);
 
 foreach (var val in qt) { #>

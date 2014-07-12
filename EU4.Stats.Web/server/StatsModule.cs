@@ -7,6 +7,7 @@ using System.IO.Compression;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using EU4.Stats;
 
 namespace EU4.Stats.Web
 {
@@ -53,7 +54,9 @@ namespace EU4.Stats.Web
                 FormatCompiler compiler = new FormatCompiler();
                 string template = File.ReadAllText("template.hb");
                 Generator generator = compiler.Compile(template);
-                string contents = generator.Render(savegame);
+
+                var item = new { Player=savegame.Player, Com=WarStats.WinsOutnumbers(savegame) };
+                string contents = generator.Render(item);
                 string filename = Interlocked.Increment(ref id) + ".html";
                 string loc = Path.Combine(gamedir, filename);
                 File.WriteAllText(loc, contents);

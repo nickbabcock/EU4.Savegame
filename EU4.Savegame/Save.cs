@@ -9,6 +9,8 @@ namespace EU4.Savegame
 {
     public partial class Save
     {
+        private bool readMagic = false;
+
         public Save(Stream stream)
             : this()
         {
@@ -22,6 +24,11 @@ namespace EU4.Savegame
             {
                 ParadoxParser.Parse(fs, TokenCallback);
             }
+        }
+
+        partial void unrecognizedToken(ParadoxParser parser, string token)
+        {
+            readMagic = !readMagic && token == "EU4txt";
         }
     }
 }
