@@ -45,9 +45,9 @@ namespace EU4.Stats.Web
                 if (extension == null)
                     throw new ArgumentException("File extension can't be null");
 
-                EU4.Savegame.Savegame savegame;
+                EU4.Savegame.Save savegame;
                 using (var stream = getStream(file, extension))
-                    savegame = new EU4.Savegame.Savegame(stream);
+                    savegame = new EU4.Savegame.Save(stream);
 
                 // Turn the savegame into html and return the url for it
                 FormatCompiler compiler = new FormatCompiler();

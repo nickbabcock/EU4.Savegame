@@ -4,7 +4,7 @@ open EU4.Savegame;
 open EU4.Stats.Types
 
 /// Calculates the desire for various AI countries to want something
-let highestAiPriorities (save:Savegame) (fn:Ai -> seq<AiProvincePriority>) =
+let highestAiPriorities (save:Save) (fn:Ai -> seq<AiProvincePriority>) =
     save.Countries
     |> Seq.where (fun x -> x.NumOfCities > 0)
     |> Seq.collect (fun x -> fn x.Ai)
@@ -17,7 +17,7 @@ let highestAiPriorities (save:Savegame) (fn:Ai -> seq<AiProvincePriority>) =
         (key, summation))
 
 /// Creates a five number summary on countries in a tech group
-let techSummary (save:Savegame) (fn:Technology -> byte) =
+let techSummary (save:Save) (fn:Technology -> byte) =
     save.Countries
     |> Seq.where (fun x -> x.NumOfCities > 0)
     |> Seq.groupBy (fun x -> x.TechnologyGroup)

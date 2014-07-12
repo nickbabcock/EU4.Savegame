@@ -3,7 +3,7 @@ open EU4.Savegame;
 open EU4.Stats.Types;
 open MathNet.Numerics.Statistics;
 
-let ProvinceSummary (save:Savegame) (fn:Province -> double) : FiveNumberSummary = 
+let ProvinceSummary (save:Save) (fn:Province -> double) : FiveNumberSummary = 
     save.Provinces
     |> Seq.map fn
     |> Statistics.FiveNumberSummary
@@ -11,13 +11,13 @@ let ProvinceSummary (save:Savegame) (fn:Province -> double) : FiveNumberSummary 
 
 // Sequence of tuples of trade good and the number of provinces with
 // that trade good
-let TradeGoods (save:Savegame) =
+let TradeGoods (save:Save) =
     save.Provinces
     |> Seq.groupBy(fun x -> x.TradeGoods)
     |> Seq.map(fun (key, grp) -> (key, Seq.length grp))
 
 // Sequence of tuples of country's name and number of units being built
-let CountriesRecruiting (save:Savegame) =
+let CountriesRecruiting (save:Save) =
     save.Provinces
     |> Seq.collect(fun x -> x.MilitaryConstructions)
     |> Seq.groupBy (fun x -> x.Country)

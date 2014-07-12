@@ -71,7 +71,7 @@
     <Compile Include="ProvinceHistory.cs" />
     <Compile Include="Religion.cs" />
     <Compile Include="ReligionCollection.cs" />
-    <Compile Include="Savegame.cs" />
+    <Compile Include="Save.cs" />
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>

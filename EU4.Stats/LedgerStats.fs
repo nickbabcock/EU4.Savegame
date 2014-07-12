@@ -1,4 +1,4 @@
-﻿module LedgerStats
+﻿module EU4.Stats.LedgerStats
 
 open System;
 open System.Collections.Generic;
@@ -25,7 +25,7 @@ type Correlations = {
 
 /// Returns the five number summaries of the correlations between
 /// the ledger information stored in the save file
-let correlations (data:Savegame) =
+let correlations (data:Save) =
     let q = query {
         for nationSize in data.NationSizeStatistics do
         join income in data.IncomeStatistics on

@@ -7,15 +7,15 @@ using Pdoxcl2Sharp;
 
 namespace EU4.Savegame
 {
-    public partial class Savegame
+    public partial class Save
     {
-        public Savegame(Stream stream)
+        public Save(Stream stream)
             : this()
         {
             ParadoxParser.Parse(stream, TokenCallback);
         }
 
-        public Savegame(string filepath)
+        public Save(string filepath)
             : this()
         {
             using (var fs = File.OpenRead(filepath))

@@ -21,7 +21,7 @@ namespace EU4.Savegame
 
 var classes = new[] {
     new {
-        Name = "Savegame",
+        Name = "Save",
         Props = new[] {
             new Property() { Type = "DateTime", Name = "Date" },
             new Property() { Type = "string", Name = "Player", Quoted = true },
