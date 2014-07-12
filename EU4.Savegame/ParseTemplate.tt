@@ -233,7 +233,7 @@ var classes = new[] {
             new Property() { Type = "int", Name = "Type" }
         }
     },
-    /*new {
+    new {
         Name = "Province",
         Props = new[] {
             new Property() { Type = "TopFlags", Name = "Flags" },
@@ -290,7 +290,7 @@ var classes = new[] {
             new Property() { Type = "bool", Name = "HreLiberated" },
             new Property() { Type = "bool", Name = "UserChangedName" }
         }
-    },*/
+    },
     new {
         Name = "Country",
         Props = new[] {
@@ -925,7 +925,7 @@ var classes = new[] {
             new Property() { Type = "bool?", Name = "Inactive" }
         }
     },
-    /*new {
+    new {
         Name = "War",
         Props = new[] {
             new Property() { Type = "string", Name = "Name", Quoted = true },
@@ -950,7 +950,7 @@ var classes = new[] {
             new Property() { Type = "DateTime", Name = "NextYearUpdate" },
             new Property() { Type = "int", Name = "StalledYears" }
         }
-    },*/
+    },
     new {
         Name = "BattleResult",
         Props = new[] {
@@ -1015,6 +1015,14 @@ var classes = new[] {
             new Property() { Type = "DateTime", Name = "DeathDate" },
             new Property() { Type = "ParadoxId", Name = "Id" }
 		}
+	},
+	new {
+		Name = "LedgerData",
+		Props = new[] {
+            new Property() { Type = "[ConsecutiveElements] IList<int>", Name = "YData", Alias = "ledger_data_y" },
+            new Property() { Type = "[ConsecutiveElements] IList<int>", Name = "XData", Alias = "ledger_data_x" },
+            new Property() { Type = "string", Name = "Name", Quoted = true },
+		}
 	}
 };
 
@@ -1064,6 +1072,20 @@ var dict = new Dictionary<string, string>()
     { "[ConsecutiveElements] List<DateTime>", "parser.ReadDateTimeList()" }
 };
 
+var specials = new[] {"Savegame", "Province", "War"};
+var qt = classes.Select(x => x.Name).Except(specials);
+
+foreach (var val in qt) { #>
+	public partial class <#= val #>
+	{
+		partial void unrecognizedToken(ParadoxParser parser, string token)
+		{
+			throw new ApplicationException("Unrecognized token: " + token);
+		}
+	}
+<# } 
+
+
 foreach (var clazz in classes) { #>
     public partial class <#= clazz.Name #> : IParadoxRead, IParadoxWrite
     {
@@ -1112,8 +1134,8 @@ foreach (var clazz in classes) { #>
             WriteLine("; break;");
         }
 
-        if (exhaustive && clazz.Name != "Savegame" && clazz.Name != "Province") {
-            WriteLine("default: throw new ApplicationException(\"Unrecognized token: \" + token);");
+        if (exhaustive) {
+            WriteLine("default: unrecognizedToken(parser, token); break;");
         }
         
         WriteLine("}");
@@ -1225,7 +1247,10 @@ foreach (var clazz in classes) { #>
         ClearIndent();
     #>
         }
+
+		partial void unrecognizedToken(ParadoxParser parser, string token);
     }
 
 <# } #>
 }
+

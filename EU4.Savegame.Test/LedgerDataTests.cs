@@ -38,27 +38,5 @@ namespace EU4.Savegame.Test
 
             FileAssert.AreEqual("LedgerDataFile.txt", "LedgerDataFile.out");
         }
-
-        [Test]
-        public void LedgerGetData()
-        {
-            LedgerData ld = new LedgerData()
-            {
-                Name = "---",
-                XData = new[] { 1445, 1446, 1447, 1448, 1449, 1450 },
-                YData = new[] { 0, 1, 0, 2, 0, 0 }               
-            };
-
-            IList<Tuple<int, int>> expected = new List<Tuple<int, int>>() 
-            {
-                Tuple.Create(1445, 0),
-                Tuple.Create(1446, 1),
-                Tuple.Create(1447, 0),
-                Tuple.Create(1448, 2),
-                Tuple.Create(1449, 0),
-                Tuple.Create(1450, 0)
-            };
-            CollectionAssert.AreEqual(expected, ld.GetData());
-        }
     }
 }

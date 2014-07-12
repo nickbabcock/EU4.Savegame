@@ -60,7 +60,6 @@
     <Compile Include="GameplaySettings.cs" />
     <Compile Include="History.cs" />
     <Compile Include="IHistory.cs" />
-    <Compile Include="LedgerData.cs" />
     <Compile Include="LedgerDataCollection.cs" />
     <Compile Include="ParseTemplate.cs">
       <AutoGen>True</AutoGen>
