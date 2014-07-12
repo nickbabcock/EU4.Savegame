@@ -1,0 +1,35 @@
+﻿<html>
+  <head>
+    <link rel='stylesheet' type='text/css' href='//cdn.datatables.net/1.10.0/css/jquery.dataTables.css'/>
+  </head>
+	<body>
+		<p>
+		{{ player }}
+		</p>
+		<table>
+      <thead>
+        <td>Commander</td>
+        <td>Country</td>
+        <td>Battles Fought</td>
+        <td>Battles Won When Outnumbered</td>
+      </thead>
+      <tbody>
+      {% for item in com -%}
+        <tr>
+          <td>{{ item.name }}</td>
+          <td>{{ item.country }}</td>
+          <td>{{ item.battles }}</td>
+          <td>{{ item.outnumbered_wins }}</td>
+        </tr>
+      {% endfor -%}
+      </tbody>
+		</table>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src='//cdn.datatables.net/1.10.0/js/jquery.dataTables.js'></script>
+    <script type="text/javascript">
+      $(function() {
+        $('table').dataTable();
+      });
+    </script>
+	</body>
+</html>

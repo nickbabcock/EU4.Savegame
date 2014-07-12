@@ -3,6 +3,10 @@
 open EU4.Savegame;
 open EU4.Stats.Types
 
+type Commander = {
+    name : string; country : string; battles : int; outnumberedWins : int;
+}
+
 let private wars (save:Save) = (save.ActiveWars, save.PreviousWars) ||> Seq.append
 let private getBattles (war:War) =
     war.History
@@ -37,4 +41,5 @@ let WinsOutnumbers (save:Save) =
         let ws = battles
                  |> Seq.where (fun (me,you,win,_) ->
                         (forces me) < (forces you) && win)
-        (name, country, Seq.length battles, Seq.length ws))
+        { name = name; country = country; battles = Seq.length battles;
+          outnumberedWins = Seq.length ws })

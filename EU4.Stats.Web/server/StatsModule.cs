@@ -1,5 +1,4 @@
-﻿using Mustache;
-using Nancy;
+﻿using Nancy;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,6 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using EU4.Stats;
+using DotLiquid;
+using EU4.Savegame;
+using Pdoxcl2Sharp;
 
 namespace EU4.Stats.Web
 {
@@ -46,20 +48,18 @@ namespace EU4.Stats.Web
                 if (extension == null)
                     throw new ArgumentException("File extension can't be null");
 
-                EU4.Savegame.Save savegame;
+                Save savegame;
                 using (var stream = getStream(file, extension))
-                    savegame = new EU4.Savegame.Save(stream);
+                    savegame = new Save(stream);
 
                 // Turn the savegame into html and return the url for it
-                FormatCompiler compiler = new FormatCompiler();
-                string template = File.ReadAllText("template.hb");
-                Generator generator = compiler.Compile(template);
-
-                var item = new { Player=savegame.Player, Com=WarStats.WinsOutnumbers(savegame) };
-                string contents = generator.Render(item);
+                var aggregation = aggregateSave(savegame);
+                var template = Template.Parse(File.ReadAllText("template.html"));
+                Template.RegisterSafeType(typeof(WarStats.Commander), new[] { "name", "country", "battles", "outnumberedWins" });
+                string contents = template.Render(Hash.FromDictionary(aggregation));
                 string filename = Interlocked.Increment(ref id) + ".html";
                 string loc = Path.Combine(gamedir, filename);
-                File.WriteAllText(loc, contents);
+                File.WriteAllText(loc, contents, Pdoxcl2Sharp.Globals.ParadoxEncoding);
                 return Path.Combine("games", Path.GetFileNameWithoutExtension(loc));
             };
         }
@@ -75,6 +75,15 @@ namespace EU4.Stats.Web
                 default:
                     throw new ArgumentException("Extension not recognized: " + extension);
             }
+        }
+
+        private IDictionary<string, object> aggregateSave(Save save)
+        {
+            return new Dictionary<string, object>()
+            {
+                { "player", save.Player },
+                { "com", WarStats.WinsOutnumbers(save) }
+            };
         }
     }
 }
