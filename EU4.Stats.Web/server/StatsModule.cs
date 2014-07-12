@@ -20,6 +20,8 @@ namespace EU4.Stats.Web
         {
             basedir = "/var/www/stats";
             gamedir = Path.Combine(basedir, "games");
+
+            // Pick up with the last id written so we don't overwrite
             var q = Directory.EnumerateFiles(gamedir)
                 .Select(x => Path.GetFileNameWithoutExtension(x))
                 .Select(x => int.Parse(x))
@@ -32,7 +34,11 @@ namespace EU4.Stats.Web
         {
             Post["/games"] = _ =>
             {
+                // Get the temporary location of the file on the server
                 var file = Request.Headers["X-FILE"].FirstOrDefault();
+
+                // Get the extension of the file when it was uploaded as the
+                // temporary file doesn't have an extension
                 var extension = Request.Headers["X-FILE-EXTENSION"].FirstOrDefault();
                 if (file == null)
                     throw new ArgumentException("File can't be null");
@@ -43,6 +49,7 @@ namespace EU4.Stats.Web
                 using (var stream = getStream(file, extension))
                     savegame = new EU4.Savegame.Savegame(stream);
 
+                // Turn the savegame into html and return the url for it
                 FormatCompiler compiler = new FormatCompiler();
                 string template = File.ReadAllText("template.hb");
                 Generator generator = compiler.Compile(template);
@@ -63,7 +70,7 @@ namespace EU4.Stats.Web
                 case ".eu4": return stream;
                 case ".gz": return new GZipStream(stream, CompressionMode.Decompress);
                 default:
-                    throw new ArgumentException("Extension not recognized: " + filename);
+                    throw new ArgumentException("Extension not recognized: " + extension);
             }
         }
     }
