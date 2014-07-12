@@ -1,10 +1,9 @@
 ﻿using Mustache;
 using Nancy;
-using Nancy.Bootstrapper;
-using Nancy.TinyIoc;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -19,10 +18,7 @@ namespace EU4.Stats.Web
 
         static StatsModule()
         {
-            basedir = Environment.GetEnvironmentVariable("EU4_STATS_LOC");
-            if (string.IsNullOrWhiteSpace(basedir))
-                throw new ApplicationException("Env EU4_STATS_LOC must be set");
-
+            basedir = "/var/www/stats";
             gamedir = Path.Combine(basedir, "games");
             var q = Directory.EnumerateFiles(gamedir)
                 .Select(x => Path.GetFileNameWithoutExtension(x))
@@ -37,10 +33,16 @@ namespace EU4.Stats.Web
             Post["/games"] = _ =>
             {
                 var file = Request.Headers["X-FILE"].FirstOrDefault();
+                var extension = Request.Headers["X-FILE-EXTENSION"].FirstOrDefault();
                 if (file == null)
                     throw new ArgumentException("File can't be null");
+                if (extension == null)
+                    throw new ArgumentException("File extension can't be null");
 
-                var savegame = new EU4.Savegame.Savegame(file);
+                EU4.Savegame.Savegame savegame;
+                using (var stream = getStream(file, extension))
+                    savegame = new EU4.Savegame.Savegame(stream);
+
                 FormatCompiler compiler = new FormatCompiler();
                 string template = File.ReadAllText("template.hb");
                 Generator generator = compiler.Compile(template);
@@ -48,8 +50,21 @@ namespace EU4.Stats.Web
                 string filename = Interlocked.Increment(ref id) + ".html";
                 string loc = Path.Combine(gamedir, filename);
                 File.WriteAllText(loc, contents);
-                return loc;
+                return Path.Combine("games", Path.GetFileNameWithoutExtension(loc));
             };
+        }
+
+        private Stream getStream(string filename, string extension)
+        {
+            var stream = new FileStream(filename, FileMode.Open,
+                            FileAccess.Read, FileShare.ReadWrite, 1024 * 64);
+            switch (extension)
+            {
+                case ".eu4": return stream;
+                case ".gz": return new GZipStream(stream, CompressionMode.Decompress);
+                default:
+                    throw new ArgumentException("Extension not recognized: " + filename);
+            }
         }
     }
 }
