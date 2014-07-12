@@ -52,11 +52,13 @@
     <Compile Include="ActiveRelation.cs" />
     <Compile Include="ActiveRelationCollection.cs" />
     <Compile Include="CardinalCollection.cs" />
+    <Compile Include="CombatPositions.cs" />
     <Compile Include="Country.cs" />
     <Compile Include="CountryCollection.cs" />
     <Compile Include="CountryHistory.cs" />
     <Compile Include="Demands.cs" />
     <Compile Include="EnvoyCollection.cs" />
+    <Compile Include="Events.cs" />
     <Compile Include="GameplaySettings.cs" />
     <Compile Include="History.cs" />
     <Compile Include="IHistory.cs" />

@@ -49,7 +49,7 @@ var classes = new[] {
             new Property() { Type = "[ConsecutiveElements] IList<double>", Name = "TradegoodsTotalProduced" },
             new Property() { Type = "[ConsecutiveElements] IList<int>", Name = "TradegoodsNumSupplyProvinces" },
             new Property() { Type = "[ConsecutiveElements] IList<int>", Name = "TradegoodsNumDemandProvinces" },
-            //new Property() { Type = "IList<ParadoxId>", Name = "UndocumentedIds", Alias = "id" },
+            new Property() { Type = "IList<ParadoxId>", Name = "UndocumentedIds", Alias = "id" },
             new Property() { Type = "IList<RebelFaction>", Name = "RebelFactions" },
             new Property() { Type = "[ConsecutiveElements] IList<int>", Name = "LatestPirateTargets" },
             new Property() { Type = "string", Name = "Emperor", Quoted = true },
@@ -62,16 +62,20 @@ var classes = new[] {
             new Property() { Type = "IList<OldEmperor>", Name = "OldEmperors" },
             new Property() { Type = "ReligionCollection", Name = "Religions" },
             new Property() { Type = "Papacy", Name = "Papacy" },
+            new Property() { Type = "Events", Name = "FiredEvents" },
+            new Property() { Type = "Events", Name = "PendingEvents" },
             new Property() { Type = "ProvinceCollection", Name = "Provinces" },
             new Property() { Type = "CountryCollection", Name = "Countries" },
             new Property() { Type = "ActiveAdvisorCollection", Name = "ActiveAdvisors" },
             new Property() { Type = "Diplomacy", Name = "Diplomacy" },
+			new Property() { Type = "Combat", Name = "Combat" },
             new Property() { Type = "LedgerDataCollection", Name = "IncomeStatistics" },
             new Property() { Type = "LedgerDataCollection", Name = "NationSizeStatistics" },
             new Property() { Type = "LedgerDataCollection", Name = "ScoreStatistics" },
             new Property() { Type = "LedgerDataCollection", Name = "InflationStatistics" },
             new Property() { Type = "IList<War>", Name = "ActiveWars" },
-            new Property() { Type = "IList<War>", Name = "PreviousWars" }
+            new Property() { Type = "IList<War>", Name = "PreviousWars" },
+			new Property() { Type = "string", Name = "Checksum", Quoted = true }
         }
     },
     new {
@@ -1024,6 +1028,92 @@ var classes = new[] {
             new Property() { Type = "[ConsecutiveElements] IList<int>", Name = "YData", Alias = "ledger_data_y" },
             new Property() { Type = "[ConsecutiveElements] IList<int>", Name = "XData", Alias = "ledger_data_x" },
             new Property() { Type = "string", Name = "Name", Quoted = true },
+		}
+	},
+	new {
+		Name = "NavalCombatant",
+		Props = new[] {
+            new Property() { Type = "int", Name = "Dice" },
+            new Property() { Type = "bool", Name = "IsAttacker" },
+            new Property() { Type = "ParadoxId", Name = "Unit" },
+            new Property() { Type = "int", Name = "Losses" },
+            new Property() { Type = "[ConsecutiveElements] IList<double>", Name = "LossesType" },
+            new Property() { Type = "double?", Name = "LightShip" },
+            new Property() { Type = "double?", Name = "HeavyShip" },
+            new Property() { Type = "double?", Name = "Transport" },
+            new Property() { Type = "double?", Name = "Galley" },
+            new Property() { Type = "IList<string>", Name = "ParticipatingCountry", Quoted = true },
+            new Property() { Type = "double", Name = "Positioning" }
+		}
+	},
+	new {
+		Name = "LandCombatant",
+		Props = new[] {
+            new Property() { Type = "int", Name = "Dice" },
+            new Property() { Type = "bool", Name = "IsAttacker" },
+            new Property() { Type = "ParadoxId", Name = "Unit" },
+            new Property() { Type = "int", Name = "Losses" },
+            new Property() { Type = "[ConsecutiveElements] IList<double>", Name = "LossesType" },
+            new Property() { Type = "IList<string>", Name = "ParticipatingCountry", Quoted = true },
+			new Property() { Type = "double?", Name = "Cavalry" },
+            new Property() { Type = "double?", Name = "Infantry" },
+            new Property() { Type = "double?", Name = "Artillery" },
+            new Property() { Type = "CombatPositions", Name = "Front" },
+            new Property() { Type = "CombatPositions", Name = "Back" },
+            new Property() { Type = "IList<ParadoxId>", Name = "Retreats" },
+		}
+	},
+	new {
+		Name = "NavalCombat",
+		Props = new[] {
+            new Property() { Type = "ParadoxId", Name = "Id" },
+            new Property() { Type = "int", Name = "Location" },
+            new Property() { Type = "int", Name = "Phase" },
+            new Property() { Type = "int", Name = "Day" },
+            new Property() { Type = "int", Name = "Duration" },
+            new Property() { Type = "NavalCombatant", Name = "Attacker" },
+            new Property() { Type = "NavalCombatant", Name = "Defender" },
+            new Property() { Type = "string", Name = "Terrain", Quoted = true }
+		}
+	},
+	new {
+		Name = "LandCombat",
+		Props = new[] {
+            new Property() { Type = "ParadoxId", Name = "Id" },
+            new Property() { Type = "int", Name = "Location" },
+            new Property() { Type = "int", Name = "Phase" },
+            new Property() { Type = "int", Name = "Day" },
+            new Property() { Type = "int", Name = "Duration" },
+            new Property() { Type = "LandCombatant", Name = "Attacker" },
+            new Property() { Type = "LandCombatant", Name = "Defender" },
+            new Property() { Type = "string", Name = "Terrain", Quoted = true }
+		}
+	},
+	new {
+		Name = "SiegeCombat",
+		Props = new[] {
+            new Property() { Type = "ParadoxId", Name = "Id" },
+            new Property() { Type = "int", Name = "Location" },
+            new Property() { Type = "int", Name = "Phase" },
+            new Property() { Type = "int", Name = "Day" },
+            new Property() { Type = "int", Name = "Duration" },
+            new Property() { Type = "LandCombatant", Name = "Attacker" },
+            new Property() { Type = "LandCombatant", Name = "Defender" },
+            new Property() { Type = "string", Name = "Terrain", Quoted = true },
+            new Property() { Type = "double", Name = "Morale" },
+            new Property() { Type = "int", Name = "Breach" },
+            new Property() { Type = "int", Name = "Roll" },
+            new Property() { Type = "int", Name = "Total" },
+            new Property() { Type = "DateTime", Name = "LastAssault" },
+            new Property() { Type = "bool", Name = "Active" }
+		}
+	},
+	new {
+		Name = "Combat",
+		Props = new[] {
+            new Property() { Type = "IList<SiegeCombat>", Name = "SiegeCombats" },
+            new Property() { Type = "IList<LandCombat>", Name = "LandCombats" },
+            new Property() { Type = "IList<NavalCombat>", Name = "NavalCombats" }
 		}
 	}
 };

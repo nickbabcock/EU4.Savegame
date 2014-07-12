@@ -29,6 +29,8 @@ namespace EU4.Savegame
         partial void unrecognizedToken(ParadoxParser parser, string token)
         {
             readMagic = !readMagic && token == "EU4txt";
+            if (!readMagic)
+                throw new ApplicationException("Unrecognized token: " + token);
         }
     }
 }
