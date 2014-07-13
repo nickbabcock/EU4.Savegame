@@ -7,10 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using EU4.Stats;
-using DotLiquid;
 using EU4.Savegame;
 using Pdoxcl2Sharp;
 using ICSharpCode.SharpZipLib.Zip;
+using Mustache;
 
 namespace EU4.Stats.Web
 {
@@ -54,10 +54,17 @@ namespace EU4.Stats.Web
                     savegame = new Save(stream);
 
                 // Turn the savegame into html and return the url for it
-                var aggregation = aggregateSave(savegame);
-                var template = Template.Parse(File.ReadAllText("template.html"));
-                Template.RegisterSafeType(typeof(WarStats.Commander), new[] { "name", "country", "battles", "outnumberedWins" });
-                string contents = template.Render(Hash.FromDictionary(aggregation));
+                FormatCompiler compiler = new FormatCompiler();
+                var template = File.ReadAllText("template.html");
+                Generator generator = compiler.Compile(template);
+                string contents = generator.Render(new
+                {
+                    Player = savegame.Player,
+                    Date = savegame.Date,
+                    Com = WarStats.LeaderReport(savegame)
+                });
+
+
                 string filename = Interlocked.Increment(ref id) + ".html";
                 string loc = Path.Combine(gamedir, filename);
                 File.WriteAllText(loc, contents, Pdoxcl2Sharp.Globals.ParadoxEncoding);
@@ -87,15 +94,6 @@ namespace EU4.Stats.Web
                     stream.Close();
                     throw new ArgumentException("Extension not recognized: " + extension);
             }
-        }
-
-        private IDictionary<string, object> aggregateSave(Save save)
-        {
-            return new Dictionary<string, object>()
-            {
-                { "player", save.Player },
-                { "com", WarStats.WinsOutnumbers(save) }
-            };
         }
     }
 }

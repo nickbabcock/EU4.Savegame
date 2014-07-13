@@ -1,29 +1,34 @@
 ﻿<html>
   <head>
     <link rel='stylesheet' type='text/css' href='//cdn.datatables.net/1.10.0/css/jquery.dataTables.css'/>
+    <title>{{Player}} - {{Date}}</title>
   </head>
-	<body>
-		<p>
-		{{ player }}
-		</p>
-		<table>
+  <body>
+    <p>
+    {{Player}}
+    </p>
+    <table>
       <thead>
-        <td>Commander</td>
-        <td>Country</td>
-        <td>Battles Fought</td>
-        <td>Battles Won When Outnumbered</td>
+        <tr>
+          <th>Commander</th>
+          <th>Country</th>
+          <th>Forces Commanded</th>
+          <th>Enemies Killed</th>
+          <th>Casualties</th>
+        </tr>
       </thead>
       <tbody>
-      {% for item in com -%}
+      {{#each Com}}
         <tr>
-          <td>{{ item.name }}</td>
-          <td>{{ item.country }}</td>
-          <td>{{ item.battles }}</td>
-          <td>{{ item.outnumbered_wins }}</td>
+          <td>{{Item1.Name}}</td>
+          <td>{{Item2}}</td>
+          <td>{{Item3}}</td>
+          <td>{{Item4}}</td>
+          <td>{{Item5}}</td>
         </tr>
-      {% endfor -%}
+      {{/each}}
       </tbody>
-		</table>
+    </table>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src='//cdn.datatables.net/1.10.0/js/jquery.dataTables.js'></script>
     <script type="text/javascript">
@@ -31,5 +36,5 @@
         $('table').dataTable();
       });
     </script>
-	</body>
+  </body>
 </html>
