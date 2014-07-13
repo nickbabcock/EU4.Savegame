@@ -10,6 +10,7 @@ using EU4.Stats;
 using DotLiquid;
 using EU4.Savegame;
 using Pdoxcl2Sharp;
+using ICSharpCode.SharpZipLib.Zip;
 
 namespace EU4.Stats.Web
 {
@@ -72,7 +73,18 @@ namespace EU4.Stats.Web
             {
                 case ".eu4": return stream;
                 case ".gz": return new GZipStream(stream, CompressionMode.Decompress);
+                case ".zip":
+                    var zf = new ZipFile(stream);
+                    foreach (ZipEntry e in zf)
+                    {
+                        if (Path.GetExtension(e.Name) == ".eu4")
+                            return zf.GetInputStream(e);
+                    }
+
+                    zf.Close();
+                    throw new ApplicationException("EU4 file not found in zip file");
                 default:
+                    stream.Close();
                     throw new ArgumentException("Extension not recognized: " + extension);
             }
         }
