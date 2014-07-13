@@ -1,3 +1,43 @@
 body {
-    background-image: url('/img/crossword.jpg');
+    background-image: url('/img/crossword.png');
+    line-height: 1.75em;
+    color: rgba(0,0,0,0.75);
+}
+
+div.container {
+    margin-top: 5em;
+    padding: 2em; 
+    max-width: 1000px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 1em;
+    box-shadow: 0px 0px 30px 6px #dddddd
+}
+
+footer {
+    margin-top: 2em;
+}
+
+h1, h2 {
+    font-weight: bold;
+}
+
+* {
+    font-family: 'Gentium Book Basic', serif;
+}
+
+p {
+    font-size: 1.2em;
+}
+
+div.error {
+    display: none;
+    margin-right: -2em;
+    margin-left: -2em;
+    padding-left: 2em;
+    padding-right: 2em;
+    background-color: #FF6138;
+    padding-top: 0.1em;
+    padding-bottom: 0.1em;
+    margin-top: 1.5em;
 }

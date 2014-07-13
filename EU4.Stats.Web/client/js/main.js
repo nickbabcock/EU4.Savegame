@@ -5,6 +5,11 @@ function upload(file) {
         if (this.status === 200) {
             window.location.href = this.response;
         }
+        else if (this.status === 500) {
+            var data = JSON.parse(this.response);
+            $('div.error').fadeIn();
+            $('#errorText').text("ERROR: " + data.error.message);
+        }
     };
     
     var extension = file.name.substr(file.name.lastIndexOf('.'));
