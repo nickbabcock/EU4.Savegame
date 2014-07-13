@@ -2,6 +2,7 @@ body {
     background-image: url('/img/crossword.png');
     line-height: 1.75em;
     color: rgba(0,0,0,0.75);
+    padding-top: 5em;
 }
 
 div.container {
