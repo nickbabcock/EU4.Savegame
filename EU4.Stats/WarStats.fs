@@ -111,3 +111,61 @@ let private biggestWars (save:Save) (fn:HistoricCombatant -> int) =
 
 let BiggestNavalWars (save:Save) = biggestWars save navalDeployments
 let BiggestLandWars (save:Save) = biggestWars save landDeployments
+
+type BiggestRivalries = {
+    description: string; battles: int; forces1: int; losses1: int; wins1: int;
+    forces2: int; losses2: int; wins2 : int;
+}
+
+let BiggestCommanderRivalry (save:Save) =
+    let countryLeaders =
+        save.Countries 
+        |> Seq.collect (fun x -> 
+            (leaders x)
+            |> Seq.map (fun l -> (l.Name, l)))
+        |> Map.ofSeq
+
+    wars save 
+    |> battles
+    |> Seq.where (fun x -> x.Attacker.Commander <> "")
+    |> Seq.where (fun x -> x.Defender.Commander <> "")
+
+    // We actually need to check to make sure that a country has the specified
+    // commander has there has been commanderes that are listed in battles do
+    // not show up under any country
+    |> Seq.where (fun x -> countryLeaders.TryFind(x.Attacker.Commander) <> None)
+    |> Seq.where (fun x -> countryLeaders.TryFind(x.Defender.Commander) <> None)
+
+    // The group battles by commanders -- they are grouped alphabetically
+    |> Seq.groupBy (fun x ->
+        if x.Attacker.Commander < x.Defender.Commander then
+            (x.Attacker.Commander, x.Attacker.Country, x.Defender.Commander, x.Defender.Country)
+        else
+            (x.Defender.Commander, x.Defender.Country, x.Attacker.Commander, x.Attacker.Country))
+    |> Seq.map (fun ((com1, c1, com2, c2), battles) -> 
+        let findbs name = seq { 
+            for b in battles -> if name = b.Attacker.Commander
+                                then (b.Attacker, b.Result)
+                                else (b.Defender, not b.Result) }
+        let com1bs = findbs com1 |> Seq.map fst
+        let com2bs = findbs com2 |> Seq.map fst
+        let com1l = com1bs |> Seq.map (fun x -> x.Losses) |> Seq.fold (+) 0
+        let com2l = com2bs |> Seq.map (fun x -> x.Losses) |> Seq.fold (+) 0
+        let com1f = com1bs |> Seq.map forces |> Seq.fold (+) 0
+        let com2f = com2bs |> Seq.map forces |> Seq.fold (+) 0
+        let com1Wins = findbs com1 |> Seq.map snd |> Seq.where id |> Seq.length
+        let com2Wins = findbs com2 |> Seq.map snd |> Seq.where id |> Seq.length
+
+        let stats name =
+            let leader = countryLeaders.[name]
+            sprintf "(%d/%d/%d/%d)" leader.Fire leader.Shock
+                                    leader.Manuever leader.Siege
+
+        let com1Stats = stats com1
+        let com2Stats = stats com2
+
+        { description = sprintf "%s%s and %s%s of %s and %s" com1 com1Stats
+                                 com2 com2Stats c1 c2;
+          battles = Seq.length battles; forces1 = com1f; losses1 = com1l;
+          wins1 = com1Wins; forces2 = com2f; losses2 = com2l; wins2 = com2Wins })
+    |> Seq.sortBy (fun rivalry -> (~-) rivalry.battles)

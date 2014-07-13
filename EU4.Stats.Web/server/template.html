@@ -93,6 +93,31 @@
         {{/each}}
       </tbody>
     </table>
+
+
+    <h2>Top 10 Biggest Commander Rivalries</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Rivalry</th>
+          <th>Battles</th>
+          <th>Wins</th>
+          <th>Forces</th>
+          <th>Losses</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each BiggestCommanderRivalries}}
+        <tr>
+          <td>{{description}}</td>
+          <td>{{battles}}</td>
+          <td>{{wins1}}/{{wins2}}</td>
+          <td>{{forces1}}/{{forces2}}</td>
+          <td>{{losses1}}/{{losses2}}</td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src='//cdn.datatables.net/1.10.0/js/jquery.dataTables.js'></script>
     <script type="text/javascript">
