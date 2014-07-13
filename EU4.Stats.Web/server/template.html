@@ -29,6 +29,70 @@
       {{/each}}
       </tbody>
     </table>
+
+    <h2>Top 10 Biggest Naval Wars</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>War</th>
+          <th>Attacker</th>
+          <th>Defender</th>
+          <th>Battles</th>
+          <th>Attacker Ships Deployed</th>
+          <th>Attacker Ships Losses</th>
+          <th>Defender Ships Deployed</th>
+          <th>Defender Ships Losses</th>
+          <th>Deployments and Losses</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each DeadliestNavalWars}}
+        <tr>
+          <td>{{name}}</td>
+          <td>{{attacker}}</td>
+          <td>{{defender}}</td>
+          <td>{{battles}}</td>
+          <td>{{attackerDeployments}}</td>
+          <td>{{attackerLosses}}</td>
+          <td>{{defenderDeployments}}</td>
+          <td>{{defenderLosses}}</td>
+          <td>{{depsAndLosses}}</td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+
+    <h2>Top 10 Biggest Land Wars</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>War</th>
+          <th>Attacker</th>
+          <th>Defender</th>
+          <th>Battles</th>
+          <th>Attacker Units Deployed</th>
+          <th>Attacker Units Losses</th>
+          <th>Defender Units Deployed</th>
+          <th>Defender Units Losses</th>
+          <th>Deployments and Losses</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each DeadliestLandWars}}
+        <tr>
+          <td>{{name}}</td>
+          <td>{{attacker}}</td>
+          <td>{{defender}}</td>
+          <td>{{battles}}</td>
+          <td>{{attackerDeployments}}</td>
+          <td>{{attackerLosses}}</td>
+          <td>{{defenderDeployments}}</td>
+          <td>{{defenderLosses}}</td>
+          <td>{{depsAndLosses}}</td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src='//cdn.datatables.net/1.10.0/js/jquery.dataTables.js'></script>
     <script type="text/javascript">

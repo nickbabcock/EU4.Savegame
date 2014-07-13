@@ -9,10 +9,12 @@ type LeaderReport = {
 
 let private wars (save:Save) = (save.ActiveWars, save.PreviousWars) ||> Seq.append
 let private getBattles (war:War) =
-    war.History
-    |> Seq.fold (fun lst elem -> match elem with
-                                 | :? BattleResult as b -> b :: lst
-                                 | _ -> lst) []
+    if war = null || war.History = null then Seq.empty else seq {
+        for event in war.History do
+            match event with
+            | :? BattleResult as b -> yield b
+            | _ -> ()
+    }
 
 let private battles (wars:seq<War>) = wars |> Seq.collect getBattles
 let private leaders (country:Country) =
@@ -66,3 +68,46 @@ let LeaderReport (save:Save) =
                 (f + forces me, k + you.Losses, l + me.Losses)) (0, 0, 0)
 
         (x.leader, x.country, forces, kills, losses))
+
+type DeploymentsWarReport = {
+    name : string; attacker : string; defender : string; attackerDeployments : int;
+    battles: int; attackerLosses : int; defenderDeployments: int; defenderLosses: int;
+    depsAndLosses: int
+}
+
+/// Summation of all the naval units a side deployed in a naval battle
+let private navalDeployments (combatant:HistoricCombatant) =
+    combatant.HeavyShip.GetValueOrDefault() +
+    combatant.LightShip.GetValueOrDefault() +
+    combatant.Galley.GetValueOrDefault() +
+    combatant.Transport.GetValueOrDefault()
+
+/// Summation of all the land units a side deployed in a land battle
+let private landDeployments (combatant:HistoricCombatant) =
+    combatant.Artillery.GetValueOrDefault() +
+    combatant.Cavalry.GetValueOrDefault() +
+    combatant.Infantry.GetValueOrDefault();
+
+/// Calculates the "biggest" wars, which is the sum of all the deployments
+/// and casualties in a war
+let private biggestWars (save:Save) (fn:HistoricCombatant -> int) =
+    wars save
+    |> Seq.map (fun war ->
+        let attackers = getBattles war |> Seq.map (fun x -> x.Attacker) 
+                        |> Seq.where (fun x -> fn x <> 0)
+        let defenders = getBattles war |> Seq.map (fun x -> x.Defender) 
+                        |> Seq.where (fun x -> fn x <> 0)
+        let attackerDeps = attackers |> Seq.map fn |> Seq.fold (+) 0
+        let defenderDeps = defenders |> Seq.map fn |> Seq.fold (+) 0
+        let attackerLosses = attackers |> Seq.map (fun x -> x.Losses) |> Seq.fold (+) 0
+        let defenderLosses = defenders |> Seq.map (fun x -> x.Losses) |> Seq.fold (+) 0
+
+        { name = war.Name; attacker = war.OriginalAttacker;
+          defender = war.OriginalDefender; battles = Seq.length attackers;
+          attackerDeployments = attackerDeps; attackerLosses = attackerLosses;
+          defenderDeployments = defenderDeps; defenderLosses = defenderLosses;
+          depsAndLosses = attackerDeps + defenderDeps + attackerLosses + defenderLosses })
+    |> Seq.sortBy (fun x -> (~-) (x.depsAndLosses))
+
+let BiggestNavalWars (save:Save) = biggestWars save navalDeployments
+let BiggestLandWars (save:Save) = biggestWars save landDeployments

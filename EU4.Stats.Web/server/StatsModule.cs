@@ -61,7 +61,9 @@ namespace EU4.Stats.Web
                 {
                     Player = savegame.Player,
                     Date = savegame.Date,
-                    Com = WarStats.LeaderReport(savegame)
+                    Com = WarStats.LeaderReport(savegame),
+                    DeadliestNavalWars = WarStats.BiggestNavalWars(savegame).Take(10),
+                    DeadliestLandWars = WarStats.BiggestLandWars(savegame).Take(10)
                 });
 
 
