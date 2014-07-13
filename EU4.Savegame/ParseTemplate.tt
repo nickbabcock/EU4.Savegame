@@ -119,20 +119,6 @@ var classes = new[] {
         }
     },
     new {
-        Name = "Leader",
-        Props = new[] {
-            new Property() { Type = "string", Name = "Name", Quoted = true },
-            new Property() { Type = "string", Name = "Type" },
-            new Property() { Type = "byte?", Name = "Manuever" },
-            new Property() { Type = "byte?", Name = "Fire" },
-            new Property() { Type = "byte?", Name = "Shock" },
-            new Property() { Type = "byte?", Name = "Siege" },
-            new Property() { Type = "string", Name = "Country", Quoted = true },
-            new Property() { Type = "DateTime", Name = "Activation"  },
-            new Property() { Type = "ParadoxId", Name = "Id" }
-        }
-    },
-    new {
         Name = "SavegameVersion",
         Props = new [] {
             new Property() { Type = "int", Name = "First" },
@@ -1114,6 +1100,58 @@ var classes = new[] {
             new Property() { Type = "IList<SiegeCombat>", Name = "SiegeCombats" },
             new Property() { Type = "IList<LandCombat>", Name = "LandCombats" },
             new Property() { Type = "IList<NavalCombat>", Name = "NavalCombats" }
+		}
+	},
+	new {
+		Name = "Leader",
+		Props = new[] {
+            new Property() { Type = "string", Name = "Name", Quoted = true },
+            new Property() { Type = "string", Name = "Type" },
+            new Property() { Type = "byte", Name = "Manuever" },
+            new Property() { Type = "byte", Name = "Fire" },
+            new Property() { Type = "byte", Name = "Shock" },
+            new Property() { Type = "byte", Name = "Siege" },
+            new Property() { Type = "string", Name = "Country", Quoted = true },
+            new Property() { Type = "DateTime", Name = "Activation" },
+            new Property() { Type = "DateTime", Name = "DeathDate" },
+            new Property() { Type = "ParadoxId", Name = "Id" }
+		}
+	},
+	new {
+		Name = "Monarch",
+		Props = new[] {
+            new Property() { Type = "string", Name = "Name", Quoted = true },
+            new Property() { Type = "string", Name = "Country", Quoted = true },
+            new Property() { Type = "byte", Name = "Dip", Alias = "DIP" },
+            new Property() { Type = "byte", Name = "Adm", Alias = "ADM" },
+            new Property() { Type = "byte", Name = "Mil", Alias = "MIL" },
+            new Property() { Type = "bool?", Name = "Regent" },
+            new Property() { Type = "bool?", Name = "Female" },
+            new Property() { Type = "ParadoxId", Name = "Id" },
+            new Property() { Type = "Leader", Name = "Leader" },
+            new Property() { Type = "string", Name = "Dynasty", Quoted = true },
+            new Property() { Type = "bool?", Name = "NonHistoricalDynastyForHistoricalMonarch", Alias = "nonhistoricaldynastyforhistoricalmonarch" },
+            new Property() { Type = "DateTime?", Name = "BirthDate" },
+            new Property() { Type = "bool?", Name = "Succeeded" }
+		}
+	},
+	new {
+		Name = "Heir",
+		Props = new[] {
+            new Property() { Type = "string", Name = "Name", Quoted = true },
+            new Property() { Type = "string", Name = "Country", Quoted = true },
+            new Property() { Type = "byte", Name = "Dip", Alias = "DIP" },
+            new Property() { Type = "byte", Name = "Adm", Alias = "ADM" },
+            new Property() { Type = "byte", Name = "Mil", Alias = "MIL" },
+            new Property() { Type = "ParadoxId", Name = "Id" },
+            new Property() { Type = "Leader", Name = "Leader" },
+            new Property() { Type = "string", Name = "Dynasty", Quoted = true },
+            new Property() { Type = "bool?", Name = "Female" },
+            new Property() { Type = "DateTime?", Name = "BirthDate" },
+            new Property() { Type = "bool", Name = "Succeeded" },
+            new Property() { Type = "DateTime?", Name = "DeathDate" },
+            new Property() { Type = "int?", Name = "Claim" },
+            new Property() { Type = "string", Name = "MonarchName", Quoted = true }
 		}
 	}
 };
