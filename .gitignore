@@ -6,3 +6,5 @@ obj/
 *.suo
 
 EU4.Savegame/ParseTemplate.cs
+
+node_modules

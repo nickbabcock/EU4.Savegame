@@ -5,7 +5,7 @@ function upload(file) {
         if (this.status === 200) {
             window.location.href = this.response;
         }
-    }
+    };
     
     var extension = file.name.substr(file.name.lastIndexOf('.'));
     xhr.setRequestHeader("X-FILE-EXTENSION", extension);
