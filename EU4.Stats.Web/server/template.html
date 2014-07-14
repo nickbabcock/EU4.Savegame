@@ -1,13 +1,15 @@
 ﻿<html>
   <head>
     <link rel='stylesheet' type='text/css' href='//cdn.datatables.net/1.10.0/css/jquery.dataTables.css'/>
-    <title>{{Player}} - {{Date}}</title>
+    <link rel='stylesheet' type='text/css' href='/css/main.css'/>
+    <title>{{Player}} - {{Date:yyyy.M.d}}</title>
   </head>
   <body>
+    <h1>Europa Universalis IV Savegame Stats</h1>
     <p>
-    {{Player}}
+    Players: {{Players}}
     </p>
-    <table>
+    <table class='paging'>
       <thead>
         <tr>
           <th>Commander</th>
@@ -31,6 +33,7 @@
     </table>
 
     <h2>Top 10 Biggest Naval Wars</h2>
+    <p>The top ten wars that have the largest number of combined deployed forces and losses on sea. Does not include land battles</p>
     <table>
       <thead>
         <tr>
@@ -63,6 +66,7 @@
     </table>
 
     <h2>Top 10 Biggest Land Wars</h2>
+    <p>The top ten wars that have the largest number of combined deployed forces and losses on land. Does not include naval battles</p>
     <table>
       <thead>
         <tr>
@@ -96,6 +100,9 @@
 
 
     <h2>Top 10 Biggest Commander Rivalries</h2>
+    <p>The same two commanders may find themselves facing each other quite
+    often throughout a period of wars. The following table depicts the
+    commanders who fought against each other the most</p>
     <table>
       <thead>
         <tr>
@@ -120,6 +127,14 @@
     </table>
 
     <h2>Ledger Correlations</h2>
+    <p>Every year EU4 marks the year and a value (score, income, inflation,
+    size) for each country, so that the player can view a nice chart of the
+    data. Ledger correlations shows the correlations between these values. For
+    instance, the correlation between size and income means: across all
+    countries when the size of the country fluctuates from year to year, does
+    that correspond to movement in income. A positive correlation means that as
+    the size of a nation increases, so does their income -- an intuitive
+    reasoning.</p>
     <table>
       <thead>
         <tr>
@@ -186,7 +201,13 @@
     <script src='//cdn.datatables.net/1.10.0/js/jquery.dataTables.js'></script>
     <script type="text/javascript">
       $(function() {
-        $('table').dataTable();
+        $('table.paging').dataTable();
+        $('table').not('table.paging').dataTable({
+          paging: false,
+          searching: false,
+          info: false,
+          order: []
+        });
       });
     </script>
   </body>

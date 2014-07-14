@@ -60,6 +60,8 @@ namespace EU4.Stats.Web
                 string contents = generator.Render(new
                 {
                     Player = savegame.Player,
+                    Players = string.Join(", ", savegame.Countries.Where(x => 
+                        x.Human.GetValueOrDefault()).Select(x => x.Abbreviation)),
                     Date = savegame.Date,
                     Com = WarStats.LeaderReport(savegame),
                     DeadliestNavalWars = WarStats.BiggestNavalWars(savegame).Take(10),
