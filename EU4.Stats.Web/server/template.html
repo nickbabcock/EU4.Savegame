@@ -1,6 +1,7 @@
 ﻿<html>
   <head>
-    <link rel='stylesheet' type='text/css' href='//cdn.datatables.net/1.10.0/css/jquery.dataTables.css'/>
+    <link rel='stylesheet' type='text/css' href='//cdn.jsdelivr.net/jquery.datatables/1.10.0/css/jquery.dataTables.min.css'/>
+    <link rel='stylesheet' type='text/css' href='//cdn.jsdelivr.net/jquery.datatables/1.10.0/plugins/tabletools/css/dataTables.tableTools.min.css'/>
     <link rel='stylesheet' type='text/css' href='/css/main.css'/>
     <title>{{Player}} - {{Date:yyyy.M.d}}</title>
   </head>
@@ -204,7 +205,8 @@
       </tbody>
     </table>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src='//cdn.datatables.net/1.10.0/js/jquery.dataTables.js'></script>
+    <script src='//cdn.jsdelivr.net/jquery.datatables/1.10.0/js/jquery.dataTables.min.js'></script>
+    <script src='//cdn.jsdelivr.net/jquery.datatables/1.10.0/plugins/tabletools/js/dataTables.tableTools.min.js'></script>
     <script type="text/javascript">
       $(function() {
         $('table.paging').dataTable();
@@ -212,7 +214,11 @@
           paging: false,
           searching: false,
           info: false,
-          order: []
+          order: [],
+          dom: 'T<"clear">lfrtip',
+          tableTools: { 
+            sSwfPath: "//cdn.jsdelivr.net/jquery.datatables/1.10.0/plugins/tabletools/swf/copy_csv_xls_pdf.swf"
+          }
         });
       });
     </script>
