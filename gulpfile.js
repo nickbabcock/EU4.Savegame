@@ -30,7 +30,8 @@ gulp.task('js', function() {
 });
 
 gulp.task('assets', function() {
-    return gulp.src('EU4.Stats.Web/client/index.html')
+    return gulp.src(['EU4.Stats.Web/client/index.html',
+                     'EU4.Stats.Web/client/favicon.ico'])
         .pipe(gulp.dest('bin/.'));
 });
 
