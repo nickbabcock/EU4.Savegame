@@ -207,20 +207,6 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src='//cdn.jsdelivr.net/jquery.datatables/1.10.0/js/jquery.dataTables.min.js'></script>
     <script src='//cdn.jsdelivr.net/jquery.datatables/1.10.0/plugins/tabletools/js/dataTables.tableTools.min.js'></script>
-    <script type="text/javascript">
-      $(function() {
-        $('table.paging').dataTable();
-        $('table').not('table.paging').dataTable({
-          paging: false,
-          searching: false,
-          info: false,
-          order: [],
-          dom: 'T<"clear">lfrtip',
-          tableTools: { 
-            sSwfPath: "//cdn.jsdelivr.net/jquery.datatables/1.10.0/plugins/tabletools/swf/copy_csv_xls_pdf.swf"
-          }
-        });
-      });
-    </script>
+    <script src='/js/games.js'>
   </body>
 </html>
