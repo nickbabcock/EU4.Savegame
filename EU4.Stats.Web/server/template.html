@@ -9,24 +9,29 @@
     <p>
     Players: {{Players}}
     </p>
+    {{#with WarStats}}
     <table class='paging'>
       <thead>
         <tr>
           <th>Commander</th>
-          <th>Country</th>
+          <th>Battles</th>
+          <th>Wins</th>
           <th>Forces Commanded</th>
-          <th>Enemies Killed</th>
-          <th>Casualties</th>
+          <th>Forces Faced</th>
+          <th>Losses</th>
+          <th>Kills</th>
         </tr>
       </thead>
       <tbody>
-      {{#each Com}}
+      {{#each LeaderReport}}
         <tr>
-          <td>{{Item1.Name}}</td>
-          <td>{{Item2}}</td>
-          <td>{{Item3}}</td>
-          <td>{{Item4}}</td>
-          <td>{{Item5}}</td>
+          <td>{{leader.Name}}</td>
+          <td>{{battles}}</td>
+          <td>{{wins}}</td>
+          <td>{{forces}}</td>
+          <td>{{faced}}</td>
+          <td>{{losses}}</td>
+          <td>{{kills}}</td>
         </tr>
       {{/each}}
       </tbody>
@@ -41,25 +46,25 @@
           <th>Attacker</th>
           <th>Defender</th>
           <th>Battles</th>
-          <th>Attacker Ships Deployed</th>
-          <th>Attacker Ships Losses</th>
-          <th>Defender Ships Deployed</th>
-          <th>Defender Ships Losses</th>
-          <th>Deployments and Losses</th>
+          <th>Wins</th>
+          <th>Attacking Forces</th>
+          <th>Attacking Losses</th>
+          <th>Defending Forces</th>
+          <th>Defending Losses</th>
         </tr>
       </thead>
       <tbody>
-        {{#each DeadliestNavalWars}}
+        {{#each BiggestNavalWars}}
         <tr>
           <td>{{name}}</td>
           <td>{{attacker}}</td>
           <td>{{defender}}</td>
           <td>{{battles}}</td>
-          <td>{{attackerDeployments}}</td>
-          <td>{{attackerLosses}}</td>
-          <td>{{defenderDeployments}}</td>
-          <td>{{defenderLosses}}</td>
-          <td>{{depsAndLosses}}</td>
+          <td>{{attackingWins}}/{{defendingWins}}</td>
+          <td>{{attackingForces}}</td>
+          <td>{{attackingLosses}}</td>
+          <td>{{defendingForces}}</td>
+          <td>{{defendingLosses}}</td>
         </tr>
         {{/each}}
       </tbody>
@@ -74,25 +79,25 @@
           <th>Attacker</th>
           <th>Defender</th>
           <th>Battles</th>
-          <th>Attacker Units Deployed</th>
-          <th>Attacker Units Losses</th>
-          <th>Defender Units Deployed</th>
-          <th>Defender Units Losses</th>
-          <th>Deployments and Losses</th>
+          <th>Wins</th>
+          <th>Attacking Forces</th>
+          <th>Attacking Losses</th>
+          <th>Defending Forces</th>
+          <th>Defending Losses</th>
         </tr>
       </thead>
       <tbody>
-        {{#each DeadliestLandWars}}
+        {{#each BiggestLandWars}}
         <tr>
           <td>{{name}}</td>
           <td>{{attacker}}</td>
           <td>{{defender}}</td>
           <td>{{battles}}</td>
-          <td>{{attackerDeployments}}</td>
-          <td>{{attackerLosses}}</td>
-          <td>{{defenderDeployments}}</td>
-          <td>{{defenderLosses}}</td>
-          <td>{{depsAndLosses}}</td>
+          <td>{{attackingWins}}/{{defendingWins}}</td>
+          <td>{{attackingForces}}</td>
+          <td>{{attackingLosses}}</td>
+          <td>{{defendingForces}}</td>
+          <td>{{defendingLosses}}</td>
         </tr>
         {{/each}}
       </tbody>
@@ -114,7 +119,7 @@
         </tr>
       </thead>
       <tbody>
-        {{#each BiggestCommanderRivalries}}
+        {{#each BiggestRivalries}}
         <tr>
           <td>{{description}}</td>
           <td>{{battles}}</td>
@@ -125,6 +130,7 @@
         {{/each}}
       </tbody>
     </table>
+    {{/with}}
 
     <h2>Ledger Correlations</h2>
     <p>Every year EU4 marks the year and a value (score, income, inflation,

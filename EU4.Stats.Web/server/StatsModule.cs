@@ -63,10 +63,7 @@ namespace EU4.Stats.Web
                     Players = string.Join(", ", savegame.Countries.Where(x => 
                         x.Human.GetValueOrDefault()).Select(x => x.Abbreviation)),
                     Date = savegame.Date,
-                    Com = WarStats.LeaderReport(savegame),
-                    DeadliestNavalWars = WarStats.BiggestNavalWars(savegame).Take(10),
-                    DeadliestLandWars = WarStats.BiggestLandWars(savegame).Take(10),
-                    BiggestCommanderRivalries = WarStats.BiggestCommanderRivalry(savegame).Take(10),
+                    WarStats = WarStats.Calc(savegame),
                     LedgerCorrelations = LedgerStats.correlations(savegame)
                 });
 

@@ -16,6 +16,9 @@ let toSummary' (fn:'a -> Nullable<double>) =
     Seq.map fn >> Seq.map (fun x -> x.GetValueOrDefault()) >>
     Statistics.FiveNumberSummary >> ArrayToSummary
 
+let inline isNull o = Object.ReferenceEquals(o, null)
+let inline notNull o = not (isNull o)
+
 let printSummary (data:seq<string * FiveNumberSummary>) (header:string) =
     let max = data |> Seq.map (fun (x,_) -> x.Length) |> Seq.max
     let headerFormat = Printf.TextWriterFormat<string -> string -> string -> string -> string -> string -> unit>(
