@@ -1,5 +1,6 @@
 ﻿module EU4.Stats.Types
 
+open System;
 open MathNet.Numerics.Statistics;
 
 type FiveNumberSummary = {
@@ -9,8 +10,11 @@ type FiveNumberSummary = {
 let ArrayToSummary (arr : double array) : FiveNumberSummary =
     { min = arr.[0]; q1 = arr.[1]; median = arr.[2]; q3 = arr.[3]; max = arr.[4] }
 
-let summarize = (Statistics.FiveNumberSummary : seq<float> -> float array) 
-                >> ArrayToSummary
+let toSummary (fn:'a -> double) = 
+    Seq.map fn >> Statistics.FiveNumberSummary >> ArrayToSummary
+let toSummary' (fn:'a -> Nullable<double>) = 
+    Seq.map fn >> Seq.map (fun x -> x.GetValueOrDefault()) >>
+    Statistics.FiveNumberSummary >> ArrayToSummary
 
 let printSummary (data:seq<string * FiveNumberSummary>) (header:string) =
     let max = data |> Seq.map (fun (x,_) -> x.Length) |> Seq.max

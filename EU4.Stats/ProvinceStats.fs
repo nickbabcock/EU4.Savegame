@@ -1,13 +1,8 @@
 ﻿module EU4.Stats.ProvinceStats
+open System;
 open EU4.Savegame;
 open EU4.Stats.Types;
 open MathNet.Numerics.Statistics;
-
-let ProvinceSummary (save:Save) (fn:Province -> double) : FiveNumberSummary = 
-    save.Provinces
-    |> Seq.map fn
-    |> Statistics.FiveNumberSummary
-    |> ArrayToSummary
 
 // Sequence of tuples of trade good and the number of provinces with
 // that trade good

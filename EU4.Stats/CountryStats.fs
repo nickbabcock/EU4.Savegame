@@ -24,6 +24,5 @@ let techSummary (save:Save) (fn:Technology -> byte) =
     |> Seq.map (fun (key, grp) ->
         let summary =
             grp
-            |> Seq.map (fun x -> float (fn x.Technology))
-            |> summarize
+            |> toSummary (fun x -> float (fn x.Technology))
         (key, summary))

@@ -53,8 +53,7 @@ let correlations (data:Save) =
         q
         |> Seq.where(fun x -> Seq.min (f1(x)) <> Seq.max (f1(x)))
         |> Seq.where(fun x -> Seq.min (f2(x)) <> Seq.max (f2(x)))
-        |> Seq.map (fun x -> Correlation.Pearson(cast(f1(x)), cast(f2(x))))
-        |> summarize
+        |> toSummary (fun x -> Correlation.Pearson(cast(f1(x)), cast(f2(x))))
 
     { 
         SizeAndIncome = correlate (fun x -> x.NationSize) (fun x -> x.Income);
