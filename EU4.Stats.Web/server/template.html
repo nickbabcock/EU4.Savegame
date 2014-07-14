@@ -118,6 +118,70 @@
         {{/each}}
       </tbody>
     </table>
+
+    <h2>Ledger Correlations</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Correlation</th>
+          <th>Min</th>
+          <th>Q1</th>
+          <th>Median</th>
+          <th>Q3</th>
+          <th>Max</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Size and Income</td>
+          <td>{{LedgerCorrelations.SizeAndIncome.min:F2}}</td>
+          <td>{{LedgerCorrelations.SizeAndIncome.q1:F2}}</td>
+          <td>{{LedgerCorrelations.SizeAndIncome.median:F2}}</td>
+          <td>{{LedgerCorrelations.SizeAndIncome.q3:F2}}</td>
+          <td>{{LedgerCorrelations.SizeAndIncome.max:F2}}</td>
+        </tr>
+        <tr>
+          <td>Size and Score</td>
+          <td>{{LedgerCorrelations.SizeAndScore.min:F2}}</td>
+          <td>{{LedgerCorrelations.SizeAndScore.q1:F2}}</td>
+          <td>{{LedgerCorrelations.SizeAndScore.median:F2}}</td>
+          <td>{{LedgerCorrelations.SizeAndScore.q3:F2}}</td>
+          <td>{{LedgerCorrelations.SizeAndScore.max:F2}}</td>
+        </tr>
+        <tr>
+          <td>Size and Inflation</td>
+          <td>{{LedgerCorrelations.SizeAndInflation.min:F2}}</td>
+          <td>{{LedgerCorrelations.SizeAndInflation.q1:F2}}</td>
+          <td>{{LedgerCorrelations.SizeAndInflation.median:F2}}</td>
+          <td>{{LedgerCorrelations.SizeAndInflation.q3:F2}}</td>
+          <td>{{LedgerCorrelations.SizeAndInflation.max:F2}}</td>
+        </tr>
+        <tr>
+          <td>Income and Score</td>
+          <td>{{LedgerCorrelations.IncomeAndScore.min:F2}}</td>
+          <td>{{LedgerCorrelations.IncomeAndScore.q1:F2}}</td>
+          <td>{{LedgerCorrelations.IncomeAndScore.median:F2}}</td>
+          <td>{{LedgerCorrelations.IncomeAndScore.q3:F2}}</td>
+          <td>{{LedgerCorrelations.IncomeAndScore.max:F2}}</td>
+        </tr>
+        <tr>
+          <td>Income and Inflation</td>
+          <td>{{LedgerCorrelations.IncomeAndInflation.min:F2}}</td>
+          <td>{{LedgerCorrelations.IncomeAndInflation.q1:F2}}</td>
+          <td>{{LedgerCorrelations.IncomeAndInflation.median:F2}}</td>
+          <td>{{LedgerCorrelations.IncomeAndInflation.q3:F2}}</td>
+          <td>{{LedgerCorrelations.IncomeAndInflation.max:F2}}</td>
+        </tr>
+        <tr>
+          <td>Score and Inflation</td>
+          <td>{{LedgerCorrelations.ScoreAndInflation.min:F2}}</td>
+          <td>{{LedgerCorrelations.ScoreAndInflation.q1:F2}}</td>
+          <td>{{LedgerCorrelations.ScoreAndInflation.median:F2}}</td>
+          <td>{{LedgerCorrelations.ScoreAndInflation.q3:F2}}</td>
+          <td>{{LedgerCorrelations.ScoreAndInflation.max:F2}}</td>
+        </tr>
+      </tbody>
+    </table>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src='//cdn.datatables.net/1.10.0/js/jquery.dataTables.js'></script>
     <script type="text/javascript">
