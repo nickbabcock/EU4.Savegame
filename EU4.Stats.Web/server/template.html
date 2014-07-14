@@ -6,207 +6,212 @@
     <title>{{Player}} - {{Date:yyyy.M.d}}</title>
   </head>
   <body>
-    <h1>Europa Universalis IV Savegame Stats</h1>
-    <p>
-    Players: {{Players}}
-    </p>
-    {{#with WarStats}}
-    <table class='paging'>
-      <thead>
-        <tr>
-          <th>Commander</th>
-          <th>Battles</th>
-          <th>Wins</th>
-          <th>Forces Commanded</th>
-          <th>Forces Faced</th>
-          <th>Losses</th>
-          <th>Kills</th>
-        </tr>
-      </thead>
-      <tbody>
-      {{#each LeaderReport}}
-        <tr>
-          <td>{{leader.Name}}</td>
-          <td>{{battles}}</td>
-          <td>{{wins}}</td>
-          <td>{{forces}}</td>
-          <td>{{faced}}</td>
-          <td>{{losses}}</td>
-          <td>{{kills}}</td>
-        </tr>
-      {{/each}}
-      </tbody>
-    </table>
-
-    <h2>Top 10 Biggest Naval Wars</h2>
-    <p>The top ten wars that have the largest number of combined deployed forces and losses on sea. Does not include land battles</p>
-    <table>
-      <thead>
-        <tr>
-          <th>War</th>
-          <th>Attacker</th>
-          <th>Defender</th>
-          <th>Battles</th>
-          <th>Wins</th>
-          <th>Attacking Forces</th>
-          <th>Attacking Losses</th>
-          <th>Defending Forces</th>
-          <th>Defending Losses</th>
-        </tr>
-      </thead>
-      <tbody>
-        {{#each BiggestNavalWars}}
-        <tr>
-          <td>{{name}}</td>
-          <td>{{attacker}}</td>
-          <td>{{defender}}</td>
-          <td>{{battles}}</td>
-          <td>{{attackingWins}}/{{defendingWins}}</td>
-          <td>{{attackingForces}}</td>
-          <td>{{attackingLosses}}</td>
-          <td>{{defendingForces}}</td>
-          <td>{{defendingLosses}}</td>
-        </tr>
+    <div class='container'>
+      <h1>Europa Universalis IV Savegame Stats</h1>
+      <p>
+      Players: {{Players}}
+      </p>
+      {{#with WarStats}}
+      <table id='leaderReport'>
+        <thead>
+          <tr>
+            <th>Commander</th>
+            <th>Battles</th>
+            <th>Wins</th>
+            <th>Forces Commanded</th>
+            <th>Forces Faced</th>
+            <th>Losses</th>
+            <th>Kills</th>
+          </tr>
+        </thead>
+        <tbody>
+        {{#each LeaderReport}}
+          <tr>
+            <td>{{leader.Name}}</td>
+            <td>{{battles}}</td>
+            <td>{{wins}}</td>
+            <td>{{forces}}</td>
+            <td>{{faced}}</td>
+            <td>{{losses}}</td>
+            <td>{{kills}}</td>
+          </tr>
         {{/each}}
-      </tbody>
-    </table>
+        </tbody>
+      </table>
 
-    <h2>Top 10 Biggest Land Wars</h2>
-    <p>The top ten wars that have the largest number of combined deployed forces and losses on land. Does not include naval battles</p>
-    <table>
-      <thead>
-        <tr>
-          <th>War</th>
-          <th>Attacker</th>
-          <th>Defender</th>
-          <th>Battles</th>
-          <th>Wins</th>
-          <th>Attacking Forces</th>
-          <th>Attacking Losses</th>
-          <th>Defending Forces</th>
-          <th>Defending Losses</th>
-        </tr>
-      </thead>
-      <tbody>
-        {{#each BiggestLandWars}}
-        <tr>
-          <td>{{name}}</td>
-          <td>{{attacker}}</td>
-          <td>{{defender}}</td>
-          <td>{{battles}}</td>
-          <td>{{attackingWins}}/{{defendingWins}}</td>
-          <td>{{attackingForces}}</td>
-          <td>{{attackingLosses}}</td>
-          <td>{{defendingForces}}</td>
-          <td>{{defendingLosses}}</td>
-        </tr>
-        {{/each}}
-      </tbody>
-    </table>
+      <h2>Top 10 Biggest Naval Wars</h2>
+      <p>The top ten wars that have the largest number of combined deployed
+      forces and losses on sea. Does not include land battles</p>
+      <table id='navalWars'>
+        <thead>
+          <tr>
+            <th>War</th>
+            <th>Attacker</th>
+            <th>Defender</th>
+            <th>Battles</th>
+            <th>Wins</th>
+            <th>Attacking Forces</th>
+            <th>Attacking Losses</th>
+            <th>Defending Forces</th>
+            <th>Defending Losses</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each BiggestNavalWars}}
+          <tr>
+            <td>{{name}}</td>
+            <td>{{attacker}}</td>
+            <td>{{defender}}</td>
+            <td>{{battles}}</td>
+            <td>{{attackingWins}}/{{defendingWins}}</td>
+            <td>{{attackingForces}}</td>
+            <td>{{attackingLosses}}</td>
+            <td>{{defendingForces}}</td>
+            <td>{{defendingLosses}}</td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+
+      <h2>Top 10 Biggest Land Wars</h2>
+      <p>The top ten wars that have the largest number of combined deployed
+      forces and losses on land. Does not include naval battles</p>
+      <table id='landWars'>
+        <thead>
+          <tr>
+            <th>War</th>
+            <th>Attacker</th>
+            <th>Defender</th>
+            <th>Battles</th>
+            <th>Wins</th>
+            <th>Attacking Forces</th>
+            <th>Attacking Losses</th>
+            <th>Defending Forces</th>
+            <th>Defending Losses</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each BiggestLandWars}}
+          <tr>
+            <td>{{name}}</td>
+            <td>{{attacker}}</td>
+            <td>{{defender}}</td>
+            <td>{{battles}}</td>
+            <td>{{attackingWins}}/{{defendingWins}}</td>
+            <td>{{attackingForces}}</td>
+            <td>{{attackingLosses}}</td>
+            <td>{{defendingForces}}</td>
+            <td>{{defendingLosses}}</td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
 
 
-    <h2>Top 10 Biggest Commander Rivalries</h2>
-    <p>The same two commanders may find themselves facing each other quite
-    often throughout a period of wars. The following table depicts the
-    commanders who fought against each other the most</p>
-    <table>
-      <thead>
-        <tr>
-          <th>Rivalry</th>
-          <th>Battles</th>
-          <th>Wins</th>
-          <th>Forces</th>
-          <th>Losses</th>
-        </tr>
-      </thead>
-      <tbody>
-        {{#each BiggestRivalries}}
-        <tr>
-          <td>{{description}}</td>
-          <td>{{battles}}</td>
-          <td>{{wins1}}/{{wins2}}</td>
-          <td>{{forces1}}/{{forces2}}</td>
-          <td>{{losses1}}/{{losses2}}</td>
-        </tr>
-        {{/each}}
-      </tbody>
-    </table>
-    {{/with}}
+      <h2>Top 10 Biggest Commander Rivalries</h2>
+      <p>The same two commanders may find themselves facing each other quite
+      often throughout a period of wars. The following table depicts the
+      commanders who fought against each other the most</p>
+      <table id='rivalries'>
+        <thead>
+          <tr>
+            <th>Rivalry</th>
+            <th>Battles</th>
+            <th>Wins</th>
+            <th>Forces</th>
+            <th>Losses</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each BiggestRivalries}}
+          <tr>
+            <td>{{description}}</td>
+            <td>{{battles}}</td>
+            <td>{{wins1}}/{{wins2}}</td>
+            <td>{{forces1}}/{{forces2}}</td>
+            <td>{{losses1}}/{{losses2}}</td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+      {{/with}}
 
-    <h2>Ledger Correlations</h2>
-    <p>Every year EU4 marks the year and a value (score, income, inflation,
-    size) for each country, so that the player can view a nice chart of the
-    data. Ledger correlations shows the correlations between these values. For
-    instance, the correlation between size and income means: across all
-    countries when the size of the country fluctuates from year to year, does
-    that correspond to movement in income. A positive correlation means that as
-    the size of a nation increases, so does their income -- an intuitive
-    reasoning.</p>
-    <table>
-      <thead>
-        <tr>
-          <th>Correlation</th>
-          <th>Min</th>
-          <th>Q1</th>
-          <th>Median</th>
-          <th>Q3</th>
-          <th>Max</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Size and Income</td>
-          <td>{{LedgerCorrelations.SizeAndIncome.min:F2}}</td>
-          <td>{{LedgerCorrelations.SizeAndIncome.q1:F2}}</td>
-          <td>{{LedgerCorrelations.SizeAndIncome.median:F2}}</td>
-          <td>{{LedgerCorrelations.SizeAndIncome.q3:F2}}</td>
-          <td>{{LedgerCorrelations.SizeAndIncome.max:F2}}</td>
-        </tr>
-        <tr>
-          <td>Size and Score</td>
-          <td>{{LedgerCorrelations.SizeAndScore.min:F2}}</td>
-          <td>{{LedgerCorrelations.SizeAndScore.q1:F2}}</td>
-          <td>{{LedgerCorrelations.SizeAndScore.median:F2}}</td>
-          <td>{{LedgerCorrelations.SizeAndScore.q3:F2}}</td>
-          <td>{{LedgerCorrelations.SizeAndScore.max:F2}}</td>
-        </tr>
-        <tr>
-          <td>Size and Inflation</td>
-          <td>{{LedgerCorrelations.SizeAndInflation.min:F2}}</td>
-          <td>{{LedgerCorrelations.SizeAndInflation.q1:F2}}</td>
-          <td>{{LedgerCorrelations.SizeAndInflation.median:F2}}</td>
-          <td>{{LedgerCorrelations.SizeAndInflation.q3:F2}}</td>
-          <td>{{LedgerCorrelations.SizeAndInflation.max:F2}}</td>
-        </tr>
-        <tr>
-          <td>Income and Score</td>
-          <td>{{LedgerCorrelations.IncomeAndScore.min:F2}}</td>
-          <td>{{LedgerCorrelations.IncomeAndScore.q1:F2}}</td>
-          <td>{{LedgerCorrelations.IncomeAndScore.median:F2}}</td>
-          <td>{{LedgerCorrelations.IncomeAndScore.q3:F2}}</td>
-          <td>{{LedgerCorrelations.IncomeAndScore.max:F2}}</td>
-        </tr>
-        <tr>
-          <td>Income and Inflation</td>
-          <td>{{LedgerCorrelations.IncomeAndInflation.min:F2}}</td>
-          <td>{{LedgerCorrelations.IncomeAndInflation.q1:F2}}</td>
-          <td>{{LedgerCorrelations.IncomeAndInflation.median:F2}}</td>
-          <td>{{LedgerCorrelations.IncomeAndInflation.q3:F2}}</td>
-          <td>{{LedgerCorrelations.IncomeAndInflation.max:F2}}</td>
-        </tr>
-        <tr>
-          <td>Score and Inflation</td>
-          <td>{{LedgerCorrelations.ScoreAndInflation.min:F2}}</td>
-          <td>{{LedgerCorrelations.ScoreAndInflation.q1:F2}}</td>
-          <td>{{LedgerCorrelations.ScoreAndInflation.median:F2}}</td>
-          <td>{{LedgerCorrelations.ScoreAndInflation.q3:F2}}</td>
-          <td>{{LedgerCorrelations.ScoreAndInflation.max:F2}}</td>
-        </tr>
-      </tbody>
-    </table>
+      <h2>Ledger Correlations</h2>
+      <p>Every year EU4 marks the year and a value (score, income, inflation,
+      size) for each country, so that the player can view a nice chart of the
+      data. Ledger correlations shows the correlations between these values. For
+      instance, the correlation between size and income means: across all
+      countries when the size of the country fluctuates from year to year, does
+      that correspond to movement in income. A positive correlation means that as
+      the size of a nation increases, so does their income -- an intuitive
+      reasoning.</p>
+      <table id='correlation'>
+        <thead>
+          <tr>
+            <th>Correlation</th>
+            <th>Min</th>
+            <th>Q1</th>
+            <th>Median</th>
+            <th>Q3</th>
+            <th>Max</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Size and Income</td>
+            <td>{{LedgerCorrelations.SizeAndIncome.min:F2}}</td>
+            <td>{{LedgerCorrelations.SizeAndIncome.q1:F2}}</td>
+            <td>{{LedgerCorrelations.SizeAndIncome.median:F2}}</td>
+            <td>{{LedgerCorrelations.SizeAndIncome.q3:F2}}</td>
+            <td>{{LedgerCorrelations.SizeAndIncome.max:F2}}</td>
+          </tr>
+          <tr>
+            <td>Size and Score</td>
+            <td>{{LedgerCorrelations.SizeAndScore.min:F2}}</td>
+            <td>{{LedgerCorrelations.SizeAndScore.q1:F2}}</td>
+            <td>{{LedgerCorrelations.SizeAndScore.median:F2}}</td>
+            <td>{{LedgerCorrelations.SizeAndScore.q3:F2}}</td>
+            <td>{{LedgerCorrelations.SizeAndScore.max:F2}}</td>
+          </tr>
+          <tr>
+            <td>Size and Inflation</td>
+            <td>{{LedgerCorrelations.SizeAndInflation.min:F2}}</td>
+            <td>{{LedgerCorrelations.SizeAndInflation.q1:F2}}</td>
+            <td>{{LedgerCorrelations.SizeAndInflation.median:F2}}</td>
+            <td>{{LedgerCorrelations.SizeAndInflation.q3:F2}}</td>
+            <td>{{LedgerCorrelations.SizeAndInflation.max:F2}}</td>
+          </tr>
+          <tr>
+            <td>Income and Score</td>
+            <td>{{LedgerCorrelations.IncomeAndScore.min:F2}}</td>
+            <td>{{LedgerCorrelations.IncomeAndScore.q1:F2}}</td>
+            <td>{{LedgerCorrelations.IncomeAndScore.median:F2}}</td>
+            <td>{{LedgerCorrelations.IncomeAndScore.q3:F2}}</td>
+            <td>{{LedgerCorrelations.IncomeAndScore.max:F2}}</td>
+          </tr>
+          <tr>
+            <td>Income and Inflation</td>
+            <td>{{LedgerCorrelations.IncomeAndInflation.min:F2}}</td>
+            <td>{{LedgerCorrelations.IncomeAndInflation.q1:F2}}</td>
+            <td>{{LedgerCorrelations.IncomeAndInflation.median:F2}}</td>
+            <td>{{LedgerCorrelations.IncomeAndInflation.q3:F2}}</td>
+            <td>{{LedgerCorrelations.IncomeAndInflation.max:F2}}</td>
+          </tr>
+          <tr>
+            <td>Score and Inflation</td>
+            <td>{{LedgerCorrelations.ScoreAndInflation.min:F2}}</td>
+            <td>{{LedgerCorrelations.ScoreAndInflation.q1:F2}}</td>
+            <td>{{LedgerCorrelations.ScoreAndInflation.median:F2}}</td>
+            <td>{{LedgerCorrelations.ScoreAndInflation.q3:F2}}</td>
+            <td>{{LedgerCorrelations.ScoreAndInflation.max:F2}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src='//cdn.jsdelivr.net/jquery.datatables/1.10.0/js/jquery.dataTables.min.js'></script>
     <script src='//cdn.jsdelivr.net/jquery.datatables/1.10.0/plugins/tabletools/js/dataTables.tableTools.min.js'></script>
-    <script src='/js/games.js'>
+    <script type='text/javascript' src='/js/games.js'></script>
   </body>
 </html>
