@@ -10,6 +10,10 @@ function upload(file) {
             $('div.error').fadeIn();
             $('#errorText').text("ERROR: " + data.error.message);
         }
+        else if (this.status === 503) {
+            $('div.error').fadeIn();
+            overload(60);
+        }
     };
     
     var extension = file.name.substr(file.name.lastIndexOf('.'));
@@ -17,9 +21,29 @@ function upload(file) {
     xhr.send(file);
 }
 
+function overload(seconds) {
+    if (seconds !== 0) {
+        setTimeout(overload, 1000, seconds - 1);
+        $('#errorText').text(overloadText(seconds));
+    }
+    else {
+        $('#errorText').text('Retrying...');
+        uploadSelectedFile();
+    }
+}
+
+function overloadText(seconds) {
+   return "Sorry, it looks like this service is popular right now, and we can't " +
+     "handle the load. We'll resend the savegame in " + seconds + " seconds";
+}
+
+function uploadSelectedFile() {
+    var files = $('#savefile').get(0).files;
+    if (files && files[0]) {
+        upload(files[0]);
+    }
+}
+
 $(function() {
-    $('#submit').click(function() {
-        var file = $('#savefile').get(0).files[0];
-        upload(file);
-    });
+    $('#submit').click(uploadSelectedFile);
 });
