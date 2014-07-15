@@ -155,12 +155,7 @@ let private BiggestCommanderRivalry (state:Precomputations) =
                                 else (b.Defender, not b.Result) }
         let com1bs = findbs com1 |> Seq.map fst
         let com2bs = findbs com2 |> Seq.map fst
-        let com1l = com1bs |> Seq.map (fun x -> x.Losses) |> Seq.fold (+) 0
-        let com2l = com2bs |> Seq.map (fun x -> x.Losses) |> Seq.fold (+) 0
-        let com1f = com1bs |> Seq.map forces |> Seq.fold (+) 0
-        let com2f = com2bs |> Seq.map forces |> Seq.fold (+) 0
         let com1Wins = findbs com1 |> Seq.map snd |> Seq.where id |> Seq.length
-        let com2Wins = findbs com2 |> Seq.map snd |> Seq.where id |> Seq.length
 
         let stats name =
             let leader = state.leaderMap.[name]
@@ -172,8 +167,12 @@ let private BiggestCommanderRivalry (state:Precomputations) =
 
         { description = sprintf "%s%s and %s%s of %s and %s" com1 com1Stats
                                  com2 com2Stats c1 c2;
-          battles = Seq.length battles; forces1 = com1f; losses1 = com1l;
-          wins1 = com1Wins; forces2 = com2f; losses2 = com2l; wins2 = com2Wins })
+          battles = Seq.length battles;
+          forces1 = com1bs |> Seq.sumBy forces;
+          losses1 = com1bs |> Seq.sumBy (fun x -> x.Losses);
+          wins1 = com1Wins; wins2 = Seq.length battles - com1Wins;
+          forces2 = com2bs |> Seq.sumBy forces; 
+          losses2 = com2bs |> Seq.sumBy (fun x -> x.Losses); })
     |> Seq.sortBy (fun rivalry -> (~-) rivalry.battles)
 
 let Calc (save:Save) =
