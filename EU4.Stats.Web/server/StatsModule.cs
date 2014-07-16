@@ -66,7 +66,8 @@ namespace EU4.Stats.Web
                     WarStats = WarStats.Calc(savegame),
                     LedgerCorrelations = LedgerStats.correlations(savegame),
                     ScoreStats = CountryStats.scoreRankings(savegame),
-                    Debt = CountryStats.inDebt(savegame).Take(10)
+                    Debt = CountryStats.inDebt(savegame).Take(10),
+                    WorldStats = WorldStats.calc(savegame)
                 });
 
 

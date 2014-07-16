@@ -60,6 +60,7 @@
     <Compile Include="LedgerStats.fs" />
     <Compile Include="CountryStats.fs" />
     <Compile Include="WarStats.fs" />
+    <Compile Include="WorldStats.fs" />
     <None Include="Script.fsx" />
     <None Include="packages.config" />
     <None Include="app.config" />

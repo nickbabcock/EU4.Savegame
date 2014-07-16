@@ -11,6 +11,29 @@
       <p>
       Players: {{Players}}
       </p>
+      
+      {{#with WorldStats}}
+      <h2>World Statistics</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Statistic</th>
+            <th>Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Manpower</td>
+            <td>{{manpower:F2}}</td>
+          </tr>
+          <tr>
+            <td>Potential Manpower</td>
+            <td>{{potentialManpower:F2}}</td>
+          </tr>
+        </tbody>
+      </table>
+      {{/with}}
+
       {{#with WarStats}}
       <table id='leaderReport'>
         <thead>
