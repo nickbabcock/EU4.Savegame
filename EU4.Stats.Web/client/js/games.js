@@ -19,7 +19,7 @@ $(function() {
         tableTools: tableTools 
     });
 
-    $('#correlation').dataTable({
+    $('#correlation,#scores,#debt').dataTable({
         paging: false,
         searching: false,
         ordering: false,

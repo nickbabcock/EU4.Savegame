@@ -136,6 +136,52 @@
       </table>
       {{/with}}
 
+      <h2>Score Rankings</h2>
+      <table id='scores'>
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Country</th>
+            <th>Score</th>
+            <th>Adm Rating</th>
+            <th>Dip Rating</th>
+            <th>Mil Rating</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each ScoreStats}}
+          <tr>
+            <td>{{rank}}</td>
+            <td>{{name}}</td>
+            <td>{{score}}</td>
+            <td>{{adm}}</td>
+            <td>{{dip}}</td>
+            <td>{{mil}}</td>
+          </td>
+          {{/each}}
+        </tbody>
+      </table>
+
+      <h2>Debt</h2>
+      <table id='debt'>
+        <thead>
+          <tr>
+            <th>Country</th>
+            <th>Loans</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each Debt}}
+          <tr>
+            <td>{{Item1}}</td>
+            <td>{{Item2}}</td>
+            <td>{{Item3}}</td>
+          </td>
+          {{/each}}
+        </tbody>
+      </table>
+      
       <h2>Ledger Correlations</h2>
       <p>Every year EU4 marks the year and a value (score, income, inflation,
       size) for each country, so that the player can view a nice chart of the

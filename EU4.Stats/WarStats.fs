@@ -83,6 +83,8 @@ let private precompute (save:Save) =
 
     { wars = wars; battles = battles; leaders = leaders; leaderMap = leaderMap }
 
+/// Computes the number of battles, forces, and losses in a type of battle (land
+/// or sea) in a war.
 let private biggestWars (state:Precomputations) fn =
     state.battles
     |> Seq.map (fun (war, allBattles) ->
@@ -105,6 +107,8 @@ let private biggestWars (state:Precomputations) fn =
         })
     |> Seq.sortBy (fun x -> (~-) x.battles)
 
+/// For all the leaders that fought in a battle compile statistics based on
+/// their wins, losses, kills, etc.
 let private leaderReport (state:Precomputations) =
     state.battles
     |> Seq.collect snd
@@ -130,6 +134,9 @@ let private leaderReport (state:Precomputations) =
         { leader = leader; forces = forces; losses = losses; faced = faces;
           kills = kills; battles = Seq.length battles; wins = wins })
 
+/// Rivalries are calculated based on the number of times two commanders faced
+/// off on the battlefield. This statistics is a culmination of of all wars that
+/// the two commanders fought against each other in.
 let private BiggestCommanderRivalry (state:Precomputations) =
     state.battles
     |> Seq.collect snd
@@ -137,8 +144,8 @@ let private BiggestCommanderRivalry (state:Precomputations) =
     |> Seq.where (fun x -> x.Defender.Commander <> "")
 
     // We actually need to check to make sure that a country has the specified
-    // commander has there has been commanderes that are listed in battles do
-    // not show up under any country
+    // commander as there has been commanders that are listed in battles that
+    //do not show up under any country
     |> Seq.where (fun x -> state.leaderMap.TryFind(x.Attacker.Commander) <> None)
     |> Seq.where (fun x -> state.leaderMap.TryFind(x.Defender.Commander) <> None)
 

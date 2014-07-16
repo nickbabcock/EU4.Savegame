@@ -64,7 +64,9 @@ namespace EU4.Stats.Web
                         x.Human.GetValueOrDefault()).Select(x => x.Abbreviation)),
                     Date = savegame.Date,
                     WarStats = WarStats.Calc(savegame),
-                    LedgerCorrelations = LedgerStats.correlations(savegame)
+                    LedgerCorrelations = LedgerStats.correlations(savegame),
+                    ScoreStats = CountryStats.scoreRankings(savegame),
+                    Debt = CountryStats.inDebt(savegame).Take(10)
                 });
 
 
