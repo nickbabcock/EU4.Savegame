@@ -174,7 +174,7 @@ var classes = new[] {
             new Property() { Type = "bool", Name = "HasTrader" },
             new Property() { Type = "bool", Name = "HasCapital" },
             new Property() { Type = "bool", Name = "HasSubject" },
-            new Property() { Type = "double", Name = "LightShip" },
+            new Property() { Type = "int", Name = "LightShip" },
             new Property() { Type = "double", Name = "TransferredOut" },
             new Property() { Type = "double", Name = "TransferredIn" },
             new Property() { Type = "[ConsecutiveElements] IList<int>", Name = "TransferredFromIndex", Alias = "transfered_from_index" },

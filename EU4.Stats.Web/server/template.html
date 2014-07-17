@@ -34,6 +34,34 @@
       </table>
       {{/with}}
 
+      <h2>Trade Power</h2>
+      <table id='trade'>
+        <thead>
+          <tr>
+            <th>Country</th>
+            <th>Power</th>
+            <th>Ship Power</th>
+            <th>Province Power</th>
+            <th>Light Ships</th>
+            <th>Money</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+        {{#each TradePower}}
+          <tr>
+            <td>{{country}}</td>
+            <td>{{power}}</td>
+            <td>{{shipPower}}</td>
+            <td>{{provincePower}}</td>
+            <td>{{lightShips}}</td>
+            <td>{{money}}</td>
+            <td>{{total}}</td>
+          </tr>
+        {{/each}}
+        </tbody>
+      </table>
+
       {{#with WarStats}}
       <table id='leaderReport'>
         <thead>

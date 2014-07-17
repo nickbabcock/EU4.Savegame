@@ -1,6 +1,6 @@
 ﻿module EU4.Stats.WarStats
 
-open EU4.Savegame;
+open EU4.Savegame
 open EU4.Stats.Types
 
 type LeaderReport = {

@@ -64,7 +64,8 @@ namespace EU4.Stats.Web
                     LedgerCorrelations = LedgerStats.correlations(savegame),
                     ScoreStats = CountryStats.scoreRankings(savegame),
                     Debt = CountryStats.inDebt(savegame).Take(10),
-                    WorldStats = WorldStats.calc(savegame)
+                    WorldStats = WorldStats.calc(savegame),
+                    TradePower = TradeStats.calc(savegame).Take(10)
                 });
 
                 string filename = Interlocked.Increment(ref id) + ".html";

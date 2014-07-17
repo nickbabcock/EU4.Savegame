@@ -10,7 +10,7 @@ $(function() {
         tableTools: tableTools
     });
 
-    $('#navalWars,#landWars,#rivalries').dataTable({
+    $('#navalWars,#landWars,#rivalries,#trade').dataTable({
         paging: false,
         searching: false,
         info: false,
