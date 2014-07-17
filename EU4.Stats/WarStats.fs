@@ -145,11 +145,15 @@ let private BiggestCommanderRivalry (state:Precomputations) =
 
     // We actually need to check to make sure that a country has the specified
     // commander as there has been commanders that are listed in battles that
-    //do not show up under any country
+    // do not show up under any country
     |> Seq.where (fun x -> state.leaderMap.TryFind(x.Attacker.Commander) <> None)
     |> Seq.where (fun x -> state.leaderMap.TryFind(x.Defender.Commander) <> None)
 
-    // The group battles by commanders -- they are grouped alphabetically
+    // The group battles by commanders -- they are grouped alphabetically. It's
+    // very subtle but the country that is listed in the fighting side may not
+    // be the same country as the commander. I'm not sure in what circumstances
+    // this occurs, but I know "He Li" of MNG has fought wars that have a country
+    // of "DAI"
     |> Seq.groupBy (fun x ->
         if x.Attacker.Commander < x.Defender.Commander then
             (x.Attacker.Commander, x.Attacker.Country, x.Defender.Commander, x.Defender.Country)
