@@ -7,7 +7,9 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 
 namespace EU4.Stats.Web
@@ -27,6 +29,16 @@ namespace EU4.Stats.Web
                         .WithStatusCode(HttpStatusCode.InternalServerError));
 
             base.RequestStartup(container, pipelines, context);
+        }
+
+        protected override void ConfigureApplicationContainer(TinyIoCContainer container)
+        {
+            base.ConfigureApplicationContainer(container);
+
+            string exe = Assembly.GetEntryAssembly().Location;
+            string tmplFile = Path.Combine(Path.GetDirectoryName(exe), "template.html");
+            Templater tmpl = new Templater(tmplFile);
+            container.Register<ITemplate>(tmpl);
         }
     }
 }

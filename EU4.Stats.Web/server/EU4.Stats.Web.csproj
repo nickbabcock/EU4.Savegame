@@ -67,11 +67,13 @@
   <ItemGroup>
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="ErrorMessage.cs" />
+    <Compile Include="ITemplate.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="..\..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="StatsModule.cs" />
+    <Compile Include="Templater.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

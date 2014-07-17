@@ -34,7 +34,7 @@ namespace EU4.Stats.Web
             id = q == Enumerable.Empty<int>() ? 0 : q.Max();
         }
 
-        public StatsModule()
+        public StatsModule(ITemplate tmpl)
         {
             Post["/games"] = _ =>
             {
@@ -54,10 +54,7 @@ namespace EU4.Stats.Web
                     savegame = new Save(stream);
 
                 // Turn the savegame into html and return the url for it
-                FormatCompiler compiler = new FormatCompiler();
-                var template = File.ReadAllText("template.html");
-                Generator generator = compiler.Compile(template);
-                string contents = generator.Render(new
+                string contents = tmpl.Render(new
                 {
                     Player = savegame.Player,
                     Players = string.Join(", ", savegame.Countries.Where(x => 
@@ -69,7 +66,6 @@ namespace EU4.Stats.Web
                     Debt = CountryStats.inDebt(savegame).Take(10),
                     WorldStats = WorldStats.calc(savegame)
                 });
-
 
                 string filename = Interlocked.Increment(ref id) + ".html";
                 string loc = Path.Combine(gamedir, filename);
