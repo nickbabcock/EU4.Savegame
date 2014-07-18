@@ -6,7 +6,7 @@ var tableTools = {
 $(function() {
 
     $('#leaderReport').dataTable({
-        dom: 'T<"clear">lfrtip',
+        dom: 'T<"clear">frtip',
         tableTools: tableTools
     });
 
@@ -15,7 +15,7 @@ $(function() {
         searching: false,
         info: false,
         order: [],
-        dom: 'T<"clear">lfrtip',
+        dom: 'T<"clear">frtip',
         tableTools: tableTools 
     });
 
@@ -25,7 +25,7 @@ $(function() {
         ordering: false,
         info: false,
         order: [],
-        dom: 'T<"clear">lfrtip',
+        dom: 'T<"clear">frtip',
         tableTools: tableTools 
     });
 });
