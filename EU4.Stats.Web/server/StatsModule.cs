@@ -67,6 +67,8 @@ namespace EU4.Stats.Web
                 Player = savegame.Player,
                 Players = string.Join(", ", savegame.Countries.Where(x =>
                     x.WasPlayer.GetValueOrDefault()).Select(x => x.Abbreviation)),
+                PlayerCountries = savegame.Countries.Where(x =>
+                    x.WasPlayer.GetValueOrDefault()),
                 Date = savegame.Date,
                 WarStats = WarStats.Calc(savegame),
                 LedgerCorrelations = LedgerStats.correlations(savegame),

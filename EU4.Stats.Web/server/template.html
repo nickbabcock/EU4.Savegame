@@ -232,6 +232,63 @@
           {{/each}}
         </tbody>
       </table>
+
+      <h2>Players</h2>
+      <table id='players'>
+        <thead>
+          <tr>
+            <th>Stat</th>
+          {{#each PlayerCountries}}
+            <th>{{Abbreviation}}</th>
+          {{/each}}
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Treasury</td>  
+          {{#each PlayerCountries}}
+            <td>{{Treasury}}</td>
+          {{/each}}
+          </tr>
+          <tr>
+            <td>Prestige</td>
+          {{#each PlayerCountries}}
+            <td>{{Prestige}}</td>
+          {{/each}}
+          </tr>
+          <tr>
+            <td>Number Of Cities</td>
+          {{#each PlayerCountries}}
+            <td>{{NumOfCities}}</td>
+          {{/each}}
+          </tr>
+          <tr>
+            <td>Number Of Colonies</td>
+          {{#each PlayerCountries}}
+            <td>{{NumOfColonies}}</td>
+          {{/each}}
+          </tr>
+          <tr>
+            <td>Army Tradition</td>
+          {{#each PlayerCountries}}
+            <td>{{ArmyTradition}}</td>
+          {{/each}}
+          </tr>
+          <tr>
+            <td>Navy Tradition</td>
+          {{#each PlayerCountries}}
+            <td>{{NavyTradition}}</td>
+          {{/each}}
+          </tr>
+          <tr>
+            <td>Mercantilism</td>
+          {{#each PlayerCountries}}
+            <td>{{Mercantilism}}</td>
+          {{/each}}
+          </tr>
+        </tbody>
+      </table>
+
       
       <h2>Ledger Correlations</h2>
       <p>Every year EU4 marks the year and a value (score, income, inflation,
