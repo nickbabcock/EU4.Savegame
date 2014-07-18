@@ -36,9 +36,17 @@ namespace EU4.Stats.Web
             base.ConfigureApplicationContainer(container);
 
             string exe = Assembly.GetEntryAssembly().Location;
-            string tmplFile = Path.Combine(Path.GetDirectoryName(exe), "template.html");
+            string exeDir = Path.GetDirectoryName(exe);
+            string tmplFile = Path.Combine(exeDir, "template.html");
             Templater tmpl = new Templater(tmplFile);
             container.Register<ITemplate>(tmpl);
+
+            string gamedir = Path.Combine(exeDir, "..", "games");
+            var gen = new IncrementIdGenerator(gamedir);
+            container.Register<IIdGenerator>(gen);
+
+            var module = new SavegameStorage(gamedir);
+            container.Register<SavegameStorage>(module);
         }
     }
 }

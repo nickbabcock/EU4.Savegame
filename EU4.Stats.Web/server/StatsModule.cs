@@ -16,25 +16,7 @@ namespace EU4.Stats.Web
 {
     public class StatsModule : NancyModule
     {
-        static int id;
-        static readonly string basedir;
-        static readonly string gamedir;
-
-        static StatsModule()
-        {
-            basedir = "/var/www/stats";
-            gamedir = Path.Combine(basedir, "games");
-
-            // Pick up with the last id written so we don't overwrite
-            var q = Directory.EnumerateFiles(gamedir)
-                .Select(x => Path.GetFileNameWithoutExtension(x))
-                .Select(x => int.Parse(x))
-                .DefaultIfEmpty();
-
-            id = q == Enumerable.Empty<int>() ? 0 : q.Max();
-        }
-
-        public StatsModule(ITemplate tmpl)
+        public StatsModule(ITemplate tmpl, IIdGenerator idgen, SavegameStorage storage)
         {
             Post["/games"] = _ =>
             {
@@ -54,28 +36,13 @@ namespace EU4.Stats.Web
                     savegame = new Save(stream);
 
                 // Turn the savegame into html and return the url for it
-                string contents = tmpl.Render(new
-                {
-                    Player = savegame.Player,
-                    Players = string.Join(", ", savegame.Countries.Where(x => 
-                        x.Human.GetValueOrDefault()).Select(x => x.Abbreviation)),
-                    Date = savegame.Date,
-                    WarStats = WarStats.Calc(savegame),
-                    LedgerCorrelations = LedgerStats.correlations(savegame),
-                    ScoreStats = CountryStats.scoreRankings(savegame),
-                    Debt = CountryStats.inDebt(savegame).Take(10),
-                    WorldStats = WorldStats.calc(savegame),
-                    TradePower = TradeStats.calc(savegame).Take(10)
-                });
-
-                string filename = Interlocked.Increment(ref id) + ".html";
-                string loc = Path.Combine(gamedir, filename);
-                File.WriteAllText(loc, contents, Pdoxcl2Sharp.Globals.ParadoxEncoding);
-                return Path.Combine("games", Path.GetFileNameWithoutExtension(loc));
+                string contents = tmpl.Render(aggregate(savegame));
+                string id = idgen.NextId();
+                return storage.Store(contents, id);
             };
         }
 
-        private Stream getStream(string filename, string extension)
+        private static Stream getStream(string filename, string extension)
         {
             var stream = new FileStream(filename, FileMode.Open,
                             FileAccess.Read, FileShare.ReadWrite, 1024 * 64);
@@ -97,6 +64,23 @@ namespace EU4.Stats.Web
                     stream.Close();
                     throw new ArgumentException("Extension not recognized: " + extension);
             }
+        }
+
+        private static object aggregate(Save savegame)
+        {
+            return new
+            {
+                Player = savegame.Player,
+                Players = string.Join(", ", savegame.Countries.Where(x =>
+                    x.WasPlayer.GetValueOrDefault()).Select(x => x.Abbreviation)),
+                Date = savegame.Date,
+                WarStats = WarStats.Calc(savegame),
+                LedgerCorrelations = LedgerStats.correlations(savegame),
+                ScoreStats = CountryStats.scoreRankings(savegame),
+                Debt = CountryStats.inDebt(savegame).Take(10),
+                WorldStats = WorldStats.calc(savegame),
+                TradePower = TradeStats.calc(savegame).Take(10)
+            };
         }
     }
 }
