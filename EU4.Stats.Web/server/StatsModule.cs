@@ -1,16 +1,10 @@
-﻿using Nancy;
+﻿using EU4.Savegame;
+using ICSharpCode.SharpZipLib.Zip;
+using Nancy;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
-using System.Text;
-using System.Threading;
-using EU4.Stats;
-using EU4.Savegame;
-using Pdoxcl2Sharp;
-using ICSharpCode.SharpZipLib.Zip;
-using Mustache;
 
 namespace EU4.Stats.Web
 {
