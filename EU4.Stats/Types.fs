@@ -1,7 +1,7 @@
 module EU4.Stats.Types
 
-open System;
-open MathNet.Numerics.Statistics;
+open System
+open MathNet.Numerics.Statistics
 
 type FiveNumberSummary = {
     min : double; q1 : double; median : double; q3 : double; max : double;
@@ -12,9 +12,8 @@ let ArrayToSummary (arr : double array) : FiveNumberSummary =
 
 let toSummary (fn:'a -> double) = 
     Seq.map fn >> Statistics.FiveNumberSummary >> ArrayToSummary
-let toSummary' (fn:'a -> Nullable<double>) = 
-    Seq.map fn >> Seq.map (fun x -> x.GetValueOrDefault()) >>
-    Statistics.FiveNumberSummary >> ArrayToSummary
+let toSummary' (fn:'a -> Nullable<double>) =
+    toSummary (fun x -> (fn x).GetValueOrDefault())
 
 let inline isNull o = Object.ReferenceEquals(o, null)
 let inline notNull o = not (isNull o)
