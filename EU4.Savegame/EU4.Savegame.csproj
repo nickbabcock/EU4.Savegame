@@ -65,9 +65,7 @@
     <Compile Include="LedgerDataCollection.cs" />
     <Compile Include="ParseTemplate.cs">
       <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <DependentUpon>ParseTemplate.tt</DependentUpon>
-      <ExcludeFromStyleCop>true</ExcludeFromStyleCop>
     </Compile>
     <Compile Include="ProvinceCollection.cs" />
     <Compile Include="ProvinceHistory.cs" />
@@ -85,7 +83,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ParseTemplate.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ParseTemplate.cs</LastGenOutput>
     </None>
   </ItemGroup>
@@ -94,10 +91,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="BeforeBuild">
-    <Exec Condition=" '$(OS)' != 'Windows_NT'" Command="mono $(SolutionDir)dependencies\t4\TextTransform.exe -r $(SolutionDir)dependencies\Pdoxcl2Sharp.dll -a='SolutionDir!$(SolutionDir)' -o $(MSBuildProjectDirectory)\ParseTemplate.cs $(MSBuildProjectDirectory)\ParseTemplate.tt" />
-    <Exec Condition=" '$(OS)' == 'Windows_NT'" Command="$(SolutionDir)dependencies\t4\TextTransform.exe -r $(SolutionDir)dependencies\Pdoxcl2Sharp.dll -o $(MSBuildProjectDirectory)\ParseTemplate.cs -a='SolutionDir!$(SolutionDir)' -r $(FrameworkDir)$(FrameworkVersion)\System.Linq.dll $(MSBuildProjectDirectory)\ParseTemplate.tt" />
+    <Exec Condition=" '$(OS)' != 'Windows_NT'" WorkingDirectory="$(SolutionDir)\dependencies" Command="mono $(SolutionDir)dependencies\t4\TextTransform.exe -o $(MSBuildProjectDirectory)\ParseTemplate.cs $(MSBuildProjectDirectory)\ParseTemplate.tt" />
+    <Exec Condition=" '$(OS)' == 'Windows_NT'" WorkingDirectory="$(SolutionDir)\dependencies" Command="$(SolutionDir)dependencies\t4\TextTransform.exe -o $(MSBuildProjectDirectory)\ParseTemplate.cs -r $(FrameworkDir)$(FrameworkVersion)\System.Linq.dll $(MSBuildProjectDirectory)\ParseTemplate.tt" />
   </Target>
-  <ItemGroup>
-    <T4ReferencePath Include="$(SolutionDir)\dependencies"/>
-  </ItemGroup>
 </Project>

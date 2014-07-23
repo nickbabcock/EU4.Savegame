@@ -1,7 +1,6 @@
 ﻿<#@ template debug="false" hostspecific="false" language="C#" #>
 <#@ assembly name="System.Core.dll" #>
-<# // CHANGE ME: The next line should be something like:
-// $(SolutionDir)\dependencies\Pdoxcl2Sharp.dll #>
+<#@ assembly name="Pdoxcl2Sharp.dll" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
