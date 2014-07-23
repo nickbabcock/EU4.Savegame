@@ -66,14 +66,14 @@ var classes = new[] {
             new Property() { Type = "CountryCollection", Name = "Countries" },
             new Property() { Type = "ActiveAdvisorCollection", Name = "ActiveAdvisors" },
             new Property() { Type = "Diplomacy", Name = "Diplomacy" },
-			new Property() { Type = "Combat", Name = "Combat" },
+            new Property() { Type = "Combat", Name = "Combat" },
             new Property() { Type = "LedgerDataCollection", Name = "IncomeStatistics" },
             new Property() { Type = "LedgerDataCollection", Name = "NationSizeStatistics" },
             new Property() { Type = "LedgerDataCollection", Name = "ScoreStatistics" },
             new Property() { Type = "LedgerDataCollection", Name = "InflationStatistics" },
             new Property() { Type = "IList<War>", Name = "ActiveWars" },
             new Property() { Type = "IList<War>", Name = "PreviousWars" },
-			new Property() { Type = "string", Name = "Checksum", Quoted = true }
+            new Property() { Type = "string", Name = "Checksum", Quoted = true }
         }
     },
     new {
@@ -234,7 +234,7 @@ var classes = new[] {
             new Property() { Type = "IList<string>", Name = "Core", Quoted = true },
             new Property() { Type = "IList<string>", Name = "Claims", Quoted = true },
             new Property() { Type = "string", Name = "Trade", Quoted = true },
-			new Property() { Type = "FabricateClaim", Name = "FabricateClaim" },
+            new Property() { Type = "FabricateClaim", Name = "FabricateClaim" },
             new Property() { Type = "IList<ParadoxId>", Name = "Units" },
             new Property() { Type = "string", Name = "Culture" },
             new Property() { Type = "string", Name = "Religion" },
@@ -244,7 +244,7 @@ var classes = new[] {
             new Property() { Type = "double?", Name = "Garrison" },
             new Property() { Type = "double?", Name = "Siege" },
             new Property() { Type = "double?", Name = "BaseTax" },
-			new Property() { Type = "double?", Name = "OriginalTax" },
+            new Property() { Type = "double?", Name = "OriginalTax" },
             new Property() { Type = "double?", Name = "Manpower" },
             new Property() { Type = "double?", Name = "RevoltRisk" },
             new Property() { Type = "string", Name = "LikelyRebels" },
@@ -276,7 +276,7 @@ var classes = new[] {
             new Property() { Type = "MissionaryConstruction", Name = "MissionaryConstruction" },
             new Property() { Type = "MissionaryConstruction", Name = "ColonyConstruction" },
             new Property() { Type = "double", Name = "TradePower" },
-			new Property() { Type = "ParadoxId", Name = "RebelFaction" },
+            new Property() { Type = "ParadoxId", Name = "RebelFaction" },
             new Property() { Type = "bool", Name = "HreLiberated" },
             new Property() { Type = "bool", Name = "UserChangedName" }
         }
@@ -744,9 +744,9 @@ var classes = new[] {
             new Property() { Type = "int", Name = "Id" }
         }
     },
-	new {
-		Name = "FabricateClaim",
-		Props = new[] {
+    new {
+        Name = "FabricateClaim",
+        Props = new[] {
             new Property() { Type = "int", Name = "Location" },
             new Property() { Type = "string", Name = "Attacker", Quoted = true },
             new Property() { Type = "int", Name = "Envoy" },
@@ -755,8 +755,8 @@ var classes = new[] {
             new Property() { Type = "double", Name = "Progress" },
             new Property() { Type = "int", Name = "Target" },
             new Property() { Type = "string", Name = "Country", Quoted = true }
-		}
-	},
+        }
+    },
     new {
         Name = "BuildingConstruction",
         Props = new[] {
@@ -771,7 +771,7 @@ var classes = new[] {
             new Property() { Type = "int", Name = "Building" }
         }
     },
-	new {
+    new {
         Name = "MissionaryConstruction",
         Props = new[] {
             new Property() { Type = "DateTime", Name = "StartDate" },
@@ -802,7 +802,7 @@ var classes = new[] {
             new Property() { Type = "double", Name = "Power" }
         }
     },
-	new {
+    new {
         Name = "BuildCoreConstruction",
         Props = new[] {
             new Property() { Type = "DateTime", Name = "StartDate" },
@@ -814,8 +814,8 @@ var classes = new[] {
             new Property() { Type = "string", Name = "Country", Quoted = true },
             new Property() { Type = "int", Name = "End" },
             new Property() { Type = "int", Name = "Cost" },
-		}
-	},
+        }
+    },
     new {
         Name = "DiplomacyConstruction",
         Props = new[] {
@@ -977,25 +977,25 @@ var classes = new[] {
             new Property() { Type = "string", Name = "CasusBelli", Quoted = true }
         }
     },
-	new {
-		Name = "Revolt",
-		Props = new[] {
+    new {
+        Name = "Revolt",
+        Props = new[] {
             new Property() { Type = "string", Name = "Type", Quoted = true },
             new Property() { Type = "string", Name = "Name", Quoted = true },
             new Property() { Type = "string", Name = "Leader", Quoted = true },
             new Property() { Type = "int", Name = "Size" }
-		}
-	},
-	new {
-		Name = "ControllerChange",
-		Props = new[] {
+        }
+    },
+    new {
+        Name = "ControllerChange",
+        Props = new[] {
             new Property() { Type = "string", Name = "Controller", Quoted = true },
             new Property() { Type = "string", Name = "Rebel", Quoted = true }
-		}
-	},
-	new {
-		Name = "Advisor",
-		Props = new[] {
+        }
+    },
+    new {
+        Name = "Advisor",
+        Props = new[] {
             new Property() { Type = "string", Name = "Name", Quoted = true },
             new Property() { Type = "string", Name = "Type" },
             new Property() { Type = "int", Name = "Skill" },
@@ -1004,19 +1004,19 @@ var classes = new[] {
             new Property() { Type = "DateTime", Name = "HireDate" },
             new Property() { Type = "DateTime", Name = "DeathDate" },
             new Property() { Type = "ParadoxId", Name = "Id" }
-		}
-	},
-	new {
-		Name = "LedgerData",
-		Props = new[] {
+        }
+    },
+    new {
+        Name = "LedgerData",
+        Props = new[] {
             new Property() { Type = "[ConsecutiveElements] IList<int>", Name = "YData", Alias = "ledger_data_y" },
             new Property() { Type = "[ConsecutiveElements] IList<int>", Name = "XData", Alias = "ledger_data_x" },
             new Property() { Type = "string", Name = "Name", Quoted = true },
-		}
-	},
-	new {
-		Name = "NavalCombatant",
-		Props = new[] {
+        }
+    },
+    new {
+        Name = "NavalCombatant",
+        Props = new[] {
             new Property() { Type = "int", Name = "Dice" },
             new Property() { Type = "bool", Name = "IsAttacker" },
             new Property() { Type = "ParadoxId", Name = "Unit" },
@@ -1028,28 +1028,28 @@ var classes = new[] {
             new Property() { Type = "double?", Name = "Galley" },
             new Property() { Type = "IList<string>", Name = "ParticipatingCountry", Quoted = true },
             new Property() { Type = "double", Name = "Positioning" }
-		}
-	},
-	new {
-		Name = "LandCombatant",
-		Props = new[] {
+        }
+    },
+    new {
+        Name = "LandCombatant",
+        Props = new[] {
             new Property() { Type = "int", Name = "Dice" },
             new Property() { Type = "bool", Name = "IsAttacker" },
             new Property() { Type = "ParadoxId", Name = "Unit" },
             new Property() { Type = "int", Name = "Losses" },
             new Property() { Type = "[ConsecutiveElements] IList<double>", Name = "LossesType" },
             new Property() { Type = "IList<string>", Name = "ParticipatingCountry", Quoted = true },
-			new Property() { Type = "double?", Name = "Cavalry" },
+            new Property() { Type = "double?", Name = "Cavalry" },
             new Property() { Type = "double?", Name = "Infantry" },
             new Property() { Type = "double?", Name = "Artillery" },
             new Property() { Type = "CombatPositions", Name = "Front" },
             new Property() { Type = "CombatPositions", Name = "Back" },
             new Property() { Type = "IList<ParadoxId>", Name = "Retreats" },
-		}
-	},
-	new {
-		Name = "NavalCombat",
-		Props = new[] {
+        }
+    },
+    new {
+        Name = "NavalCombat",
+        Props = new[] {
             new Property() { Type = "ParadoxId", Name = "Id" },
             new Property() { Type = "int", Name = "Location" },
             new Property() { Type = "int", Name = "Phase" },
@@ -1058,11 +1058,11 @@ var classes = new[] {
             new Property() { Type = "NavalCombatant", Name = "Attacker" },
             new Property() { Type = "NavalCombatant", Name = "Defender" },
             new Property() { Type = "string", Name = "Terrain", Quoted = true }
-		}
-	},
-	new {
-		Name = "LandCombat",
-		Props = new[] {
+        }
+    },
+    new {
+        Name = "LandCombat",
+        Props = new[] {
             new Property() { Type = "ParadoxId", Name = "Id" },
             new Property() { Type = "int", Name = "Location" },
             new Property() { Type = "int", Name = "Phase" },
@@ -1071,11 +1071,11 @@ var classes = new[] {
             new Property() { Type = "LandCombatant", Name = "Attacker" },
             new Property() { Type = "LandCombatant", Name = "Defender" },
             new Property() { Type = "string", Name = "Terrain", Quoted = true }
-		}
-	},
-	new {
-		Name = "SiegeCombat",
-		Props = new[] {
+        }
+    },
+    new {
+        Name = "SiegeCombat",
+        Props = new[] {
             new Property() { Type = "ParadoxId", Name = "Id" },
             new Property() { Type = "int", Name = "Location" },
             new Property() { Type = "int", Name = "Phase" },
@@ -1090,19 +1090,19 @@ var classes = new[] {
             new Property() { Type = "int", Name = "Total" },
             new Property() { Type = "DateTime", Name = "LastAssault" },
             new Property() { Type = "bool", Name = "Active" }
-		}
-	},
-	new {
-		Name = "Combat",
-		Props = new[] {
+        }
+    },
+    new {
+        Name = "Combat",
+        Props = new[] {
             new Property() { Type = "IList<SiegeCombat>", Name = "SiegeCombats" },
             new Property() { Type = "IList<LandCombat>", Name = "LandCombats" },
             new Property() { Type = "IList<NavalCombat>", Name = "NavalCombats" }
-		}
-	},
-	new {
-		Name = "Leader",
-		Props = new[] {
+        }
+    },
+    new {
+        Name = "Leader",
+        Props = new[] {
             new Property() { Type = "string", Name = "Name", Quoted = true },
             new Property() { Type = "string", Name = "Type" },
             new Property() { Type = "byte", Name = "Manuever" },
@@ -1113,11 +1113,11 @@ var classes = new[] {
             new Property() { Type = "DateTime", Name = "Activation" },
             new Property() { Type = "DateTime", Name = "DeathDate" },
             new Property() { Type = "ParadoxId", Name = "Id" }
-		}
-	},
-	new {
-		Name = "Monarch",
-		Props = new[] {
+        }
+    },
+    new {
+        Name = "Monarch",
+        Props = new[] {
             new Property() { Type = "string", Name = "Name", Quoted = true },
             new Property() { Type = "string", Name = "Country", Quoted = true },
             new Property() { Type = "byte", Name = "Dip", Alias = "DIP" },
@@ -1131,11 +1131,11 @@ var classes = new[] {
             new Property() { Type = "bool?", Name = "NonHistoricalDynastyForHistoricalMonarch", Alias = "nonhistoricaldynastyforhistoricalmonarch" },
             new Property() { Type = "DateTime?", Name = "BirthDate" },
             new Property() { Type = "bool?", Name = "Succeeded" }
-		}
-	},
-	new {
-		Name = "Heir",
-		Props = new[] {
+        }
+    },
+    new {
+        Name = "Heir",
+        Props = new[] {
             new Property() { Type = "string", Name = "Name", Quoted = true },
             new Property() { Type = "string", Name = "Country", Quoted = true },
             new Property() { Type = "byte", Name = "Dip", Alias = "DIP" },
@@ -1150,8 +1150,8 @@ var classes = new[] {
             new Property() { Type = "DateTime?", Name = "DeathDate" },
             new Property() { Type = "int?", Name = "Claim" },
             new Property() { Type = "string", Name = "MonarchName", Quoted = true }
-		}
-	}
+        }
+    }
 };
 
 // end add
@@ -1204,13 +1204,13 @@ var specials = new[] {"Save", "Province", "War"};
 var qt = classes.Select(x => x.Name).Except(specials);
 
 foreach (var val in qt) { #>
-	public partial class <#= val #>
-	{
-		partial void unrecognizedToken(ParadoxParser parser, string token)
-		{
-			throw new ApplicationException("Unrecognized token: " + token);
-		}
-	}
+    public partial class <#= val #>
+    {
+        partial void unrecognizedToken(ParadoxParser parser, string token)
+        {
+            throw new ApplicationException("Unrecognized token: " + token);
+        }
+    }
 <# } 
 
 
@@ -1235,7 +1235,7 @@ foreach (var clazz in classes) { #>
         {
             switch (token)
             {
-			<#
+            <#
         ClearIndent();
         PushIndent("            "); 
         foreach (var prop in clazz.Props) {
@@ -1256,7 +1256,7 @@ foreach (var clazz in classes) { #>
             }
             else if (prop.Type.Contains("[ConsecutiveElements]"))
                 Write(prop.Name + " = parser.ReadList(() => parser.Parse " +
-					"(new " + prop.ExtractInnerListType() + "()))");
+                    "(new " + prop.ExtractInnerListType() + "()))");
             else
                 Write(prop.Name + " = " + fallback);
             WriteLine("; break;");
@@ -1273,7 +1273,7 @@ foreach (var clazz in classes) { #>
 
         public void Write(ParadoxStreamWriter writer)
         {
-			<#
+            <#
         ClearIndent();
         PushIndent("            "); 
         foreach (var prop in clazz.Props) {
@@ -1376,7 +1376,7 @@ foreach (var clazz in classes) { #>
     #>
         }
 
-		partial void unrecognizedToken(ParadoxParser parser, string token);
+        partial void unrecognizedToken(ParadoxParser parser, string token);
     }
 
 <# } #>
