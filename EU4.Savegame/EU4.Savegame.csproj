@@ -92,6 +92,6 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="BeforeBuild">
     <Exec Condition=" '$(OS)' != 'Windows_NT'" WorkingDirectory="$(SolutionDir)\dependencies" Command="mono $(SolutionDir)dependencies\t4\TextTransform.exe -o $(MSBuildProjectDirectory)\ParseTemplate.cs $(MSBuildProjectDirectory)\ParseTemplate.tt" />
-    <Exec Condition=" '$(OS)' == 'Windows_NT'" WorkingDirectory="$(SolutionDir)\dependencies" Command="$(SolutionDir)dependencies\t4\TextTransform.exe -o $(MSBuildProjectDirectory)\ParseTemplate.cs -r $(FrameworkDir)$(FrameworkVersion)\System.Linq.dll $(MSBuildProjectDirectory)\ParseTemplate.tt" />
+    <Exec Condition=" '$(OS)' == 'Windows_NT'" WorkingDirectory="$(SolutionDir)\dependencies" Command="$(SolutionDir)dependencies\t4\TextTransform.exe -o $(MSBuildProjectDirectory)\ParseTemplate.cs $(MSBuildProjectDirectory)\ParseTemplate.tt" />
   </Target>
 </Project>
