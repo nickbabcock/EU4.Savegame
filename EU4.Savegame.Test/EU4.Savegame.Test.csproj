@@ -56,11 +56,8 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="HistoricBattleTests.cs" />
-    <Compile Include="HistoricCombatantTests.cs" />
-    <Compile Include="LedgerDataTests.cs" />
-    <Compile Include="PreviousWarTests.cs" />
-    <Compile Include="ProvinceTests.cs" />
+    <Compile Include="ProvinceCollectionTests.cs" />
+    <Compile Include="SaveTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EU4.Savegame\EU4.Savegame.csproj">
@@ -70,26 +67,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="BlankWarFile.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HistoricBattle.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HistoricCombatantLand.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HistoricCombatantNaval.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="LedgerDataFile.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ProvinceTestData.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />

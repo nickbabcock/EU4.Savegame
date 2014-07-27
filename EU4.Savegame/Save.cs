@@ -14,7 +14,7 @@ namespace EU4.Savegame
         public Save(Stream stream)
             : this()
         {
-            ParadoxParser.Parse(stream, TokenCallback);
+            ParadoxParser.Parse(stream, TopToken);
         }
 
         public Save(string filepath)
@@ -22,15 +22,16 @@ namespace EU4.Savegame
         {
             using (var fs = File.OpenRead(filepath))
             {
-                ParadoxParser.Parse(fs, TokenCallback);
+                ParadoxParser.Parse(fs, TopToken);
             }
         }
 
-        partial void unrecognizedToken(ParadoxParser parser, string token)
+        public void TopToken(ParadoxParser parser, string token)
         {
-            readMagic = !readMagic && token == "EU4txt";
-            if (!readMagic)
-                throw new ApplicationException("Unrecognized token: " + token);
+            if (readMagic)
+                TokenCallback(parser, token);
+            else if (!(readMagic = token == "EU4txt"))
+                throw new ApplicationException("First token must be EU4txt");
         }
     }
 }

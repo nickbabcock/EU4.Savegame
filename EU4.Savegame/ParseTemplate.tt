@@ -1200,7 +1200,7 @@ var dict = new Dictionary<string, string>()
     { "[ConsecutiveElements] List<DateTime>", "parser.ReadDateTimeList()" }
 };
 
-var specials = new[] {"Save", "Province", "War"};
+var specials = new[] {"Province", "War"};
 var qt = classes.Select(x => x.Name).Except(specials);
 
 foreach (var val in qt) { #>
