@@ -16,6 +16,7 @@ namespace EU4.Savegame
                 case "monarch": return parser.Parse(new Monarch(date));
                 case "heir": return parser.Parse(new Heir(date));
                 case "government": return new GovernmentChange(date, parser.ReadString());
+                case "national_focus": return new NationalFocusChange(date, parser.ReadString());
                 case "primary_culture": return new PrimaryCultureChange(date, parser.ReadString());
                 case "religion": return new CountryReligionChange(date, parser.ReadString());
                 case "technology_group": return new TechnologyGroupChange(date, parser.ReadString());
@@ -23,6 +24,7 @@ namespace EU4.Savegame
                 case "mercantilism": return new MercantilismChange(date, parser.ReadDouble());
                 case "elector": return new ElectorChange(date, parser.ReadBool());
                 case "capital": return new CountryCapitalChange(date, parser.ReadInt32());
+                case "fixed_capital": return new FixedCapitalChange(date, parser.ReadInt32());
                 case "adm_tech": return new AdmTechChange(date, parser.ReadInt32());
                 case "dip_tech": return new DipTechChange(date, parser.ReadInt32());
                 case "mil_tech": return new MilTechChange(date, parser.ReadInt32());
@@ -99,6 +101,32 @@ namespace EU4.Savegame
         public DateTime EventDate
         {
             get { return evt; }
+        }
+    }
+
+    public class NationalFocusChange : IHistory<Country>
+    {
+        private DateTime evt;
+        public string NationalFocus { get; set; }
+        public NationalFocusChange(DateTime evt, string nationalFocus)
+        {
+            this.evt = evt;
+            this.NationalFocus = nationalFocus;
+        }
+
+        public void Apply(Country obj, bool advance)
+        {
+            throw new NotImplementedException();
+        }
+
+        public DateTime EventDate
+        {
+            get { return evt; }
+        }
+
+        public void Write(ParadoxStreamWriter writer)
+        {
+            writer.WriteLine("national_focus", NationalFocus);
         }
     }
 
@@ -332,6 +360,32 @@ namespace EU4.Savegame
         public void Write(ParadoxStreamWriter writer)
         {
             writer.WriteLine("capital", Capital);
+        }
+    }
+
+    public class FixedCapitalChange : IHistory<Country>
+    {
+        private DateTime evt;
+        public int FixedCapital { get; set; }
+        public FixedCapitalChange(DateTime evt, int fixedCapital)
+        {
+            this.evt = evt;
+            this.FixedCapital = fixedCapital;
+        }
+
+        public void Apply(Country obj, bool advance)
+        {
+            throw new NotImplementedException();
+        }
+
+        public DateTime EventDate
+        {
+            get { return evt; }
+        }
+
+        public void Write(ParadoxStreamWriter writer)
+        {
+            writer.WriteLine("fixed_capital", FixedCapital);
         }
     }
 

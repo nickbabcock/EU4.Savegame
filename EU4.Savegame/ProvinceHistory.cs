@@ -14,6 +14,7 @@ namespace EU4.Savegame
             {
                 case "revolt": return parser.Parse(new Revolt(date));
                 case "controller": return parser.Parse(new ControllerChange(date));
+                case "name": return parser.Parse(new ProvinceNameChange(date));
                 case "owner": return new OwnerChange(date, parser.ReadString());
                 case "capital": return new CapitalNameChange(date, parser.ReadString());
                 case "discovered_by": return new DiscoveredBy(date, parser.ReadString());
@@ -65,6 +66,22 @@ namespace EU4.Savegame
     {
         private readonly DateTime evt;
         public ControllerChange(DateTime evt)
+        {
+            this.evt = evt;
+        }
+
+        public void Apply(Province obj, bool advance)
+        {
+            throw new NotImplementedException();
+        }
+
+        public DateTime EventDate { get { return evt; } }
+    }
+
+    public partial class ProvinceNameChange : IHistory<Province>
+    {
+        private readonly DateTime evt;
+        public ProvinceNameChange(DateTime evt)
         {
             this.evt = evt;
         }

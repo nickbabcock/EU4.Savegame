@@ -67,6 +67,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>ParseTemplate.tt</DependentUpon>
     </Compile>
+    <Compile Include="PendingEvents.cs" />
     <Compile Include="ProvinceCollection.cs" />
     <Compile Include="ProvinceHistory.cs" />
     <Compile Include="Religion.cs" />
