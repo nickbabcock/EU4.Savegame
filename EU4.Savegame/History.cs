@@ -23,7 +23,8 @@ namespace EU4.Savegame
 
         public virtual void Write(ParadoxStreamWriter writer)
         {
-            foreach (var pair in history.GroupBy(x => x.EventDate))
+            var groups = history.GroupBy(x => x.EventDate).OrderBy(x => x.Key);
+            foreach (var pair in groups)
             {
                 if (pair.Key.Equals(DateTime.MinValue))
                 {
@@ -33,8 +34,11 @@ namespace EU4.Savegame
                 else
                 {
                     string header = pair.Key.ToParadoxString();
-                    foreach (var val in pair)
-                        writer.Write(header, val);
+                    writer.Write(header, (w) =>
+                    {
+                        foreach (var val in pair)
+                            val.Write(w);
+                    });
                 }
             }
         }
@@ -53,6 +57,11 @@ namespace EU4.Savegame
             {
                 history.Add(InnerToken(parser, token, evt));
             }
+        }
+
+        public void Add(IHistory<T> val)
+        {
+            history.Add(val);
         }
 
         protected abstract IHistory<T> InnerToken(
