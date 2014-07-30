@@ -62,7 +62,7 @@ namespace EU4.Stats.Web
 
         private static object aggregate(Save savegame)
         {
-            var stats = new Statistics.SaveStats(savegame);
+            var stats = new SaveStats(savegame);
             return new
             {
                 Player = savegame.Player,

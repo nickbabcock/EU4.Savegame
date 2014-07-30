@@ -1,4 +1,4 @@
-﻿module EU4.Stats.Statistics
+namespace EU4.Stats
 
 open EU4.Stats.Types
 open EU4.Stats.WarStats
@@ -81,11 +81,11 @@ type SaveStats (save : Save) =
 
     /// Summation of the available manpower for existing country
     member x.WorldManpower () = 
-        int (existantCountries |> Seq.sumBy(fun x -> x.Manpower)) * 1000
+        int ((existantCountries |> Seq.sumBy(fun x -> x.Manpower)) * 1000.0)
 
     /// Summation of the max manpower for existing country
     member x.MaxWorldManpower () = 
-        int (existantCountries |> Seq.sumBy(fun x -> x.MaxManpower)) * 1000
+        int ((existantCountries |> Seq.sumBy(fun x -> x.MaxManpower)) * 1000.0)
 
     member x.LandWarReport () = warReport landDeployments
     member x.NavalWarReport () = warReport navalDeployments

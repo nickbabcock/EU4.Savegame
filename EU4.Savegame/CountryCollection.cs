@@ -12,10 +12,20 @@ namespace EU4.Savegame
 
         private const int CountriesEstimate = 512;
 
-
         public CountryCollection()
         {
             countries = new List<Country>(CountriesEstimate);
+        }
+
+        public void Add(Country country)
+        {
+            if (countries.Any(x => x.Abbreviation == country.Abbreviation))
+            {
+                throw new ArgumentException("Country "
+                    + country.Abbreviation + " has already been added");
+            }
+
+            countries.Add(country);
         }
 
         public void Write(ParadoxStreamWriter writer)
