@@ -15,7 +15,6 @@
       Players: {{Players}}
       </p>
       
-      {{#with WorldStats}}
       <h2>World Statistics</h2>
       <table class='pure-table pure-table-striped'>
         <thead>
@@ -27,15 +26,14 @@
         <tbody>
           <tr>
             <td>Manpower</td>
-            <td>{{manpower:F2}}</td>
+            <td>{{Manpower:F2}}</td>
           </tr>
           <tr>
             <td>Potential Manpower</td>
-            <td>{{potentialManpower:F2}}</td>
+            <td>{{PotentialManpower:F2}}</td>
           </tr>
         </tbody>
       </table>
-      {{/with}}
 
       <h2>Trade Power</h2>
       <table id='trade' class='pure-table pure-table-striped'>
@@ -65,7 +63,6 @@
         </tbody>
       </table>
 
-      {{#with WarStats}}
       <table id='leaderReport' class='pure-table pure-table-striped pure-form'>
         <thead>
           <tr>
@@ -188,7 +185,6 @@
           {{/each}}
         </tbody>
       </table>
-      {{/with}}
 
       <h2>Score Rankings</h2>
       <table id='scores' class='pure-table pure-table-striped'>
@@ -211,7 +207,7 @@
             <td>{{adm}}</td>
             <td>{{dip}}</td>
             <td>{{mil}}</td>
-          </td>
+          </tr>
           {{/each}}
         </tbody>
       </table>
@@ -231,7 +227,7 @@
             <td>{{Item1}}</td>
             <td>{{Item2}}</td>
             <td>{{Item3}}</td>
-          </td>
+          </tr>
           {{/each}}
         </tbody>
       </table>

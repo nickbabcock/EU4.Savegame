@@ -62,6 +62,7 @@ namespace EU4.Stats.Web
 
         private static object aggregate(Save savegame)
         {
+            var stats = new Statistics.SaveStats(savegame);
             return new
             {
                 Player = savegame.Player,
@@ -71,12 +72,16 @@ namespace EU4.Stats.Web
                     x.WasPlayer.GetValueOrDefault()),
                 Today = DateTime.UtcNow,
                 Date = savegame.Date,
-                WarStats = WarStats.Calc(savegame),
-                LedgerCorrelations = LedgerStats.correlations(savegame),
-                ScoreStats = CountryStats.scoreRankings(savegame),
-                Debt = CountryStats.inDebt(savegame).Take(10),
-                WorldStats = WorldStats.calc(savegame),
-                TradePower = TradeStats.calc(savegame).Take(10)
+                Manpower = stats.WorldManpower(),
+                PotentialManpower = stats.MaxWorldManpower(),
+                LeaderReport = stats.LeaderReport(),
+                BiggestNavalWars = stats.NavalWarReport().Take(10),
+                BiggestLandWars = stats.LandWarReport().Take(10),
+                BiggestRivalries = stats.CommanderRivalries().Take(10),
+                LedgerCorrelations = stats.LedgerCorrelations(),
+                ScoreStats = stats.ScoreRankings().Where(x => x.rank <= 10 || stats.IsPlayer(x.name)),
+                Debt = stats.CountryDebts().Take(10),
+                TradePower = stats.CountryTradeReport().Take(10)
             };
         }
     }

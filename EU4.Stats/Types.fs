@@ -18,6 +18,7 @@ let toSummary' (fn:'a -> Nullable<double>) =
 
 let inline isNull o = Object.ReferenceEquals(o, null)
 let inline notNull o = not (isNull o)
+let inline nullToEmpty o = if isNull o then Seq.empty else o
 
 let printSummary (data:seq<string * FiveNumberSummary>) (header:string) =
     let max = data |> Seq.map (fun (x,_) -> x.Length) |> Seq.max
