@@ -19,6 +19,13 @@ type BiggestRivalries = {
     forces2: int; losses2: int; wins2 : int;
 }
 
+type BattleReport = {
+    commander1 : Leader; country1 : string;
+    commander2 : Leader; country2 : string;
+    side1 : HistoricCombatant; side2 : HistoricCombatant;
+    won : bool
+}
+
 /// Summation of all the naval units a side deployed in a naval battle
 let navalDeployments (combatant:HistoricCombatant) =
     combatant.HeavyShip.GetValueOrDefault() +

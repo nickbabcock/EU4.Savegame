@@ -43,8 +43,8 @@ type SaveStats (save : Save) =
     // Creates map of leader names to leaders
     let leaderMap =
         leaders
-        |> Seq.collect (fun (_, leads) -> 
-            leads |> Seq.map (fun x -> (x.Name, x)))
+        |> Seq.collect (fun (country, leads) -> 
+            leads |> Seq.map (fun x -> (x.Name, (x, country))))
         |> Map.ofSeq
 
     let countryMap = 
@@ -103,9 +103,9 @@ type SaveStats (save : Save) =
         |> Seq.groupBy (fun (side,_,_,_) -> side.Commander)
         |> Seq.choose (fun (name, battles) -> 
             match (leaderMap.TryFind name) with
-            | Some leader -> Some (leader, battles)
+            | Some (leader, country) -> Some (leader, country, battles)
             | None -> None)
-        |> Seq.map (fun (leader, battles) ->
+        |> Seq.map (fun (leader, country, battles) ->
             let forces, losses, faces, kills, wins =
                 battles
                 |> Seq.fold (fun (f,l,f2,k,w) (me,you,win,_) ->
@@ -117,50 +117,50 @@ type SaveStats (save : Save) =
             { leader = leader; forces = forces; losses = losses; faced = faces;
               kills = kills; battles = Seq.length battles; wins = wins })
 
+
+
     /// Rivalries are calculated based on the number of times two commanders faced
     /// off on the battlefield. This statistics is a culmination of of all wars that
     /// the two commanders fought against each other in.
     member x.CommanderRivalries () =
         battles
         |> Seq.collect snd
-        |> Seq.where (fun x -> x.Attacker.Commander <> "")
-        |> Seq.where (fun x -> x.Defender.Commander <> "")
 
-        // We actually need to check to make sure that a country has the specified
-        // commander as there has been commanders that are listed in battles that
-        // do not show up under any country
-        |> Seq.where (fun x -> leaderMap.TryFind(x.Attacker.Commander) <> None)
-        |> Seq.where (fun x -> leaderMap.TryFind(x.Defender.Commander) <> None)
+        // We actually need to check to make sure that a country has the
+        // specified commander as there has been commanders that are listed in
+        // battles that do not show up under any country. It's very subtle but
+        // the country that is listed in the fighting side may not be the same
+        // country as the commander. I'm not sure in what circumstances this
+        // occurs, but I know "He Li" of MNG has fought battles that have a
+        // country of "DAI". Return the commanders in alphabetical order to
+        // combine battles where the attacker and defender flipped.
+        |> Seq.choose (fun battle ->
+            let commander1 = leaderMap.TryFind battle.Attacker.Commander
+            let commander2 = leaderMap.TryFind battle.Defender.Commander
+            match (commander1, commander2) with
+            | (Some (x, country1), Some (y, country2)) -> 
+                if x.Name < y.Name then
+                     Some { commander1 = x; country1 = country1;
+                            commander2 = y; country2 = country2;
+                            side1 = battle.Attacker; side2 = battle.Defender;
+                            won = battle.Result }
+                else Some { commander1 = y; country1 = country2;
+                            commander2 = x; country2 = country1;
+                            side1 = battle.Defender; side2 = battle.Attacker;
+                            won = not battle.Result }
+            | _ -> None)
+        |> Seq.groupBy (fun x -> (x.commander1.Name, x.commander2.Name))
+        |> Seq.map (fun ((c1name, c2name), battles) -> 
+            let com1Wins =  battles |> Seq.where (fun x -> x.won) |> Seq.length
+            let com1bs = battles |> Seq.map (fun x -> x.side1)
+            let com2bs = battles |> Seq.map (fun x -> x.side2)
+            let c1, country1 = Seq.head battles |> fun x -> (x.commander1, x.country1)
+            let c2, country2 = Seq.head battles |> fun x -> (x.commander2, x.country2)
 
-        // The group battles by commanders -- they are grouped alphabetically. It's
-        // very subtle but the country that is listed in the fighting side may not
-        // be the same country as the commander. I'm not sure in what circumstances
-        // this occurs, but I know "He Li" of MNG has fought wars that have a country
-        // of "DAI"
-        |> Seq.groupBy (fun x ->
-            if x.Attacker.Commander < x.Defender.Commander then
-                (x.Attacker.Commander, x.Attacker.Country, x.Defender.Commander, x.Defender.Country)
-            else
-                (x.Defender.Commander, x.Defender.Country, x.Attacker.Commander, x.Attacker.Country))
-        |> Seq.map (fun ((com1, c1, com2, c2), battles) -> 
-            let findbs name = seq { 
-                for b in battles -> if name = b.Attacker.Commander
-                                    then (b.Attacker, b.Result)
-                                    else (b.Defender, not b.Result) }
-            let com1bs = findbs com1 |> Seq.map fst
-            let com2bs = findbs com2 |> Seq.map fst
-            let com1Wins = findbs com1 |> Seq.map snd |> Seq.where id |> Seq.length
-
-            let stats name =
-                let leader = leaderMap.[name]
-                sprintf "(%d/%d/%d/%d)" leader.Fire leader.Shock
-                                        leader.Manuever leader.Siege
-
-            let com1Stats = stats com1
-            let com2Stats = stats com2
-
-            { description = sprintf "%s%s and %s%s of %s and %s" com1 com1Stats
-                                     com2 com2Stats c1 c2;
+            { description = sprintf "%s(%d/%d/%d/%d) and %s(%d/%d/%d/%d) of %s and %s"
+                                    c1.Name c1.Fire c1.Shock c1.Manuever c1.Siege
+                                    c2.Name c2.Fire c2.Shock c2.Manuever c2.Siege
+                                    country1 country2
               battles = Seq.length battles;
               forces1 = com1bs |> Seq.sumBy forces;
               losses1 = com1bs |> Seq.sumBy (fun x -> x.Losses);
