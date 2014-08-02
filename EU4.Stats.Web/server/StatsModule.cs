@@ -30,7 +30,7 @@ namespace EU4.Stats.Web
                     savegame = new Save(stream);
 
                 // Turn the savegame into html and return the url for it
-                string contents = tmpl.Render(aggregate(savegame));
+                string contents = tmpl.Render(Aggregate(savegame));
                 string id = idgen.NextId();
                 return storage.Store(contents, id);
             };
@@ -60,7 +60,7 @@ namespace EU4.Stats.Web
             }
         }
 
-        private static object aggregate(Save savegame)
+        public static object Aggregate(Save savegame)
         {
             var stats = new SaveStats(savegame);
             return new

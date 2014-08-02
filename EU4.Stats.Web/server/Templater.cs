@@ -26,6 +26,8 @@ namespace EU4.Stats.Web
             gen = compiler.Compile(File.ReadAllText(filepath));
 
             string parent = Path.GetDirectoryName(filepath);
+            if (parent == string.Empty)
+                parent = ".";
             string shortname = Path.GetFileName(file);
 
             // File watcher normally uses a glob pattern to match a series of
