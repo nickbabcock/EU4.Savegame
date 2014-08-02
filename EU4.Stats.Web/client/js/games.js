@@ -1,31 +1,21 @@
-var tableTools = {
-    sSwfPath: '//cdn.jsdelivr.net/jquery.datatables/1.10.0/plugins/tabletools/swf/copy_csv_xls.swf',
-    aButtons: ['copy', 'csv', 'xls']
-};
-
 $(function() {
 
-    $('#leaderReport').dataTable({
+    var fullOptions = {
         dom: 'T<"clear">frtip',
-        tableTools: tableTools
-    });
+        tableTools: {
+            sSwfPath: '//cdn.jsdelivr.net/jquery.datatables/1.10.0/plugins/tabletools/swf/copy_csv_xls.swf',
+            aButtons: ['copy', 'csv', 'xls']
+        }
+    };
 
-    $('#navalWars,#landWars,#rivalries,#trade').dataTable({
+    var sortTable = $.extend({}, fullOptions, {
         paging: false,
         searching: false,
         info: false,
-        order: [],
-        dom: 'T<"clear">frtip',
-        tableTools: tableTools 
+        order: []
     });
 
-    $('#correlation,#scores,#debt').dataTable({
-        paging: false,
-        searching: false,
-        ordering: false,
-        info: false,
-        order: [],
-        dom: 'T<"clear">frtip',
-        tableTools: tableTools 
-    });
+    $('table.full-table').dataTable(fullOptions);
+    $('table.sort-table').dataTable(sortTable);
+    $('table.plain-table').dataTable($.extend({}, sortTable, {order:[]}));
 });
