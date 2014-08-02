@@ -26,11 +26,11 @@
         <tbody>
           <tr>
             <td>Manpower</td>
-            <td>{{Manpower:F2}}</td>
+            <td>{{Manpower:N0}}</td>
           </tr>
           <tr>
             <td>Potential Manpower</td>
-            <td>{{PotentialManpower:F2}}</td>
+            <td>{{PotentialManpower:N0}}</td>
           </tr>
         </tbody>
       </table>
@@ -52,17 +52,18 @@
         {{#each TradePower}}
           <tr>
             <td>{{country}}</td>
-            <td>{{power}}</td>
-            <td>{{shipPower}}</td>
-            <td>{{provincePower}}</td>
+            <td>{{power:F3}}</td>
+            <td>{{shipPower:F3}}</td>
+            <td>{{provincePower:F3}}</td>
             <td>{{lightShips}}</td>
-            <td>{{money}}</td>
-            <td>{{total}}</td>
+            <td>{{money:F3}}</td>
+            <td>{{total:F3}}</td>
           </tr>
         {{/each}}
         </tbody>
       </table>
 
+      <h2>Leader Report</h2>
       <table class='pure-table pure-table-striped pure-form full-table'>
         <thead>
           <tr>
@@ -81,10 +82,10 @@
             <td>{{leader.Name}}</td>
             <td>{{battles}}</td>
             <td>{{wins}}</td>
-            <td>{{forces}}</td>
-            <td>{{faced}}</td>
-            <td>{{losses}}</td>
-            <td>{{kills}}</td>
+            <td>{{forces:N0}}</td>
+            <td>{{faced:N0}}</td>
+            <td>{{losses:N0}}</td>
+            <td>{{kills:N0}}</td>
           </tr>
         {{/each}}
         </tbody>
@@ -114,11 +115,11 @@
             <td>{{attacker}}</td>
             <td>{{defender}}</td>
             <td>{{battles}}</td>
-            <td>{{attackingWins}}/{{defendingWins}}</td>
-            <td>{{attackingForces}}</td>
-            <td>{{attackingLosses}}</td>
-            <td>{{defendingForces}}</td>
-            <td>{{defendingLosses}}</td>
+            <td>{{attackingWins}} / {{defendingWins}}</td>
+            <td>{{attackingForces:N0}}</td>
+            <td>{{attackingLosses:N0}}</td>
+            <td>{{defendingForces:N0}}</td>
+            <td>{{defendingLosses:N0}}</td>
           </tr>
           {{/each}}
         </tbody>
@@ -148,11 +149,11 @@
             <td>{{attacker}}</td>
             <td>{{defender}}</td>
             <td>{{battles}}</td>
-            <td>{{attackingWins}}/{{defendingWins}}</td>
-            <td>{{attackingForces}}</td>
-            <td>{{attackingLosses}}</td>
-            <td>{{defendingForces}}</td>
-            <td>{{defendingLosses}}</td>
+            <td>{{attackingWins}} / {{defendingWins}}</td>
+            <td>{{attackingForces:N0}}</td>
+            <td>{{attackingLosses:N0}}</td>
+            <td>{{defendingForces:N0}}</td>
+            <td>{{defendingLosses:N0}}</td>
           </tr>
           {{/each}}
         </tbody>
@@ -178,9 +179,9 @@
           <tr>
             <td>{{description}}</td>
             <td>{{battles}}</td>
-            <td>{{wins1}}/{{wins2}}</td>
-            <td>{{forces1}}/{{forces2}}</td>
-            <td>{{losses1}}/{{losses2}}</td>
+            <td>{{wins1}} / {{wins2}}</td>
+            <td>{{forces1:N0}} / {{forces2:N0}}</td>
+            <td>{{losses1:N0}} / {{losses2:N0}}</td>
           </tr>
           {{/each}}
         </tbody>
@@ -203,10 +204,10 @@
           <tr>
             <td>{{rank}}</td>
             <td>{{name}}</td>
-            <td>{{score}}</td>
-            <td>{{adm}}</td>
-            <td>{{dip}}</td>
-            <td>{{mil}}</td>
+            <td>{{score:F3}}</td>
+            <td>{{adm:F3}}</td>
+            <td>{{dip:F3}}</td>
+            <td>{{mil:F3}}</td>
           </tr>
           {{/each}}
         </tbody>
@@ -226,7 +227,7 @@
           <tr>
             <td>{{Item1}}</td>
             <td>{{Item2}}</td>
-            <td>{{Item3}}</td>
+            <td>{{Item3:N0}}</td>
           </tr>
           {{/each}}
         </tbody>
