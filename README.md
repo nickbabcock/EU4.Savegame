@@ -1,5 +1,7 @@
 # EU4.Savegame
 
+[![Build status](https://ci.appveyor.com/api/projects/status/re6omq30w699ue7v)](https://ci.appveyor.com/project/nickbabcock/eu4-savegame)
+
 If you're not a programmer, this is probably not what you're looking for (yet!).
 
 EU4.Savegame is a C# library currently in the alpha stage designed to read and
