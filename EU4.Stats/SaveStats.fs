@@ -285,13 +285,10 @@ type SaveStats (save : Save) =
                     |> Seq.collect (fun x -> x.Buildings)
                     |> Seq.groupBy id
                     |> Seq.map (fun (b, g) -> (b, Seq.length g))
-                let hbn = hasBuildings |> Seq.map fst
-                let buildings = seq {
-                    for building in allBuildings do
-                        match hbn |> Seq.tryFind ((=) building) with
-                        | Some x -> ()
-                        | None -> yield (building, 0)
-                } 
+                let buildings = 
+                    hasBuildings |> Seq.map fst |> Set.ofSeq
+                    |> Set.difference allBuildings
+                    |> Set.map (fun x -> (x, 0))
                 (country, buildings |> Seq.append hasBuildings))
 
         // Merge abbreviated country name with the actual country
