@@ -270,17 +270,29 @@ type SaveStats (save : Save) =
         | None -> false
 
     member x.CountryBuildings () =
+        let allBuildings = 
+            save.Provinces |> Seq.collect (fun x -> x.Buildings) |> Set.ofSeq
+
         // Group provinces by owner and further group by building and count
+        // Buildings not found in the country but found in other countries
+        // have a count of zero
         let countryBuildings = 
             nullToEmpty save.Provinces
             |> Seq.groupBy (fun x -> x.Owner)
             |> Seq.map (fun (country, provs) ->
-                let buildings =
+                let hasBuildings =
                     provs
                     |> Seq.collect (fun x -> x.Buildings)
                     |> Seq.groupBy id
                     |> Seq.map (fun (b, g) -> (b, Seq.length g))
-                (country, buildings))
+                let hbn = hasBuildings |> Seq.map fst
+                let buildings = seq {
+                    for building in allBuildings do
+                        match hbn |> Seq.tryFind ((=) building) with
+                        | Some x -> ()
+                        | None -> yield (building, 0)
+                } 
+                (country, buildings |> Seq.append hasBuildings))
 
         // Merge abbreviated country name with the actual country
         let merge = seq {
@@ -298,7 +310,7 @@ type SaveStats (save : Save) =
         // an error will be thrown. This error should hardly occur as that would
         // require each country having the same count fo rmor than one building.
         let bindicies = seq {
-            for i in 1 .. buildingCount do
+            for i in 0 .. buildingCount - 1 do
                 let possibilities =
                     merge
                     |> Seq.map (fun (country, buildings) ->
@@ -306,7 +318,8 @@ type SaveStats (save : Save) =
                         |> Seq.where (fun (_, count) -> 
                             count = country.NumOfBuildings.[i])
                         |> Seq.map fst
-                        |> Set.ofSeq)
+                        |> Set.ofSeq
+                        |> fun x -> if Set.isEmpty x then allBuildings else x)
                     |> Set.intersectMany
 
                 match Set.count possibilities with

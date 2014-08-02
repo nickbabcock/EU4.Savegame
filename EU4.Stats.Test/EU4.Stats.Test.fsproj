@@ -62,6 +62,7 @@
     <None Include="app.config" />
     <Compile Include="StatsTest.fs" />
     <Compile Include="LedgerTests.fs" />
+    <Compile Include="CountryBuildingTests.fs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FsUnit.NUnit">
