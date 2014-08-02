@@ -7,7 +7,7 @@ open NUnit.Framework
 open FsUnit
 
 [<TestFixture>]
-type CountryBuildingTests () as x =
+type CountryBuildingTests () =
     [<Test>]
     member x.CountryBuildingBaseCase () =
         let country = new Country("MEE")
