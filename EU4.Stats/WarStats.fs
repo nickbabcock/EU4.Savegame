@@ -20,8 +20,8 @@ type BiggestRivalries = {
 }
 
 type BattleReport = {
-    commander1 : Leader; country1 : string;
-    commander2 : Leader; country2 : string;
+    commander1 : Leader; country1 : Country;
+    commander2 : Leader; country2 : Country;
     side1 : HistoricCombatant; side2 : HistoricCombatant;
     won : bool
 }

@@ -1,5 +1,6 @@
 namespace EU4.Stats
 
+open EU4.Stats.CountryExtensions
 open EU4.Stats.Types
 open EU4.Stats.WarStats
 open EU4.Stats.TradeStats
@@ -38,7 +39,7 @@ type SaveStats (save : Save) =
                         | _ -> ()
                 }
             
-            (country.Abbreviation, leads))
+            (country, leads))
 
     // Creates map of leader names to leaders
     let leaderMap =
@@ -160,7 +161,7 @@ type SaveStats (save : Save) =
             { description = sprintf "%s(%d/%d/%d/%d) and %s(%d/%d/%d/%d) of %s and %s"
                                     c1.Name c1.Fire c1.Shock c1.Manuever c1.Siege
                                     c2.Name c2.Fire c2.Shock c2.Manuever c2.Siege
-                                    country1 country2
+                                    country1.DisplayName country2.DisplayName
               battles = Seq.length battles;
               forces1 = com1bs |> Seq.sumBy forces;
               losses1 = com1bs |> Seq.sumBy (fun x -> x.Losses);
