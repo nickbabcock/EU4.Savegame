@@ -7,6 +7,7 @@ var gulpif = require('gulp-if');
 var uglify = require('gulp-uglify');
 var imagemin = require('gulp-imagemin');
 var minifycss = require('gulp-minify-css');
+var htmlmin = require('gulp-htmlmin');
 
 gulp.task('compile', function() {
     return gulp.src('EU4.Savegame.sln')
@@ -18,6 +19,21 @@ gulp.task('compile', function() {
 
 gulp.task('backend', ['compile'], function() {
     return gulp.src('EU4.Stats.Web/server/bin/*')
+        .pipe(gulp.dest('bin/bin/.'));
+});
+
+gulp.task('minifyhtml', ['backend'], function() {
+    return gulp.src('bin/bin/template.html')
+        .pipe(htmlmin({
+            removeComments: true,
+            collapseWhitespace: true,
+            collapseBooleanAttributes: true,
+            removeAttributeQuotes: true,
+            removeAttributeQuotes: true,
+            useShortDoctype: true,
+            removeEmptyAttributes: true,
+            removeOptionalTags: true
+        }))
         .pipe(gulp.dest('bin/bin/.'));
 });
 
@@ -58,5 +74,6 @@ gulp.task('default', ['frontend']);
 
 gulp.task('release', [
     'frontend',
-    'backend'
+    'backend',
+    'minifyhtml'
 ]);
