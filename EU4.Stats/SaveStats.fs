@@ -170,7 +170,7 @@ type SaveStats (save : Save) =
         |> Seq.sortBy (fun rivalry -> (~-) rivalry.battles)
 
     member x.CountryTradeReport () =
-        save.Trade
+        nullToEmpty save.Trade
         |> Seq.collect (fun x -> x.Powers)
         |> Seq.groupBy (fun x -> x.Country)
         |> Seq.map (fun (abbr, col) ->
@@ -188,12 +188,12 @@ type SaveStats (save : Save) =
     /// the ledger information stored in the save file
     member x.LedgerCorrelations () =
         let q = query {
-            for nationSize in save.NationSizeStatistics do
-            join income in save.IncomeStatistics on
+            for nationSize in nullToEmpty save.NationSizeStatistics do
+            join income in nullToEmpty save.IncomeStatistics on
                 (nationSize.Name = income.Name)
-            join score in save.ScoreStatistics on
+            join score in nullToEmpty save.ScoreStatistics on
                 (nationSize.Name = score.Name)
-            join inflation in save.InflationStatistics on
+            join inflation in nullToEmpty save.InflationStatistics on
                 (nationSize.Name = inflation.Name)
             where (Seq.last nationSize.YData > 0)
 
@@ -240,7 +240,7 @@ type SaveStats (save : Save) =
 
     /// Creates a five number summary on countries in a tech group
     member x.TechSummary (fn:Technology -> byte) =
-        save.Countries
+        nullToEmpty save.Countries
         |> Seq.where (fun x -> x.NumOfCities > 0)
         |> Seq.groupBy (fun x -> x.TechnologyGroup)
         |> Seq.map (fun (key, grp) ->
@@ -250,7 +250,7 @@ type SaveStats (save : Save) =
             (key, summary))
 
     member x.ScoreRankings () =
-        save.Countries
+        nullToEmpty save.Countries
         |> Seq.where (fun x -> notNull x.ScoreRating && x.ScoreRating.Count = 3)
         |> Seq.sortBy (fun x -> (~-) x.Score)
         |> Seq.mapi (fun ind x ->
@@ -259,7 +259,7 @@ type SaveStats (save : Save) =
               mil = x.ScoreRating.[2] })
 
     member x.CountryDebts () =
-        save.Countries
+        nullToEmpty save.Countries
         |> Seq.map (fun x ->
             (x.Abbreviation, x.Loans.Count, x.Loans |> Seq.sumBy (fun y -> y.Amount)))
         |> Seq.sortBy (fun (_,_,amount) -> (~-) amount)

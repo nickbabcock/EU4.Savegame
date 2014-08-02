@@ -66,9 +66,10 @@ namespace EU4.Stats.Web
             return new
             {
                 Player = savegame.Player,
-                Players = string.Join(", ", savegame.Countries.Where(x =>
+                Players = string.Join(", ", 
+                    (savegame.Countries ?? Enumerable.Empty<Country>()).Where(x =>
                     x.WasPlayer.GetValueOrDefault()).Select(x => x.Abbreviation)),
-                PlayerCountries = savegame.Countries.Where(x =>
+                PlayerCountries = (savegame.Countries ?? Enumerable.Empty<Country>()).Where(x =>
                     x.WasPlayer.GetValueOrDefault()),
                 Today = DateTime.UtcNow,
                 Date = savegame.Date,
