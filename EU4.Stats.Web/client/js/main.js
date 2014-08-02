@@ -6,11 +6,13 @@ function upload(file) {
             window.location.href = this.response;
         }
         else if (this.status === 500) {
+            $('.spinner').hide();
             var data = JSON.parse(this.response);
             $('div.error').fadeIn();
             $('#errorText').text("ERROR: " + data.error.message);
         }
         else if (this.status === 503) {
+            $('.spinner').hide();
             $('div.error').fadeIn();
             overload(60);
         }
@@ -38,6 +40,7 @@ function overloadText(seconds) {
 }
 
 function uploadSelectedFile() {
+    $('.spinner').show();
     var files = $('#savefile').get(0).files;
     if (files && files[0]) {
         upload(files[0]);

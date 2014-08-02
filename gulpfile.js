@@ -8,6 +8,7 @@ var uglify = require('gulp-uglify');
 var imagemin = require('gulp-imagemin');
 var minifycss = require('gulp-minify-css');
 var htmlmin = require('gulp-htmlmin');
+var prefix = require('gulp-autoprefixer');
 
 gulp.task('compile', function() {
     return gulp.src('EU4.Savegame.sln')
@@ -59,6 +60,7 @@ gulp.task('images', function() {
 
 gulp.task('css', function() {
     return gulp.src('EU4.Stats.Web/client/css/*')
+        .pipe(prefix('last 2 version', '> 1%'))
         .pipe(gulpif(IS_RELEASE_BUILD, minifycss()))
         .pipe(gulp.dest('bin/css/.'));
 });

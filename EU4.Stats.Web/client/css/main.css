@@ -31,6 +31,15 @@ p {
     font-size: 1.2em;
 }
 
+div.submit-box {
+    display: table;
+    margin-top: 1em;
+}
+
+div.submit-box > * {
+    float: left;
+}
+
 div.error {
     display: none;
     margin-right: -2em;
@@ -41,4 +50,23 @@ div.error {
     padding-top: 0.1em;
     padding-bottom: 0.1em;
     margin-top: 1.5em;
+}
+
+/* stolen from: http://www.designcouch.com/home/why/2013/05/23/dead-simple-pure-css-loading-spinner/ */
+.spinner {
+    display: none;
+    margin-left: 2em;
+    height: 19px;
+    width: 19px;
+    animation: rotation .6s infinite linear;
+    border-left: 6px solid rgba(0,174,239,.15);
+    border-right: 6px solid rgba(0,174,239,.15);
+    border-bottom: 6px solid rgba(0,174,239,.15);
+    border-top: 6px solid rgba(0,174,239,.8);
+    border-radius: 100%;
+}
+
+@keyframes rotation {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(359deg); }
 }
