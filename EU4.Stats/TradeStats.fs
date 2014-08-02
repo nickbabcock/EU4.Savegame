@@ -1,4 +1,4 @@
-﻿module EU4.Stats.TradeStats
+module EU4.Stats.TradeStats
 
 open EU4.Stats.Types
 

@@ -58,9 +58,10 @@
     <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
   </Target>
   <ItemGroup>
-    <Compile Include="Library1.fs" />
     <None Include="packages.config" />
     <None Include="app.config" />
+    <Compile Include="StatsTest.fs" />
+    <Compile Include="LedgerTests.fs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FsUnit.NUnit">
@@ -81,8 +82,6 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Numerics" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\EU4.Savegame\EU4.Savegame.csproj">
       <Name>EU4.Savegame</Name>
       <Project>{ccacdf91-fd68-4c91-836e-7e5e90dfae4c}</Project>

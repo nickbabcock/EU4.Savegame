@@ -1,4 +1,4 @@
-﻿module EU4.Stats.ProvinceStats
+module EU4.Stats.ProvinceStats
 open System;
 open EU4.Savegame;
 open EU4.Stats.Types;

@@ -1,4 +1,4 @@
-module EU4.Stats.Test
+namespace EU4.Stats.Test
 
 open EU4.Stats
 open EU4.Savegame
@@ -27,7 +27,7 @@ type ``Given a Save`` ()  as x =
 
     [<Test>] member x.
         ``World Manpower is Summed Correctly`` () =
-             x.stats.WorldManpower() |> should equal 2500
+            x.stats.WorldManpower() |> should equal 2500
 
     [<Test>] member x.
         ``Max World Manpower is Summed Correctly`` () =

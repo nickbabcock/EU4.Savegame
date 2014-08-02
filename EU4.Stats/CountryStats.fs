@@ -1,4 +1,4 @@
-﻿module EU4.Stats.CountryStats
+module EU4.Stats.CountryStats
 
 open EU4.Savegame;
 open EU4.Stats.Types
