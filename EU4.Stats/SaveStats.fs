@@ -65,8 +65,8 @@ type SaveStats (save : Save) =
                                 |> Seq.where id |> Seq.length
 
             { name = war.Name; 
-              attacker = war.OriginalAttacker;
-              defender = war.OriginalDefender;
+              attacker = countryMap.[war.OriginalAttacker].DisplayName;
+              defender = countryMap.[war.OriginalDefender].DisplayName;
               attackingForces = attackers |> Seq.sumBy fn;
               defendingForces = defenders |> Seq.sumBy fn;
               attackingLosses = attackers |> Seq.sumBy (fun x -> x.Losses);
@@ -175,7 +175,7 @@ type SaveStats (save : Save) =
         |> Seq.collect (fun x -> x.Powers)
         |> Seq.groupBy (fun x -> x.Country)
         |> Seq.map (fun (abbr, col) ->
-            { country = abbr
+            { country = countryMap.[abbr].DisplayName
               lightShips = col |> Seq.sumBy (fun x -> x.LightShip)
               shipPower = col |> Seq.sumBy (fun x -> x.ShipPower)
               power = col |> Seq.sumBy (fun x -> x.Current)
@@ -255,14 +255,16 @@ type SaveStats (save : Save) =
         |> Seq.where (fun x -> notNull x.ScoreRating && x.ScoreRating.Count = 3)
         |> Seq.sortBy (fun x -> (~-) x.Score)
         |> Seq.mapi (fun ind x ->
-            { rank = ind + 1; name = x.Abbreviation; score = x.Score;
+            { rank = ind + 1; name = countryMap.[x.Abbreviation].DisplayName;
+              score = x.Score;
               adm = x.ScoreRating.[0]; dip = x.ScoreRating.[1];
               mil = x.ScoreRating.[2] })
 
     member x.CountryDebts () =
         nullToEmpty save.Countries
         |> Seq.map (fun x ->
-            (x.Abbreviation, x.Loans.Count, x.Loans |> Seq.sumBy (fun y -> y.Amount)))
+            (countryMap.[x.Abbreviation].DisplayName, x.Loans.Count,
+             x.Loans |> Seq.sumBy (fun y -> y.Amount)))
         |> Seq.sortBy (fun (_,_,amount) -> (~-) amount)
 
     member x.IsPlayer country = 
