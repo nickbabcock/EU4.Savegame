@@ -239,7 +239,7 @@
           <tr>
             <th>Stat</th>
           {{#each PlayerCountries}}
-            <th>{{Abbreviation}}</th>
+            <th>{{name}}<br/>{{player}}</th>
           {{/each}}
           </tr>
         </thead>
@@ -247,43 +247,85 @@
           <tr>
             <td>Treasury</td>  
           {{#each PlayerCountries}}
-            <td>{{Treasury}}</td>
+            <td>{{treasury}}</td>
+          {{/each}}
+          </tr>
+          <tr>
+            <td>Stability</td>  
+          {{#each PlayerCountries}}
+            <td>{{stability}}</td>
+          {{/each}}
+          </tr>
+          <tr>
+            <td>Inflation</td>  
+          {{#each PlayerCountries}}
+            <td>{{inflation}}</td>
           {{/each}}
           </tr>
           <tr>
             <td>Prestige</td>
           {{#each PlayerCountries}}
-            <td>{{Prestige}}</td>
+            <td>{{prestige}}</td>
           {{/each}}
           </tr>
           <tr>
             <td>Number Of Cities</td>
           {{#each PlayerCountries}}
-            <td>{{NumOfCities}}</td>
+            <td>{{cities}}</td>
           {{/each}}
           </tr>
           <tr>
             <td>Number Of Colonies</td>
           {{#each PlayerCountries}}
-            <td>{{NumOfColonies}}</td>
+            <td>{{colonies}}</td>
           {{/each}}
           </tr>
           <tr>
             <td>Army Tradition</td>
           {{#each PlayerCountries}}
-            <td>{{ArmyTradition}}</td>
+            <td>{{armyTradition}}</td>
           {{/each}}
           </tr>
           <tr>
             <td>Navy Tradition</td>
           {{#each PlayerCountries}}
-            <td>{{NavyTradition}}</td>
+            <td>{{navyTradition}}</td>
           {{/each}}
           </tr>
           <tr>
             <td>Mercantilism</td>
           {{#each PlayerCountries}}
-            <td>{{Mercantilism}}</td>
+            <td>{{mercantilism}}</td>
+          {{/each}}
+          </tr>
+          <tr>
+            <td>War Exhasution</td>
+          {{#each PlayerCountries}}
+            <td>{{warExhaustion}}</td>
+          {{/each}}
+          </tr>
+          <tr>
+            <td>Manpower</td>
+          {{#each PlayerCountries}}
+            <td>{{manpower}}</td>
+          {{/each}}
+          </tr>
+          <tr>
+            <td>Max Manpower</td>
+          {{#each PlayerCountries}}
+            <td>{{maxManpower}}</td>
+          {{/each}}
+          </tr>
+          <tr>
+            <td>Government</td>
+          {{#each PlayerCountries}}
+            <td>{{government}}</td>
+          {{/each}}
+          </tr>
+          <tr>
+            <td>Religion</td>
+          {{#each PlayerCountries}}
+            <td>{{religion}}</td>
           {{/each}}
           </tr>
         </tbody>

@@ -272,6 +272,62 @@ type SaveStats (save : Save) =
         | Some(x) -> x.WasPlayer.GetValueOrDefault()
         | None -> false
 
+    member x.PlayerStats () =
+        if isNull save.Countries then Seq.empty else
+
+        let buildings = x.CountryBuildings ()
+        let playerCountries =
+            save.Countries
+            |> Seq.where (fun x -> x.WasPlayer.GetValueOrDefault())
+
+        let names =
+            match isNull save.PlayersCountries with
+            | true -> [((Seq.exactlyOne playerCountries).DisplayName, "human")] 
+                      |> List.toSeq
+            | false -> 
+                save.PlayersCountries
+                |> Seq.pairwise
+                |> Seq.mapi (fun i x -> i % 2 = 0, x)
+                |> Seq.where fst
+                |> Seq.map snd
+                |> Seq.map (fun (name,country) -> (country,name))
+
+        seq {
+            for country in playerCountries do
+                let builds =
+                    buildings 
+                    |> Seq.find (fun (c:Country,_) -> 
+                        c.Abbreviation = country.Abbreviation)
+                    |> snd
+
+                let player = 
+                    Seq.find (fun (c,_) -> c = country.Abbreviation) names |> snd
+
+                yield { name = country.DisplayName;
+                        player = player;
+                        treasury = country.Treasury;
+                        stability = country.Stability;
+                        inflation = country.Inflation;
+                        prestige = country.Prestige;
+                        cities = country.NumOfCities;
+                        colonies = country.NumOfColonies;
+                        armyTradition = country.ArmyTradition;
+                        navyTradition = country.NavyTradition;
+                        mercantilism = country.Mercantilism;
+                        cultures = Seq.append [country.PrimaryCulture]
+                            country.AcceptedCultures;
+                        warExhaustion = country.WarExhaustion;
+                        manpower = country.Manpower;
+                        maxManpower = country.MaxManpower;
+                        government = country.Government;
+                        religion = country.Religion;
+                        colonists = Seq.length country.Colonists;
+                        missionaries = Seq.length country.Missionaries;
+                        merchants = Seq.length country.Merchants;
+                        diplomats = Seq.length country.Diplomats;
+                        buildings = builds }
+        }
+
     member x.CountryBuildings () =
         let allBuildings = 
             save.Provinces |> Seq.collect (fun x -> x.Buildings) |> Set.ofSeq

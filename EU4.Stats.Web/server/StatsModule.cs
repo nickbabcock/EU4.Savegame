@@ -69,8 +69,7 @@ namespace EU4.Stats.Web
                 Players = string.Join(", ", 
                     (savegame.Countries ?? Enumerable.Empty<Country>()).Where(x =>
                     x.WasPlayer.GetValueOrDefault()).Select(x => x.Abbreviation)),
-                PlayerCountries = (savegame.Countries ?? Enumerable.Empty<Country>()).Where(x =>
-                    x.WasPlayer.GetValueOrDefault()),
+                PlayerCountries = stats.PlayerStats(),
                 Today = DateTime.UtcNow,
                 Date = savegame.Date,
                 Manpower = stats.WorldManpower(),
