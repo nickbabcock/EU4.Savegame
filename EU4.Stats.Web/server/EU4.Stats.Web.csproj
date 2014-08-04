@@ -67,6 +67,7 @@
   <ItemGroup>
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="ErrorMessage.cs" />
+    <Compile Include="ExpandBuildingsTag.cs" />
     <Compile Include="IIdGenerator.cs" />
     <Compile Include="IncrementIdGenerator.cs" />
     <Compile Include="ITemplate.cs" />

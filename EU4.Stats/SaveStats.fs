@@ -1,5 +1,6 @@
 namespace EU4.Stats
 
+open System.Collections.Generic
 open EU4.Stats.CountryExtensions
 open EU4.Stats.Types
 open EU4.Stats.WarStats
@@ -355,7 +356,7 @@ type SaveStats (save : Save) =
             for (country, buildings) in countryBuildings do
                 match countryMap.TryFind country with
                 | Some x -> yield (x, buildings)
-                | None -> failwith (sprintf "Could not find %s" country)
+                | None -> ()
         }
 
         let buildingCount = (Seq.head save.Countries).NumOfBuildings.Count
@@ -363,29 +364,26 @@ type SaveStats (save : Save) =
         // returns a sequence of buildings in the order that they are suppose to
         // appear. If a building appears nowhere in the game, it is omitted from
         // the list. There may be instances where buildings can't be reduced and
-        // an error will be thrown. This error should hardly occur as that would
-        // require each country having the same count fo rmor than one building.
+        // this is somewhat of a common occurrence (think of buildings where
+        // there can only be one of them (glorious_monument, tax_assessor,
+        // etc)). In this instance the ambiguous buildings will be returned in
+        // an arbitrary sequence
         let bindicies = seq {
             for i in 0 .. buildingCount - 1 do
-                let possibilities =
-                    merge
-                    |> Seq.map (fun (country, buildings) ->
-                        buildings
-                        |> Seq.where (fun (_, count) -> 
-                            count = country.NumOfBuildings.[i])
-                        |> Seq.map fst
-                        |> Set.ofSeq
-                        |> fun x -> if Set.isEmpty x then allBuildings else x)
-                    |> Set.intersectMany
-
-                match Set.count possibilities with
-                | 1 -> yield Seq.exactlyOne possibilities
-                | 0 -> ()
-                | _ -> failwith (sprintf "Can't reduce %A" possibilities)
+                yield! merge
+                |> Seq.map (fun (country, buildings) ->
+                    buildings
+                    |> Seq.where (fun (_, count) -> 
+                        count = country.NumOfBuildings.[i])
+                    |> Seq.map fst
+                    |> Set.ofSeq
+                    |> fun x -> if Set.isEmpty x then allBuildings else x)
+                |> Set.intersectMany
         }
 
         merge
         |> Seq.map (fun (country, buildings) ->
-            (country, buildings 
+            (country, buildings
+                      |> Seq.where (fst >> notNull)
                       |> Seq.sortBy (fun (b, _) -> 
-                        Seq.findIndex (fun x -> x = b) bindicies)))
+                          Seq.findIndex ((=) b) bindicies)))

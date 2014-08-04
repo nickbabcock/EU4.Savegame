@@ -23,6 +23,8 @@ namespace EU4.Stats.Web
         {
             file = filepath;
             compiler = new FormatCompiler();
+            var buildingTag = new ExpandBuildingsTag();
+            compiler.RegisterTag(buildingTag, true);
             gen = compiler.Compile(File.ReadAllText(filepath));
 
             string parent = Path.GetDirectoryName(filepath);

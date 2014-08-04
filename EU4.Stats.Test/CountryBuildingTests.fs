@@ -83,3 +83,68 @@ type CountryBuildingTests () =
         let youBuildings = snd (Seq.nth 1 actual)
         CollectionAssert.AreEqual(meExpected, meBuildings)
         CollectionAssert.AreEqual(youExpected, youBuildings)
+
+    [<Test>]
+    member x.ArbitraryReduceBasic () =
+        let country = new Country("MEE")
+        country.NumOfBuildings <- new List<int>([1;1])
+
+        let prov1 = new Province(1)
+        prov1.Owner <- "MEE"
+        prov1.Buildings <- new List<string>(["building1";"building2"])
+
+        let countryCollection = new CountryCollection()
+        countryCollection.Add(country)
+
+        let provinceCollection = new ProvinceCollection()
+        provinceCollection.Add(prov1)
+
+        let save = new Save()
+        save.Provinces <- provinceCollection
+        save.Countries <- countryCollection
+
+        let stats = SaveStats save
+        let actual = stats.CountryBuildings ()
+        let expected = [("building1", 1);("building2", 1)]
+
+        Seq.length actual |> should equal 1
+        CollectionAssert.AreEqual(expected, snd (Seq.head actual))
+
+    [<Test>]
+    member x.ArbitraryReduce () =
+        let country = new Country("MEE")
+        country.NumOfBuildings <- new List<int>([1;1])
+
+        let country2 = new Country("YOU")
+        country2.NumOfBuildings <- new List<int>([1;1])
+
+        let prov1 = new Province(1)
+        prov1.Owner <- "MEE"
+        prov1.Buildings <- new List<string>(["building1";"building2"])
+
+        let prov2 = new Province(2)
+        prov2.Owner <- "YOU"
+        prov2.Buildings <- new List<string>(["building2";"building1"])
+
+        let countryCollection = new CountryCollection()
+        countryCollection.Add(country)
+        countryCollection.Add(country2)
+
+        let provinceCollection = new ProvinceCollection()
+        provinceCollection.Add(prov1)
+        provinceCollection.Add(prov2);
+
+        let save = new Save()
+        save.Provinces <- provinceCollection
+        save.Countries <- countryCollection
+
+        let stats = SaveStats save
+        let actual = stats.CountryBuildings ()
+        let meExpected = [("building1", 1);("building2", 1)]
+        let youExpected = [("building1", 1);("building2", 1)]
+
+        Seq.length actual |> should equal 2
+        let meBuildings = snd (Seq.head actual)
+        let youBuildings = snd (Seq.nth 1 actual)
+        CollectionAssert.AreEqual(meExpected, meBuildings)
+        CollectionAssert.AreEqual(youExpected, youBuildings)
