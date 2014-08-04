@@ -1,5 +1,6 @@
 namespace EU4.Stats.Test
 
+open System
 open System.Collections.Generic
 open EU4.Stats
 open EU4.Savegame
@@ -148,3 +149,34 @@ type CountryBuildingTests () =
         let youBuildings = snd (Seq.nth 1 actual)
         CollectionAssert.AreEqual(meExpected, meBuildings)
         CollectionAssert.AreEqual(youExpected, youBuildings)
+
+    [<Test>]
+    member x.``Use history in building calculation`` () =
+        let country = new Country("MEE")
+        country.NumOfBuildings <- new List<int>([2;1])
+
+        let prov1 = new Province(1)
+        prov1.Owner <- "MEE"
+        prov1.Buildings <- new List<string>(["fort2"])
+        prov1.History <- new ProvinceHistory()
+        prov1.History.Add(new BuildingChange(DateTime.MinValue, "fort1"))
+
+        let prov2 = new Province(2)
+        prov2.Owner <- "MEE"
+        prov2.Buildings <- new List<string>(["fort1"])
+
+        let countryCollection = new CountryCollection()
+        countryCollection.Add(country)
+
+        let provinceCollection = new ProvinceCollection()
+        provinceCollection.Add(prov1)
+        provinceCollection.Add(prov2);
+
+        let save = new Save()
+        save.Provinces <- provinceCollection
+        save.Countries <- countryCollection
+
+        let stats = SaveStats save
+        let expected = [("fort1", 2); ("fort2", 1)]
+        let actual = Seq.head (stats.CountryBuildings ()) |> snd
+        CollectionAssert.AreEqual(expected, actual)

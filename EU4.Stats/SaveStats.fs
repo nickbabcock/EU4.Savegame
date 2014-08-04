@@ -1,5 +1,6 @@
 namespace EU4.Stats
 
+open System
 open System.Collections.Generic
 open EU4.Stats.CountryExtensions
 open EU4.Stats.Types
@@ -8,7 +9,7 @@ open EU4.Stats.TradeStats
 open EU4.Stats.LedgerStats
 open EU4.Stats.CountryStats
 open EU4.Savegame
-open MathNet.Numerics.Statistics;
+open MathNet.Numerics.Statistics
 
 type SaveStats (save : Save) =
     let wars = Seq.append (nullToEmpty save.ActiveWars) (nullToEmpty save.PreviousWars)
@@ -330,8 +331,45 @@ type SaveStats (save : Save) =
         }
 
     member x.CountryBuildings () =
-        let allBuildings = 
-            save.Provinces |> Seq.collect (fun x -> x.Buildings) |> Set.ofSeq
+        let deps = seq {
+            for prov in save.Provinces do
+                let buildingHistory = seq {
+                    for evt in nullToEmpty prov.History do
+                        match evt with 
+                        | :? BuildingChange as b -> yield b
+                        | _ -> ()                
+                }
+
+                let beginningBuildings =
+                    buildingHistory
+                    |> Seq.where (fun x -> x.EventDate = DateTime.MinValue)
+                    |> Seq.map (fun x -> x.Building)
+                    |> List.ofSeq
+
+                yield! buildingHistory
+                |> Seq.where (fun x -> x.EventDate <> DateTime.MinValue)
+                |> Seq.map (fun x -> x.Building)
+                |> Seq.fold (fun (s, deps) elem -> 
+                    ((elem, deps)::s, elem::deps)) ([], beginningBuildings)
+                |> fun (s, deps) ->
+                    s |> Seq.map fst |> Set.ofSeq
+                      |> Set.difference (Set.ofSeq prov.Buildings)
+                      |> Seq.map (fun x -> (x, deps |> Seq.where ((<>) x)
+                                                    |> List.ofSeq))
+                      |> Seq.append s
+        }
+
+        let depMap = 
+            deps
+            |> Seq.groupBy fst
+            |> Seq.map (fun (building, deps) ->
+                (building, deps |> Seq.map (snd >> Set.ofSeq) |> Set.intersectMany))
+            |> Map.ofSeq
+
+        let allBuildings =
+            deps
+            |> Seq.collect(fun (building, d) -> seq { yield building; yield! d })
+            |> Set.ofSeq
 
         // Group provinces by owner and further group by building and count
         // Buildings not found in the country but found in other countries
@@ -342,7 +380,11 @@ type SaveStats (save : Save) =
             |> Seq.map (fun (country, provs) ->
                 let hasBuildings =
                     provs
-                    |> Seq.collect (fun x -> x.Buildings)
+                    |> Seq.collect (fun x -> Seq.distinct (seq {
+                            for b in x.Buildings do
+                                yield b
+                                yield! depMap.[b]
+                        }))
                     |> Seq.groupBy id
                     |> Seq.map (fun (b, g) -> (b, Seq.length g))
                 let buildings = 
@@ -352,12 +394,13 @@ type SaveStats (save : Save) =
                 (country, buildings |> Seq.append hasBuildings))
 
         // Merge abbreviated country name with the actual country
-        let merge = seq {
-            for (country, buildings) in countryBuildings do
-                match countryMap.TryFind country with
-                | Some x -> yield (x, buildings)
-                | None -> ()
-        }
+        let merge = 
+            seq {
+                for (country, buildings) in countryBuildings do
+                    match countryMap.TryFind country with
+                    | Some x -> yield (x, buildings)
+                    | None -> ()
+            } |> Array.ofSeq
 
         let buildingCount = (Seq.head save.Countries).NumOfBuildings.Count
 
@@ -368,18 +411,19 @@ type SaveStats (save : Save) =
         // there can only be one of them (glorious_monument, tax_assessor,
         // etc)). In this instance the ambiguous buildings will be returned in
         // an arbitrary sequence
-        let bindicies = seq {
-            for i in 0 .. buildingCount - 1 do
-                yield! merge
-                |> Seq.map (fun (country, buildings) ->
-                    buildings
-                    |> Seq.where (fun (_, count) -> 
-                        count = country.NumOfBuildings.[i])
-                    |> Seq.map fst
-                    |> Set.ofSeq
-                    |> fun x -> if Set.isEmpty x then allBuildings else x)
-                |> Set.intersectMany
-        }
+        let bindicies =
+            seq {
+                for i in 0 .. buildingCount - 1 do
+                    yield! merge
+                    |> Seq.map (fun (country, buildings) ->
+                        buildings
+                        |> Seq.where (fun (_, count) -> 
+                            count = country.NumOfBuildings.[i])
+                        |> Seq.map fst
+                        |> Set.ofSeq
+                        |> fun x -> if Set.isEmpty x then allBuildings else x)
+                    |> Set.intersectMany
+            } |> Array.ofSeq
 
         merge
         |> Seq.map (fun (country, buildings) ->
