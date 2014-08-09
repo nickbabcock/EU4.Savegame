@@ -180,3 +180,48 @@ type CountryBuildingTests () =
         let expected = [("fort1", 2); ("fort2", 1)]
         let actual = Seq.head (stats.CountryBuildings ()) |> snd
         CollectionAssert.AreEqual(expected, actual)
+
+//    [<Test>]
+//    member x.``Dedupe history buildings`` () =
+//        let country = new Country("MEE")
+//        country.NumOfBuildings <- new List<int>([4;3])
+//
+//        let prov1 = new Province(1)
+//        prov1.Owner <- "MEE"
+//        prov1.Buildings <- new List<string>(["fort2"])
+//        prov1.History <- new ProvinceHistory()
+//        prov1.History.Add(new BuildingChange(DateTime.MinValue, "fort2"))
+//
+//        let prov2 = new Province(2)
+//        prov2.Owner <- "MEE"
+//        prov2.Buildings <- new List<string>(["fort1"])
+//
+//        let prov3 = new Province(3)
+//        prov3.Owner <- "MEE"
+//        prov3.Buildings <- new List<string>(["fort2"])
+//        prov3.History <- new ProvinceHistory()
+//        prov3.History.Add(new BuildingChange(DateTime.MinValue, "fort1"))
+//
+//        let prov4 = new Province(4)
+//        prov4.Owner <- "MEE"
+//        prov4.Buildings <- new List<string>(["fort2"])
+//        prov4.History <- new ProvinceHistory()
+//        prov4.History.Add(new BuildingChange(DateTime.MinValue, "fort1"))
+//
+//        let countryCollection = new CountryCollection()
+//        countryCollection.Add(country)
+//
+//        let provinceCollection = new ProvinceCollection()
+//        provinceCollection.Add(prov1)
+//        provinceCollection.Add(prov2);
+//        provinceCollection.Add(prov3);
+//        provinceCollection.Add(prov4);
+//
+//        let save = new Save()
+//        save.Provinces <- provinceCollection
+//        save.Countries <- countryCollection
+//
+//        let stats = SaveStats save
+//        let expected = [("fort1", 4); ("fort2", 3)]
+//        let actual = Seq.head (stats.CountryBuildings ()) |> snd
+//        CollectionAssert.AreEqual(expected, actual)        

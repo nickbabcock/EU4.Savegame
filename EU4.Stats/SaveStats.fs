@@ -331,27 +331,40 @@ type SaveStats (save : Save) =
         }
 
     member x.CountryBuildings () =
+        // Create a sequence across all provinces where it is building * list of
+        // buildings that were built before building. This is done to map out
+        // the category of buildings.
         let deps = seq {
             for prov in save.Provinces do
-                let buildingHistory = seq {
-                    for evt in nullToEmpty prov.History do
-                        match evt with 
-                        | :? BuildingChange as b -> yield b
-                        | _ -> ()                
-                }
-
+                let buildingHistory =
+                    seq {
+                        for evt in nullToEmpty prov.History do
+                            match evt with 
+                            | :? BuildingChange as b -> yield b
+                            | _ -> ()                
+                    } |> Array.ofSeq
+                   
+                // Get a list of buildings that were there at the start of the game
+                // and have this list be the start of the dependency list
                 let beginningBuildings =
                     buildingHistory
                     |> Seq.where (fun x -> x.EventDate = DateTime.MinValue)
                     |> Seq.map (fun x -> x.Building)
                     |> List.ofSeq
 
+                // Each building subsequently built is said to rely on all
+                // previously built buildings.
                 yield! buildingHistory
                 |> Seq.where (fun x -> x.EventDate <> DateTime.MinValue)
                 |> Seq.map (fun x -> x.Building)
                 |> Seq.fold (fun (s, deps) elem -> 
                     ((elem, deps)::s, elem::deps)) ([], beginningBuildings)
                 |> fun (s, deps) ->
+                    // Combine the historical dependency list with the current
+                    // buildings. This is complicated slightly as current
+                    // buildings can be in the historical records as well, so we
+                    // make sure to take the historical building entry for
+                    // better accuracy.
                     s |> Seq.map fst |> Set.ofSeq
                       |> Set.difference (Set.ofSeq prov.Buildings)
                       |> Seq.map (fun x -> (x, deps |> Seq.where ((<>) x)
@@ -359,11 +372,14 @@ type SaveStats (save : Save) =
                       |> Seq.append s
         }
 
+        // creates a dependency map where building x implies that buildings
+        // w, y, z have already been built.
         let depMap = 
             deps
             |> Seq.groupBy fst
             |> Seq.map (fun (building, deps) ->
-                (building, deps |> Seq.map (snd >> Set.ofSeq) |> Set.intersectMany))
+                (building, deps |> Seq.map (snd >> Set.ofSeq)
+                                |> Set.intersectMany))
             |> Map.ofSeq
 
         let allBuildings =
@@ -417,7 +433,7 @@ type SaveStats (save : Save) =
                     yield! merge
                     |> Seq.map (fun (country, buildings) ->
                         buildings
-                        |> Seq.where (fun (_, count) -> 
+                        |> Seq.where (fun (_, count) ->
                             count = country.NumOfBuildings.[i])
                         |> Seq.map fst
                         |> Set.ofSeq
