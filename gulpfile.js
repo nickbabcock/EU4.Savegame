@@ -41,6 +41,7 @@ gulp.task('minifyhtml', ['backend'], function() {
 gulp.task('js', function() {
     return gulp.src('EU4.Stats.Web/client/js/*')
         .pipe(jshint())
+        .pipe(jshint.reporter('jshint-stylish'))
         .pipe(jshint.reporter('fail'))
         .pipe(gulpif(IS_RELEASE_BUILD, uglify()))
         .pipe(gulp.dest('bin/js/.'));
