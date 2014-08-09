@@ -19,8 +19,25 @@ function upload(file) {
     };
     
     var extension = file.name.substr(file.name.lastIndexOf('.'));
-    xhr.setRequestHeader("X-FILE-EXTENSION", extension);
-    xhr.send(file);
+
+    // If the user uploads a plain .eu4, compress the file before sending it.
+    // This saves time and bandwidth.
+    if (extension === ".eu4") {
+        var reader = new FileReader();
+        reader.onload = function(buf) {
+            var zip = new JSZip();
+            zip.file("dummy.eu4", this.result);
+            file = zip.generate({type: 'blob'});
+            xhr.setRequestHeader("X-FILE-EXTENSION", ".zip");
+            xhr.send(file);
+        };
+
+        reader.readAsArrayBuffer(file);
+    }
+    else {
+        xhr.setRequestHeader("X-FILE-EXTENSION", extension);
+        xhr.send(file);
+    }
 }
 
 function overload(seconds) {
