@@ -27,7 +27,7 @@ h1, h2 {
     font-family: 'Gentium Book Basic', serif;
 }
 
-p {
+p, span, li {
     font-size: 1.2em;
 }
 
