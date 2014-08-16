@@ -50,13 +50,19 @@ namespace EU4.Savegame
             {
                 parser.Parse((p, s) =>
                     {
-                        history.Add(InnerToken(p, s, evt));
+                        addToHistory(InnerToken(p, s, evt));
                     });
             }
             else
             {
-                history.Add(InnerToken(parser, token, evt));
+                addToHistory(InnerToken(parser, token, evt));
             }
+        }
+
+        private void addToHistory(IHistory<T> evt)
+        {
+            if (evt != null)
+                history.Add(evt);
         }
 
         public void Add(IHistory<T> val)

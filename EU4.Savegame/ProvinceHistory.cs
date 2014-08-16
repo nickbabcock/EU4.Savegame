@@ -37,9 +37,11 @@ namespace EU4.Savegame
                 case "is_city": return new IsCityChange(date, parser.ReadBool());
                 case "base_tax": return new BaseTaxChange(date, parser.ReadDouble());
                 default:
+#if THOROUGH_PARSING
                     if (parser.ReadBool())
                         return new BuildingChange(date, token);
-                    parser.ReadString(); break;
+#endif
+                    break;
             }
 
             return null;

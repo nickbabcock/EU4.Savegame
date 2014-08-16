@@ -1300,6 +1300,7 @@ var specials = new[] {"Province", "War"};
 var qt = classes.Select(x => x.Name).Except(specials);
 
 foreach (var val in qt) { #>
+#if THOROUGH_PARSING
     public partial class <#= val #>
     {
         partial void unrecognizedToken(ParadoxParser parser, string token)
@@ -1307,6 +1308,7 @@ foreach (var val in qt) { #>
             throw new ApplicationException("Unrecognized token: " + token);
         }
     }
+#endif
 <# } 
 
 

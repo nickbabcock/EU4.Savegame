@@ -20,8 +20,12 @@ namespace EU4.Savegame
                 case "rem_defender": return new RemoveDefender(date, parser.ReadString());
                 case "rem_attacker": return new RemoveAttacker(date, parser.ReadString());
                 case "battle": return parser.Parse(new BattleResult(date));
+#if THOROUGH_PARSING
                 default: throw new ApplicationException("Unrecognized token " + token);
+#endif
             }
+
+            return null;
         }
     }
 

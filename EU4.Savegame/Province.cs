@@ -20,8 +20,10 @@ namespace EU4.Savegame
 
         partial void unrecognizedToken(ParadoxParser parser, string token)
         {
+#if THOROUGH_PARSING
             if (parser.ReadBool())
                 Buildings.Add(token);
+#endif
         }
     }
 }

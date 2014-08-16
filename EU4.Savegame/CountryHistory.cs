@@ -40,10 +40,14 @@ namespace EU4.Savegame
                 case "temples": return new TemplesChange(date, parser.ReadString());
                 case "changed_tag_from": return new ChangedTagFrom(date, parser.ReadString());
                 default:
+#if THOROUGH_PARSING
                     if (parser.ReadBool())
                         return new IdeaChange(date, token);
-                    throw new ApplicationException("Unrecognized token: " + token);
+#endif
+                    break;
             }
+
+            return null;
         }
     }
 
