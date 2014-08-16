@@ -29,18 +29,18 @@ namespace EU4.Savegame.Test
                 actual = Globals.ParadoxEncoding.GetString(mem.ToArray());
             }
 
-            string expected = @"string=val1
-string=val2
-1492.1.1=
-{
-	string=val3
-	string=val4
-}
-1560.1.1=
-{
-	string=val5
-}
-";
+            string expected =
+                "string=val1\r\n" +
+                "string=val2\r\n" +
+                "1492.1.1=\r\n" +
+                "{\r\n" +
+                "	string=val3\r\n" +
+                "	string=val4\r\n" +
+                "}\r\n" +
+                "1560.1.1=\r\n" +
+                "{\r\n" +
+                "	string=val5\r\n" +
+                "}\r\n";
             Assert.AreEqual(expected, actual);
         }
     }
