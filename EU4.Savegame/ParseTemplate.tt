@@ -635,6 +635,21 @@ var classes = new[] {
         }
     },
     new {
+        Name = "WarDemands",
+        Props = new[] {
+            new Property() { Type = "IList<string>", Name = "Demands", Quoted = true },
+            new Property() { Type = "[ConsecutiveElements] IList<WarTerms>", Name = "Attachments" },
+        }
+    },
+    new {
+        Name = "WarTerms",
+        Props = new[] {
+            new Property() { Type = "string", Name = "From", Quoted = true },
+            new Property() { Type = "string", Name = "To", Quoted = true },
+            new Property() { Type = "[ConsecutiveElements] IList<PeaceTerms>", Name = "Terms" },
+        }
+    },
+    new {
         Name = "Mission",
         Props = new[] {
             new Property() { Type = "string", Name = "Type", Quoted = true },
@@ -1020,7 +1035,7 @@ var classes = new[] {
             new Property() { Type = "DateTime", Name = "Action" },
             new Property() { Type = "double?", Name = "AttackerScore" },
             new Property() { Type = "double?", Name = "DefenderScore" },
-            new Property() { Type = "Demands", Name = "Demands", Alias = "demand" },
+            new Property() { Type = "WarDemands", Name = "Demands", Alias = "demand" },
             new Property() { Type = "int", Name = "WarDirectionQuarter" },
             new Property() { Type = "int", Name = "WarDirectionYear" },
             new Property() { Type = "int", Name = "LastWarscoreQuarter" },

@@ -56,7 +56,6 @@
     <Compile Include="Country.cs" />
     <Compile Include="CountryCollection.cs" />
     <Compile Include="CountryHistory.cs" />
-    <Compile Include="Demands.cs" />
     <Compile Include="EnvoyCollection.cs" />
     <Compile Include="Events.cs" />
     <Compile Include="GameplaySettings.cs" />
