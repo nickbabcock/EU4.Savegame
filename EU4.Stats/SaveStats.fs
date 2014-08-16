@@ -275,7 +275,8 @@ type SaveStats (save : Save) =
     member x.PlayerStats () =
         if isNull save.Countries then Seq.empty else
 
-        let buildings = x.CountryBuildings ()
+//        let buildings = x.CountryBuildings ()
+        let buildings = save.Countries |> Seq.map (fun x -> (x, Seq.empty))
         let playerCountries =
             save.Countries
             |> Seq.where (fun x -> x.WasPlayer.GetValueOrDefault())
@@ -292,41 +293,42 @@ type SaveStats (save : Save) =
                 |> Seq.map snd
                 |> Seq.map (fun (name,country) -> (country,name))
 
-        seq {
-            for country in playerCountries do
-                let builds =
-                    buildings 
-                    |> Seq.find (fun (c:Country,_) -> 
-                        c.Abbreviation = country.Abbreviation)
-                    |> snd
-
-                let player = 
-                    Seq.find (fun (c,_) -> c = country.Abbreviation) names |> snd
-
-                yield { name = country.DisplayName;
-                        player = player;
-                        treasury = country.Treasury;
-                        stability = country.Stability;
-                        inflation = country.Inflation;
-                        prestige = country.Prestige;
-                        cities = country.NumOfCities;
-                        colonies = country.NumOfColonies;
-                        armyTradition = country.ArmyTradition;
-                        navyTradition = country.NavyTradition;
-                        mercantilism = country.Mercantilism;
-                        cultures = Seq.append [country.PrimaryCulture]
-                            country.AcceptedCultures;
-                        warExhaustion = country.WarExhaustion;
-                        manpower = country.Manpower;
-                        maxManpower = country.MaxManpower;
-                        government = country.Government;
-                        religion = country.Religion;
-                        colonists = Seq.length country.Colonists;
-                        missionaries = Seq.length country.Missionaries;
-                        merchants = Seq.length country.Merchants;
-                        diplomats = Seq.length country.Diplomats;
-                        buildings = builds }
-        }
+        playerCountries
+        |> Seq.choose (fun country ->
+            // Some of the countries that did have human players don't have them
+            // anymore, so there is a loss of information, as the game only records
+            // player names in the current session.
+            let p = names |> Seq.tryFind (fun (c,_) -> c = country.Abbreviation)
+            let b = buildings |> Seq.tryFind (fst >> ((=) country))
+            match (p, b) with
+            | (Some((_, playerName)), Some((_, builds))) ->
+                Some(playerName, country, builds)
+            | _ -> None)
+        |> Seq.map (fun (player, country, builds) ->
+            { name = country.DisplayName;
+              player = player;
+              treasury = country.Treasury;
+              stability = country.Stability;
+              inflation = country.Inflation;
+              prestige = country.Prestige;
+              cities = country.NumOfCities;
+              colonies = country.NumOfColonies;
+              armyTradition = country.ArmyTradition;
+              navyTradition = country.NavyTradition;
+              mercantilism = country.Mercantilism;
+              cultures = Seq.append [country.PrimaryCulture]
+                  country.AcceptedCultures;
+              warExhaustion = country.WarExhaustion;
+              manpower = country.Manpower;
+              maxManpower = country.MaxManpower;
+              government = country.Government;
+              religion = country.Religion;
+              colonists = Seq.length country.Colonists;
+              missionaries = Seq.length country.Missionaries;
+              merchants = Seq.length country.Merchants;
+              diplomats = Seq.length country.Diplomats;
+              buildings = builds
+            })
 
     member x.CountryBuildings () =
         let allBuildings = 

@@ -47,7 +47,9 @@ var classes = new[] {
             new Property() { Type = "[ConsecutiveElements] IList<double>", Name = "TradegoodsTotalProduced" },
             new Property() { Type = "[ConsecutiveElements] IList<int>", Name = "TradegoodsNumSupplyProvinces" },
             new Property() { Type = "[ConsecutiveElements] IList<int>", Name = "TradegoodsNumDemandProvinces" },
+#if THOROUGH_PARSING
             new Property() { Type = "IList<ParadoxId>", Name = "UndocumentedIds", Alias = "id" },
+#endif
             new Property() { Type = "IList<RebelFaction>", Name = "RebelFactions" },
             new Property() { Type = "Leader", Name = "Pirates" },
             new Property() { Type = "[ConsecutiveElements] IList<int>", Name = "LatestPirateTargets" },
