@@ -2,6 +2,7 @@
   <head>
     <link rel='stylesheet' type='text/css' href='//cdn.jsdelivr.net/jquery.datatables/1.10.0/css/jquery.dataTables.min.css'/>
     <link rel='stylesheet' type='text/css' href='//cdn.jsdelivr.net/jquery.datatables/1.10.0/plugins/tabletools/css/dataTables.tableTools.min.css'/>
+    <link rel='stylesheet' type='text/css' href='//cdn.jsdelivr.net/jquery.datatables/1.10.1/plugins/fixedcolumns/css/dataTables.fixedColumns.min.css'/>
     <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
     <link rel='stylesheet' type='text/css' href='/css/main.css'/>
     <title>{{Player}} - {{Date:yyyy.M.d}}</title>
@@ -188,7 +189,7 @@
       </table>
 
       <h2>Score Rankings</h2>
-      <table class='pure-table pure-table-striped plain-table'>
+      <table class='pure-table pure-table-striped sort-table'>
         <thead>
           <tr>
             <th>Rank</th>
@@ -214,7 +215,7 @@
       </table>
 
       <h2>Debt</h2>
-      <table class='pure-table pure-table-striped plain-table'>
+      <table class='pure-table pure-table-striped sort-table'>
         <thead>
           <tr>
             <th>Country</th>
@@ -234,7 +235,7 @@
       </table>
 
       <h2>Players</h2>
-      <table class='pure-table pure-table-striped'>
+      <table class='pure-table pure-table-striped x-table'>
         <thead>
           <tr>
             <th>Stat</th>
@@ -408,6 +409,7 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src='//cdn.jsdelivr.net/jquery.datatables/1.10.0/js/jquery.dataTables.min.js'></script>
     <script src='//cdn.jsdelivr.net/jquery.datatables/1.10.0/plugins/tabletools/js/dataTables.tableTools.min.js'></script>
+    <script src='//cdn.jsdelivr.net/jquery.datatables/1.10.1/plugins/fixedcolumns/js/dataTables.fixedColumns.min.js'></script>
     <script type='text/javascript' src='/js/games.js'></script>
   </body>
 </html>

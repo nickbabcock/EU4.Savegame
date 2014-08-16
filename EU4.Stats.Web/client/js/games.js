@@ -15,7 +15,10 @@ $(function() {
         order: []
     });
 
+    var xtable = $.extend({}, sortTable, { scrollX: true, ordering: false });
+
     $('table.full-table').dataTable(fullOptions);
     $('table.sort-table').dataTable(sortTable);
-    $('table.plain-table').dataTable($.extend({}, sortTable, {order:[]}));
+    $('table.plain-table').dataTable($.extend({}, sortTable, {ordering: false}));
+    new $.fn.dataTable.FixedColumns($('table.x-table').dataTable(xtable));
 });

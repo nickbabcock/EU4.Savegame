@@ -52,6 +52,9 @@ div.error {
     margin-top: 1.5em;
 }
 
+table.x-table td, table.x-table tr { white-space: nowrap; }
+div.DTFC_LeftBodyLiner { overflow-x: hidden; }
+
 /* stolen from: http://www.designcouch.com/home/why/2013/05/23/dead-simple-pure-css-loading-spinner/ */
 .spinner {
     display: none;
