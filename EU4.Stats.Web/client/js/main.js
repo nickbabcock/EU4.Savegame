@@ -27,7 +27,7 @@ function upload(file) {
         reader.onload = function(buf) {
             var zip = new JSZip();
             zip.file("dummy.eu4", this.result);
-            file = zip.generate({type: 'blob'});
+            file = zip.generate({type: 'blob', compression: 'DEFLATE'});
             xhr.setRequestHeader("X-FILE-EXTENSION", ".zip");
             xhr.send(file);
         };
