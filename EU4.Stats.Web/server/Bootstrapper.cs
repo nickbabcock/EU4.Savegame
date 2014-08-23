@@ -38,6 +38,9 @@ namespace EU4.Stats.Web
             container.Register<ITemplate>(tmpl);
 
             string gamedir = Path.Combine(exeDir, "..", "games");
+            if (!Directory.Exists(gamedir))
+                Directory.CreateDirectory(gamedir); 
+
             var gen = new IncrementIdGenerator(gamedir);
             container.Register<IIdGenerator>(gen);
 
