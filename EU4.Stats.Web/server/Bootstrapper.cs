@@ -34,7 +34,7 @@ namespace EU4.Stats.Web
             string exe = Assembly.GetEntryAssembly().Location;
             string exeDir = Path.GetDirectoryName(exe);
             string tmplFile = Path.Combine(exeDir, "template.html");
-            Templater tmpl = new Templater(tmplFile);
+            Templater tmpl = Templater.CreateTemplater(tmplFile).Result;
             container.Register<ITemplate>(tmpl);
 
             string gamedir = Path.Combine(exeDir, "..", "games");

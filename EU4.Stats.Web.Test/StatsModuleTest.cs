@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace EU4.Stats.Web.Test
 {
@@ -21,7 +22,7 @@ namespace EU4.Stats.Web.Test
         {
             with.Module<StatsModule>();
             with.Dependency(Mock.Of<ITemplate>(x =>
-                x.Render(It.IsAny<object>()) == "Hi"));
+                x.Render(It.IsAny<object>()) == Task.FromResult("Hi")));
             with.Dependency(Mock.Of<IIdGenerator>(x =>
                 x.NextId() == "1"));
             with.Dependency(new SavegameStorage("data"));

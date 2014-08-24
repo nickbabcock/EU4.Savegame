@@ -75,6 +75,7 @@ html(lang='en')
               td= _.numberFormat(x.faced, 0)
               td= _.numberFormat(x.losses, 0)
               td= _.numberFormat(x.kills, 0)
+
       h2 Top 10 Biggest Naval Wars
       p.
         The top ten wars that have the largest number of combined deployed
@@ -258,6 +259,7 @@ html(lang='en')
             td Religion
             each x in PlayerCountries
               td= x.religion
+      
       h2 Ledger Correlations
       p.
         Every year EU4 marks the year and a value (score, income, inflation,
@@ -281,46 +283,46 @@ html(lang='en')
         tbody
           tr
             td Size and Income
-            td= _.numberFormat(x.LedgerCorrelations.SizeAndIncome.min, 2)
-            td= _.numberFormat(x.LedgerCorrelations.SizeAndIncome.q1, 2)
-            td= _.numberFormat(x.LedgerCorrelations.SizeAndIncome.median, 2)
-            td= _.numberFormat(x.LedgerCorrelations.SizeAndIncome.q3, 2)
-            td= _.numberFormat(x.LedgerCorrelations.SizeAndIncome.max, 2)
+            td= _.numberFormat(LedgerCorrelations.SizeAndIncome.min, 2)
+            td= _.numberFormat(LedgerCorrelations.SizeAndIncome.q1, 2)
+            td= _.numberFormat(LedgerCorrelations.SizeAndIncome.median, 2)
+            td= _.numberFormat(LedgerCorrelations.SizeAndIncome.q3, 2)
+            td= _.numberFormat(LedgerCorrelations.SizeAndIncome.max, 2)
           tr
             td Size and Score
-            td= _.numberFormat(x.LedgerCorrelations.SizeAndScore.min, 2)
-            td= _.numberFormat(x.LedgerCorrelations.SizeAndScore.q1, 2)
-            td= _.numberFormat(x.LedgerCorrelations.SizeAndScore.median, 2)
-            td= _.numberFormat(x.LedgerCorrelations.SizeAndScore.q3, 2)
-            td= _.numberFormat(x.LedgerCorrelations.SizeAndScore.max, 2)
+            td= _.numberFormat(LedgerCorrelations.SizeAndScore.min, 2)
+            td= _.numberFormat(LedgerCorrelations.SizeAndScore.q1, 2)
+            td= _.numberFormat(LedgerCorrelations.SizeAndScore.median, 2)
+            td= _.numberFormat(LedgerCorrelations.SizeAndScore.q3, 2)
+            td= _.numberFormat(LedgerCorrelations.SizeAndScore.max, 2)
           tr
             td Size and Inflation
-            td= _.numberFormat(x.LedgerCorrelations.SizeAndInflation.min, 2)
-            td= _.numberFormat(x.LedgerCorrelations.SizeAndInflation.q1, 2)
-            td= _.numberFormat(x.LedgerCorrelations.SizeAndInflation.median, 2)
-            td= _.numberFormat(x.LedgerCorrelations.SizeAndInflation.q3, 2)
-            td= _.numberFormat(x.LedgerCorrelations.SizeAndInflation.max, 2)
+            td= _.numberFormat(LedgerCorrelations.SizeAndInflation.min, 2)
+            td= _.numberFormat(LedgerCorrelations.SizeAndInflation.q1, 2)
+            td= _.numberFormat(LedgerCorrelations.SizeAndInflation.median, 2)
+            td= _.numberFormat(LedgerCorrelations.SizeAndInflation.q3, 2)
+            td= _.numberFormat(LedgerCorrelations.SizeAndInflation.max, 2)
           tr
             td Income and Score
-            td= _.numberFormat(x.LedgerCorrelations.IncomeAndScore.min, 2)
-            td= _.numberFormat(x.LedgerCorrelations.IncomeAndScore.q1, 2)
-            td= _.numberFormat(x.LedgerCorrelations.IncomeAndScore.median, 2)
-            td= _.numberFormat(x.LedgerCorrelations.IncomeAndScore.q3, 2)
-            td= _.numberFormat(x.LedgerCorrelations.IncomeAndScore.max, 2)
+            td= _.numberFormat(LedgerCorrelations.IncomeAndScore.min, 2)
+            td= _.numberFormat(LedgerCorrelations.IncomeAndScore.q1, 2)
+            td= _.numberFormat(LedgerCorrelations.IncomeAndScore.median, 2)
+            td= _.numberFormat(LedgerCorrelations.IncomeAndScore.q3, 2)
+            td= _.numberFormat(LedgerCorrelations.IncomeAndScore.max, 2)
           tr
             td Income and Inflation
-            td= _.numberFormat(x.LedgerCorrelations.IncomeAndInflation.min, 2)
-            td= _.numberFormat(x.LedgerCorrelations.IncomeAndInflation.q1, 2)
-            td= _.numberFormat(x.LedgerCorrelations.IncomeAndInflation.median, 2)
-            td= _.numberFormat(x.LedgerCorrelations.IncomeAndInflation.q3, 2)
-            td= _.numberFormat(x.LedgerCorrelations.IncomeAndInflation.max, 2)
+            td= _.numberFormat(LedgerCorrelations.IncomeAndInflation.min, 2)
+            td= _.numberFormat(LedgerCorrelations.IncomeAndInflation.q1, 2)
+            td= _.numberFormat(LedgerCorrelations.IncomeAndInflation.median, 2)
+            td= _.numberFormat(LedgerCorrelations.IncomeAndInflation.q3, 2)
+            td= _.numberFormat(LedgerCorrelations.IncomeAndInflation.max, 2)
           tr
             td Score and Inflation
-            td= _.numberFormat(x.LedgerCorrelations.ScoreAndInflation.min, 2)
-            td= _.numberFormat(x.LedgerCorrelations.ScoreAndInflation.q1, 2)
-            td= _.numberFormat(x.LedgerCorrelations.ScoreAndInflation.median, 2)
-            td= _.numberFormat(x.LedgerCorrelations.ScoreAndInflation.q3, 2)
-            td= _.numberFormat(x.LedgerCorrelations.ScoreAndInflation.max, 2)
+            td= _.numberFormat(LedgerCorrelations.ScoreAndInflation.min, 2)
+            td= _.numberFormat(LedgerCorrelations.ScoreAndInflation.q1, 2)
+            td= _.numberFormat(LedgerCorrelations.ScoreAndInflation.median, 2)
+            td= _.numberFormat(LedgerCorrelations.ScoreAndInflation.q3, 2)
+            td= _.numberFormat(LedgerCorrelations.ScoreAndInflation.max, 2)
     
     script(src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js")
     script(src='//cdn.jsdelivr.net/jquery.datatables/1.10.0/js/jquery.dataTables.min.js')

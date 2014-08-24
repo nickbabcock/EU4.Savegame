@@ -1,5 +1,7 @@
-﻿using Mustache;
-using System.IO;
+﻿using System.IO;
+using EdgeJs;
+using System.Threading.Tasks;
+using System;
 
 namespace EU4.Stats.Web
 {
@@ -15,41 +17,37 @@ namespace EU4.Stats.Web
     public class Templater : ITemplate
     {
         private readonly string file;
-        private Generator gen;
-        private readonly FormatCompiler compiler;
-        private readonly FileSystemWatcher watcher;
+        private Func<object, Task<object>> gen;
 
-        public Templater(string filepath)
+        private Templater(string filepath, Func<object, Task<object>> generator) 
         {
             file = filepath;
-            compiler = new FormatCompiler();
-            gen = compiler.Compile(File.ReadAllText(filepath));
-
-            string parent = Path.GetDirectoryName(filepath);
-            if (parent == string.Empty)
-                parent = ".";
-            string shortname = Path.GetFileName(file);
-
-            // File watcher normally uses a glob pattern to match a series of
-            // files, but since we are just watching for one file we just use
-            // the name of the file as the glob.
-            watcher = new FileSystemWatcher(parent, shortname);
-            watcher.Changed += watcher_Changed;
-            watcher.NotifyFilter = NotifyFilters.LastWrite;
-            watcher.EnableRaisingEvents = true;
+            gen = generator;
         }
 
-        private void watcher_Changed(object sender, FileSystemEventArgs e)
+        async public Task<string> Render(object obj)
         {
-            Generator temp = compiler.Compile(File.ReadAllText(file));
-            lock (gen)
-                gen = temp;
+            return (string)(await gen(obj));
         }
 
-        public string Render(object obj)
+        async public static Task<Templater> CreateTemplater(string filepath)
         {
-            lock (gen)
-                return gen.Render(obj);
+            var gen = await Edge.Func(
+                @"var jade = require('jade');
+                  var _ = require('underscore');
+                  var _s = require('underscore.string');
+                  _.mixin(_s);
+                  return function(file, cb) {
+                      var fn = jade.compileFile(file, {
+                          pretty: true, debug: true, compileDebug: true
+                      });
+
+                      cb(null, function(data, cb) {
+                          cb(null, fn(_.extend(data, _)));
+                      });
+                  };")(filepath);
+
+            return new Templater(filepath, (Func<object, Task<object>>)gen);
         }
     }
 }

@@ -12,7 +12,7 @@ namespace EU4.Stats.Web
     {
         public StatsModule(ITemplate tmpl, IIdGenerator idgen, SavegameStorage storage)
         {
-            Post["/games"] = _ =>
+            Post["/games", true] = async (x, ct) =>
             {
                 // Get the temporary location of the file on the server
                 var file = Request.Headers["X-FILE"].FirstOrDefault();
@@ -30,7 +30,7 @@ namespace EU4.Stats.Web
                     savegame = new Save(stream);
 
                 // Turn the savegame into html and return the url for it
-                string contents = tmpl.Render(Aggregate(savegame));
+                string contents = await tmpl.Render(Aggregate(savegame));
                 string id = idgen.NextId();
                 return storage.Store(contents, id);
             };

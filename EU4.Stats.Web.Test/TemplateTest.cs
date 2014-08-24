@@ -11,12 +11,12 @@ namespace EU4.Stats.Web.Test
     public class TemplateTest
     {
         [Test]
-        public void TemplateRendersSuccessfully()
+        public async void TemplateRendersSuccessfully()
         {
-            var tmpl = new Templater("template.html");
+            var tmpl = await Templater.CreateTemplater("template.jade");
             var save = new Save();
             save.Player = "MEE";
-            string contents = tmpl.Render(StatsModule.Aggregate(save));
+            string contents = await tmpl.Render(StatsModule.Aggregate(save));
             StringAssert.Contains("MEE", contents);
         }
     }
