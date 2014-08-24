@@ -37,21 +37,21 @@
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>..\..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
-    <Reference Include="mustache-sharp">
-      <HintPath>..\..\packages\mustache-sharp.0.2.7.1\lib\net40\mustache-sharp.dll</HintPath>
+    <Reference Include="mustache-sharp, Version=0.2.8.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\mustache-sharp.0.2.8.1\lib\net40\mustache-sharp.dll</HintPath>
     </Reference>
-    <Reference Include="Nancy">
-      <HintPath>..\..\packages\Nancy.0.23.1\lib\net40\Nancy.dll</HintPath>
+    <Reference Include="Nancy, Version=0.23.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Nancy.0.23.2\lib\net40\Nancy.dll</HintPath>
     </Reference>
-    <Reference Include="Nancy.Hosting.Self">
-      <HintPath>..\..\packages\Nancy.Hosting.Self.0.23.1\lib\net40\Nancy.Hosting.Self.dll</HintPath>
-    </Reference>
-    <Reference Include="Nancy.Serialization.JsonNet">
-      <HintPath>..\..\packages\Nancy.Serialization.JsonNet.0.23.1\lib\net40\Nancy.Serialization.JsonNet.dll</HintPath>
+    <Reference Include="Nancy.Hosting.Self, Version=0.23.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Nancy.Hosting.Self.0.23.2\lib\net40\Nancy.Hosting.Self.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Newtonsoft.Json.6.0.3\lib\net40\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\packages\Newtonsoft.Json.6.0.4\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Pdoxcl2Sharp">
       <HintPath>..\..\dependencies\Pdoxcl2Sharp.dll</HintPath>
