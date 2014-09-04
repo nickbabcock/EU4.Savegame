@@ -60,17 +60,16 @@ namespace EU4.Stats.Web
             }
         }
 
-        public static object Aggregate(Save savegame)
+        public static StatsModel Aggregate(Save savegame)
         {
             var stats = new SaveStats(savegame);
-            return new
+            return new StatsModel()
             {
                 Player = savegame.Player,
                 Players = string.Join(", ", 
                     (savegame.Countries ?? Enumerable.Empty<Country>()).Where(x =>
                     x.WasPlayer.GetValueOrDefault()).Select(x => x.Abbreviation)),
                 PlayerCountries = stats.PlayerStats(),
-                Today = DateTime.UtcNow,
                 Date = savegame.Date,
                 Manpower = stats.WorldManpower(),
                 PotentialManpower = stats.MaxWorldManpower(),

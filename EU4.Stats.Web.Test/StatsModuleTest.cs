@@ -21,7 +21,7 @@ namespace EU4.Stats.Web.Test
         {
             with.Module<StatsModule>();
             with.Dependency(Mock.Of<ITemplate>(x =>
-                x.Render(It.IsAny<object>()) == "Hi"));
+                x.Render(It.IsAny<StatsModel>()) == "Hi"));
             with.Dependency(Mock.Of<IIdGenerator>(x =>
                 x.NextId() == "1"));
             with.Dependency(new SavegameStorage("data"));

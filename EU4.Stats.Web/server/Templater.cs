@@ -1,4 +1,4 @@
-﻿using Mustache;
+﻿using RazorEngine.Templating;
 using System.IO;
 
 namespace EU4.Stats.Web
@@ -15,15 +15,14 @@ namespace EU4.Stats.Web
     public class Templater : ITemplate
     {
         private readonly string file;
-        private Generator gen;
-        private readonly FormatCompiler compiler;
+        private readonly ITemplateService service;
         private readonly FileSystemWatcher watcher;
 
         public Templater(string filepath)
         {
             file = filepath;
-            compiler = new FormatCompiler();
-            gen = compiler.Compile(File.ReadAllText(filepath));
+            service = new TemplateService();
+            service.Compile(File.ReadAllText(filepath), typeof(StatsModel), "stats");
 
             string parent = Path.GetDirectoryName(filepath);
             if (parent == string.Empty)
@@ -41,15 +40,12 @@ namespace EU4.Stats.Web
 
         private void watcher_Changed(object sender, FileSystemEventArgs e)
         {
-            Generator temp = compiler.Compile(File.ReadAllText(file));
-            lock (gen)
-                gen = temp;
+            service.Compile(File.ReadAllText(file), typeof(StatsModel), "stats");
         }
 
-        public string Render(object obj)
+        public string Render(StatsModel obj)
         {
-            lock (gen)
-                return gen.Render(obj);
+            return service.Run("stats", obj, null);
         }
     }
 }
