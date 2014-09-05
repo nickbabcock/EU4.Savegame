@@ -9,6 +9,7 @@ install:
   - sudo installer -pkg "MonoFramework-MDK-${MONO_VERSION}.macos10.xamarin.x86.pkg" -target /
   - npm install 
   - gulp release
+  - nunit-console4 ./EU4.Savegame.Test/bin/EU4.Savegame.Test.dll ./EU4.Stats.Test/bin/EU4.Stats.Test.dll ./EU4.Stats.Web.Test/bin/EU4.Stats.Web.Test.dll
 
 before_install:
   - npm install -g gulp
