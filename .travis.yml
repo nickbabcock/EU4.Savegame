@@ -1,0 +1,30 @@
+language: node_js
+
+os:
+  - osx
+
+node_js:
+  - "0.10"
+
+env:
+  matrix:
+    - MONO_VERSION="3.6.0"
+
+install:
+  - wget "http://download.mono-project.com/archive/3.4.0/macos-10-x86/MonoFramework-MDK-${MONO_VERSION}.macos10.xamarin.x86.pkg"
+  - sudo installer -pkg "MonoFramework-MDK-${MONO_VERSION}.macos10.xamarin.x86.pkg" -target /
+  - npm install 
+  - gulp release
+
+before_install:
+  - npm install -g gulp
+  - openssl aes-256-cbc -K $encrypted_4888f587c14e_key -iv $encrypted_4888f587c14e_iv -in .travis/travis_key.enc -out .travis/travis_key -d
+
+after_success:
+  - chmod 600 .travis/travis_key
+  - ssh-add .travis/travis_key
+  - tar cf - bin | ssh nick@104.131.45.44 'D=`mktemp -d`;tar xf - -C $D;cp -r $D/bin/* /var/www/stats/.;sudo supervisorctl restart eu4stats'
+
+branches:
+  only:
+    - master
