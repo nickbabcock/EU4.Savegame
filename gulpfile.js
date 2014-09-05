@@ -32,8 +32,7 @@ gulp.task('minifyhtml', ['backend'], function() {
             removeAttributeQuotes: true,
             removeAttributeQuotes: true,
             useShortDoctype: true,
-            removeEmptyAttributes: true,
-            removeOptionalTags: true
+            removeEmptyAttributes: true
         }))
         .pipe(gulp.dest('bin/bin/.'));
 });
