@@ -7,15 +7,13 @@ env:
 before_install:
   - npm install -g gulp
   - openssl aes-256-cbc -K $encrypted_4888f587c14e_key -iv $encrypted_4888f587c14e_iv -in .travis/travis_key.enc -out .travis/travis_key -d
-  - curl -O "http://launchpad.net/nunitv2/trunk/2.6.3/+download/NUnit-2.6.3.zip"
-  - unzip NUnit-2.6.3.zip 
 
 install:
   - wget "http://download.mono-project.com/archive/${MONO_VERSION}/macos-10-x86/MonoFramework-MDK-${MONO_VERSION}.macos10.xamarin.x86.pkg"
   - sudo installer -pkg "MonoFramework-MDK-${MONO_VERSION}.macos10.xamarin.x86.pkg" -target /
   - npm install 
   - gulp release
-  - mono NUnit-2.6.3/bin/nunit-console.exe ./EU4.Savegame.Test/bin/EU4.Savegame.Test.dll ./EU4.Stats.Test/bin/EU4.Stats.Test.dll ./EU4.Stats.Web.Test/bin/EU4.Stats.Web.Test.dll
+  - nunit-console ./EU4.Savegame.Test/bin/EU4.Savegame.Test.dll ./EU4.Stats.Test/bin/EU4.Stats.Test.dll ./EU4.Stats.Web.Test/bin/EU4.Stats.Web.Test.dll
 
 after_success:
   - chmod 600 .travis/travis_key
