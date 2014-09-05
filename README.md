@@ -1,6 +1,6 @@
 # EU4.Savegame
 
-[![Build status](https://ci.appveyor.com/api/projects/status/re6omq30w699ue7v)](https://ci.appveyor.com/project/nickbabcock/eu4-savegame)
+(.Net 4.5/Mono 3.x) [![Build status](https://ci.appveyor.com/api/projects/status/re6omq30w699ue7v)](https://ci.appveyor.com/project/nickbabcock/eu4-savegame) [![Build Status2](http://img.shields.io/travis/nickbabcock/EU4.Savegame.svg?branch=master&style=flat)](https://travis-ci.org/nickbabcock/EU4.Savegame)
 
 If you're not a programmer, this is probably not what you're looking for (yet!).
 
