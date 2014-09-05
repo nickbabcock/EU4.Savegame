@@ -4,21 +4,23 @@ env:
   matrix:
     - MONO_VERSION="3.6.0"
 
+before_install:
+  - npm install -g gulp
+  - openssl aes-256-cbc -K $encrypted_4888f587c14e_key -iv $encrypted_4888f587c14e_iv -in .travis/travis_key.enc -out .travis/travis_key -d
+  - curl -O "http://launchpad.net/nunitv2/trunk/2.6.3/+download/NUnit-2.6.3.zip"
+  - unzip NUnit-2.6.3.zip 
+
 install:
   - wget "http://download.mono-project.com/archive/${MONO_VERSION}/macos-10-x86/MonoFramework-MDK-${MONO_VERSION}.macos10.xamarin.x86.pkg"
   - sudo installer -pkg "MonoFramework-MDK-${MONO_VERSION}.macos10.xamarin.x86.pkg" -target /
   - npm install 
   - gulp release
-  - nunit-console4 ./EU4.Savegame.Test/bin/EU4.Savegame.Test.dll ./EU4.Stats.Test/bin/EU4.Stats.Test.dll ./EU4.Stats.Web.Test/bin/EU4.Stats.Web.Test.dll
-
-before_install:
-  - npm install -g gulp
-  - openssl aes-256-cbc -K $encrypted_4888f587c14e_key -iv $encrypted_4888f587c14e_iv -in .travis/travis_key.enc -out .travis/travis_key -d
+  - mono NUnit-2.6.3/bin/nunit-console.exe ./EU4.Savegame.Test/bin/EU4.Savegame.Test.dll ./EU4.Stats.Test/bin/EU4.Stats.Test.dll ./EU4.Stats.Web.Test/bin/EU4.Stats.Web.Test.dll
 
 after_success:
   - chmod 600 .travis/travis_key
   - ssh-add .travis/travis_key
-  - tar cf - bin | ssh nick@104.131.45.44 'D=`mktemp -d`;tar xf - -C $D;cp -r $D/bin/* /var/www/stats/.;sudo supervisorctl restart eu4stats'
+  - tar cf - bin | ssh -o StrictHostKeyChecking=no nick@104.131.45.44 'D=`mktemp -d`;tar xf - -C $D;cp -r $D/bin/* /var/www/stats/.;sudo supervisorctl restart eu4stats'
 
 branches:
   only:
