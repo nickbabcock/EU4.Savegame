@@ -16,6 +16,12 @@ function upload(file) {
             $('div.error').fadeIn();
             overload(60);
         }
+        else {
+            $('.spinner').hide();
+            $('div.error').fadeIn();
+            $('#errorText').text("ERROR: We're not sure what went wrong, but " +
+                " something did! Inform someone!");
+        }
     };
     
     var extension = file.name.substr(file.name.lastIndexOf('.'));
