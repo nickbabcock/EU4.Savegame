@@ -108,6 +108,37 @@ This project works with [Mono][], which is an alternative .Net implementation.
 
 [Mono]: http://www.mono-project.com/Main_Page
 
+## Running the Server
+
+This program is meant to run on an nginx webserver but we are able to run it
+on a smaller scale locally too. Since I develop on Windows, I'll show the
+Windows steps. The executable must be ran as an administrator.
+
+### Prerequisites
+
+- [nodejs](http://nodejs.org/)
+- [git](http://git-scm.com/)
+
+```bash
+git clone https://github.com/nickbabcock/EU4.Savegame.git
+npm install
+gulp backend frontend
+cd bin\bin
+EU4.Stats.Web.exe
+```
+
+Then from another commandline you send the request in the format of:
+
+```bash
+curl -X POST -H "X-FILE: <filepath>" -H "Content-Length: 0" -H "<file extension>" http://localhost:8888/games
+```
+
+so an example of this could be
+
+```bash
+curl -X POST -H "X-FILE: C:\Users\nick\Downloads\autosave.zip" -H "Content-Length: 0" -H "X-FILE-EXTENSION: .zip" http://localhost:8888/games
+```
+
 ## Design Guidelines
 
 Fail early, fail hard - The last desired outcome is for the user to believe the
