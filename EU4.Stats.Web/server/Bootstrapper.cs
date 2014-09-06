@@ -31,6 +31,13 @@ namespace EU4.Stats.Web
         {
             base.ConfigureApplicationContainer(container);
 
+            // The CLR (not mono) does lazy loading of external assemblies and
+            // will retrieve them on demand when you use their types. the
+            // downside of this is that the razor template can't compile
+            // because the assembly hasn't been loaded yet, so we use a type
+            // from the assembly to force it to be loaded.
+            var a = new TradeStats.PowerStats("a", 1, 1, 1, 1, 1, 1);
+
             string exe = Assembly.GetEntryAssembly().Location;
             string exeDir = Path.GetDirectoryName(exe);
             string tmplFile = Path.Combine(exeDir, "template.html");
