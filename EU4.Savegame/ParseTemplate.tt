@@ -1029,6 +1029,7 @@ var classes = new[] {
             new Property() { Type = "IList<string>", Name = "Attackers", Quoted = true },
             new Property() { Type = "IList<string>", Name = "Defenders", Quoted = true },
             new Property() { Type = "string", Name = "Target", Quoted = true },
+            new Property() { Type = "string", Name = "Vassal", Quoted = true },
             new Property() { Type = "string", Name = "OriginalAttacker", Quoted = true },
             new Property() { Type = "string", Name = "OriginalDefender", Quoted = true },
             new Property() { Type = "int?", Name = "Independence" },
