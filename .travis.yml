@@ -19,7 +19,7 @@ install:
 
 after_success:
   - chmod 600 .travis/travis_key
-  - tar cf - bin | ssh -i .travis/travis_key -o StrictHostKeyChecking=no nick@104.131.45.44 'D=`mktemp -d`;tar xf - -C $D;cp -r $D/bin/* /var/www/stats/.;sudo supervisorctl restart eu4stats'
+  - tar cf - bin | ssh -t -i .travis/travis_key -o StrictHostKeyChecking=no nick@104.131.45.44 'D=`mktemp -d`;tar xf - -C $D;cp -r $D/bin/* /var/www/stats/.;sudo supervisorctl restart eu4stats'
 
 branches:
   only:
