@@ -14,7 +14,10 @@ namespace EU4.Savegame
             {
                 case "revolt": return parser.Parse(new Revolt(date));
                 case "controller": return parser.Parse(new ControllerChange(date));
-                case "name": return parser.Parse(new ProvinceNameChange(date));
+                case "name":
+                    if (parser.NextIsBracketed())
+                        return parser.Parse(new ProvinceNameChange(date));
+                    return new ProvinceNameChange(date);
                 case "owner": return new OwnerChange(date, parser.ReadString());
                 case "capital": return new CapitalNameChange(date, parser.ReadString());
                 case "discovered_by": return new DiscoveredBy(date, parser.ReadString());
