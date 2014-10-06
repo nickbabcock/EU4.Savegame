@@ -794,6 +794,8 @@ var classes = new[] {
             new Property() { Type = "[ConsecutiveElements] IList<int>", Name = "Path" },
             new Property() { Type = "int", Name = "Location" },
             new Property() { Type = "IList<Unit>", Name = "Ships" },
+            new Property() { Type = "DateTime?", Name = "EndDate" },
+            new Property() { Type = "[ConsecutiveElements] IList<ParadoxId>", Name = "Attachments" },
             new Property() { Type = "string", Name = "GraphicalCulture" },
             new Property() { Type = "bool?", Name = "GoHomeAtWar" },
             new Property() { Type = "IList<Army>", Name = "Armies" },
