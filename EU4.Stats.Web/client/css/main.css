@@ -55,21 +55,34 @@ div.error {
 table.x-table td, table.x-table tr { white-space: nowrap; }
 div.DTFC_LeftBodyLiner { overflow-x: hidden; }
 
-/* stolen from: http://www.designcouch.com/home/why/2013/05/23/dead-simple-pure-css-loading-spinner/ */
-.spinner {
-    display: none;
-    margin-left: 2em;
-    height: 19px;
-    width: 19px;
-    animation: rotation .6s infinite linear;
-    border-left: 6px solid rgba(0,174,239,.15);
-    border-right: 6px solid rgba(0,174,239,.15);
-    border-bottom: 6px solid rgba(0,174,239,.15);
-    border-top: 6px solid rgba(0,174,239,.8);
-    border-radius: 100%;
+div.submit-box p {
+    margin-left: 1.5em;
+    margin-top: 0;
 }
 
-@keyframes rotation {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(359deg); }
+progress {
+    height: 35px;
+    appearance: none;
+    border: none;
+    background: #EEE;
+    border-radius: 3px;
+    box-shadow: 0 2px 3px rgba(0,0,0,0.2) inset;
+    margin-left: 1.5em;
+    display: none;
+}
+
+progress::-webkit-progress-bar {
+  background: #EEE;
+  box-shadow: 0 2px 3px rgba(0,0,0,0.2) inset;
+  border-radius: 3px;
+}
+
+progress::-webkit-progress-value {
+  background-color: #0078e7;
+  border-radius: 3px;
+}
+
+progress::-moz-progress-bar {
+  background-color: #0078e7;
+  border-radius: 3px;
 }

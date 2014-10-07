@@ -1,3 +1,7 @@
+function statusUpdate(text) {
+    $('div.submit-box p').text(text);
+}
+
 function upload(file) {
     var xhr = new XMLHttpRequest();
     xhr.open('post', '/games', true);
@@ -6,22 +10,39 @@ function upload(file) {
             window.location.href = this.response;
         }
         else if (this.status === 500) {
-            $('.spinner').hide();
+            statusUpdate('');
+            $('progress').hide();
             var data = JSON.parse(this.response);
             $('div.error').fadeIn();
             $('#errorText').text("ERROR: " + data.error.message);
         }
         else if (this.status === 503) {
-            $('.spinner').hide();
+            statusUpdate('');
+            $('progress').hide();
             $('div.error').fadeIn();
             overload(60);
         }
         else {
-            $('.spinner').hide();
+            statusUpdate('');
+            $('progress').hide();
             $('div.error').fadeIn();
             $('#errorText').text("ERROR: We're not sure what went wrong, but " +
                 " something did! Inform someone!");
         }
+    };
+
+    var progressBar = document.querySelector('progress');
+    xhr.upload.onprogress = function(e) {
+        if (e.lengthComputable) {
+            // Magic number 67 chosen to represent that uploading
+            // takes about 2/3 of the time. Of course this depends.
+            progressBar.value = (e.loaded / e.total) * 67;
+            progressBar.textContent = progressBar.value;
+        }
+    };
+
+    xhr.upload.onload = function(e) {
+        statusUpdate('Processing file');
     };
     
     var extension = file.name.substr(file.name.lastIndexOf('.'));
@@ -29,6 +50,7 @@ function upload(file) {
     // If the user uploads a plain .eu4, compress the file before sending it.
     // This saves time and bandwidth.
     if (extension === ".eu4") {
+        statusUpdate('Compressing file');
         var reader = new FileReader();
         reader.onload = function(buf) {
             var zip = new JSZip();
@@ -36,12 +58,14 @@ function upload(file) {
             file = zip.generate({type: 'blob', compression: 'DEFLATE'});
             xhr.setRequestHeader("X-FILE-EXTENSION", ".zip");
             xhr.send(file);
+            statusUpdate('Uploading file');
         };
 
         reader.readAsArrayBuffer(file);
     }
     else {
         xhr.setRequestHeader("X-FILE-EXTENSION", extension);
+        statusUpdate('Uploading file');
         xhr.send(file);
     }
 }
@@ -63,7 +87,7 @@ function overloadText(seconds) {
 }
 
 function uploadSelectedFile() {
-    $('.spinner').show();
+    $('progress').fadeIn();
     var files = $('#savefile').get(0).files;
     if (files && files[0]) {
         upload(files[0]);
