@@ -2,8 +2,6 @@ language: objective-c
 
 env:
   matrix:
-    - MONO_VERSION="3.6.0"
-    - MONO_VERSION="3.8.0"
     - MONO_VERSION="3.10.0"
 
 before_install:
