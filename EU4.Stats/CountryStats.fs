@@ -10,6 +10,7 @@ type CountryRankings = {
 
 type PlayerStats = {
     name : string; player : string; treasury : float; prestige : float;
+    income: float;
     inflation : double; stability : float;
     cities : int; colonies : int; armyTradition : float;
     navyTradition : float; mercantilism : float;

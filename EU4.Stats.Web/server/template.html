@@ -253,6 +253,12 @@
           }
           </tr>
           <tr>
+            <td>Income</td>
+          @foreach (var x in @Model.PlayerCountries) {
+            <td>@x.income</td>
+          }
+          </tr>
+          <tr>
             <td>Stability</td>  
           @foreach (var x in @Model.PlayerCountries) {
             <td>@x.stability</td>

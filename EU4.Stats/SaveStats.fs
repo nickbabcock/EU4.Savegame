@@ -308,6 +308,7 @@ type SaveStats (save : Save) =
             { name = country.DisplayName;
               player = player;
               treasury = country.Treasury;
+              income = country.EstimatedMonthlyIncome;
               stability = country.Stability;
               inflation = country.Inflation;
               prestige = country.Prestige;
