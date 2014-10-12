@@ -1,4 +1,5 @@
-﻿using Nancy;
+﻿using Metrics;
+using Nancy;
 using Nancy.Bootstrapper;
 using Nancy.Responses;
 using Nancy.Serialization.JsonNet;
@@ -25,6 +26,12 @@ namespace EU4.Stats.Web
                         .WithStatusCode(HttpStatusCode.InternalServerError));
 
             base.RequestStartup(container, pipelines, context);
+        }
+
+        protected override void ApplicationStartup(TinyIoCContainer container, IPipelines pipelines)
+        {
+            base.ApplicationStartup(container, pipelines);
+            Metric.Config.WithAllCounters().WithNancy(pipelines);
         }
 
         protected override void ConfigureApplicationContainer(TinyIoCContainer container)

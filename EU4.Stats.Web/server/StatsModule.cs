@@ -1,5 +1,6 @@
 ﻿using EU4.Savegame;
 using ICSharpCode.SharpZipLib.Zip;
+using Metrics;
 using Nancy;
 using System;
 using System.IO;
@@ -10,6 +11,15 @@ namespace EU4.Stats.Web
 {
     public class StatsModule : NancyModule
     {
+        private readonly Timer parsingTimer = Metric.Timer("Savegame Parsing",
+            Metrics.Unit.Requests, SamplingType.FavourRecent);
+
+        private readonly Timer statsTimer = Metric.Timer("Stats Generation",
+            Metrics.Unit.Requests, SamplingType.FavourRecent);
+
+        private readonly Timer templateTimer = Metric.Timer("Template Render",
+            Metrics.Unit.Requests, SamplingType.FavourRecent);
+
         public StatsModule(ITemplate tmpl, IIdGenerator idgen, SavegameStorage storage)
         {
             Post["/games"] = _ =>
@@ -27,10 +37,12 @@ namespace EU4.Stats.Web
 
                 Save savegame;
                 using (var stream = getStream(file, extension))
+                using (parsingTimer.NewContext())
                     savegame = new Save(stream);
 
                 // Turn the savegame into html and return the url for it
-                string contents = tmpl.Render(Aggregate(savegame));
+                var stats = statsTimer.Time(() => Aggregate(savegame));
+                string contents = templateTimer.Time(() => tmpl.Render(stats));
                 string id = idgen.NextId();
                 return storage.Store(contents, id);
             };

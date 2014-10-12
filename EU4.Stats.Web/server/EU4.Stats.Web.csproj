@@ -40,6 +40,9 @@
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>..\..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
+    <Reference Include="Metrics">
+      <HintPath>..\..\packages\Metrics.NET.0.2.4\lib\net45\Metrics.dll</HintPath>
+    </Reference>
     <Reference Include="Nancy, Version=0.23.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Nancy.0.23.2\lib\net40\Nancy.dll</HintPath>
@@ -47,6 +50,9 @@
     <Reference Include="Nancy.Hosting.Self, Version=0.23.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Nancy.Hosting.Self.0.23.2\lib\net40\Nancy.Hosting.Self.dll</HintPath>
+    </Reference>
+    <Reference Include="Nancy.Metrics">
+      <HintPath>..\..\packages\Nancy.Metrics.0.2.4\lib\net45\Nancy.Metrics.dll</HintPath>
     </Reference>
     <Reference Include="Nancy.Serialization.JsonNet">
       <HintPath>..\..\packages\Nancy.Serialization.JsonNet.0.23.2\lib\net40\Nancy.Serialization.JsonNet.dll</HintPath>
