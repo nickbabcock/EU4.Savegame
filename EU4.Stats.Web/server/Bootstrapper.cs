@@ -43,7 +43,9 @@ namespace EU4.Stats.Web
             // downside of this is that the razor template can't compile
             // because the assembly hasn't been loaded yet, so we use a type
             // from the assembly to force it to be loaded.
+#if !__MonoCS__
             var a = new TradeStats.PowerStats("a", 1, 1, 1, 1, 1, 1);
+#endif
 
             string exe = Assembly.GetEntryAssembly().Location;
             string exeDir = Path.GetDirectoryName(exe);
