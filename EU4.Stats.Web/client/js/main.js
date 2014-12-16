@@ -70,6 +70,7 @@ function upload(file) {
             statusUpdate('Uploading file');
         };
 
+        statusUpdate('Reading file');
         reader.readAsArrayBuffer(file);
     }
     else {
