@@ -10,7 +10,9 @@ open EU4.Savegame
 open MathNet.Numerics.Statistics;
 
 type SaveStats (save : Save) =
-    let wars = Seq.append (nullToEmpty save.ActiveWars) (nullToEmpty save.PreviousWars)
+    let wars =
+        Seq.append (nullToEmpty save.ActiveWars) (nullToEmpty save.PreviousWars)
+        |> Seq.where (fun x -> x.Name <> "")
 
     // Creates a sequence of wars with associated battles
     let battles =
