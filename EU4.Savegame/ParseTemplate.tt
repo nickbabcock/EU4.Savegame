@@ -145,7 +145,7 @@ var classes = new[] {
             new Property() { Type = "double", Name = "PullPower" },
             new Property() { Type = "double", Name = "RetainPower" },
             new Property() { Type = "double", Name = "HighestPower" },
-            new Property() { Type = "IList<TradePower>", Name = "Powers" },
+            /*new Property() { Type = "IList<TradePower>", Name = "Powers" },*/
             new Property() { Type = "IList<IncomingTrade>", Name = "Incomings" },
             new Property() { Type = "[ConsecutiveElements] IList<double>", Name = "TradeGoodsSize" },
             new Property() { Type = "[ConsecutiveElements] IList<string>", Name = "TopProvinces", Quoted = true },
@@ -1030,6 +1030,8 @@ var classes = new[] {
             new Property() { Type = "WarHistory", Name = "History" },
             new Property() { Type = "IList<string>", Name = "Attackers", Quoted = true },
             new Property() { Type = "IList<string>", Name = "Defenders", Quoted = true },
+            new Property() { Type = "IList<string>", Name = "JoinedWar", Quoted = true, Alias = "joined_war" },
+            new Property() { Type = "string", Name = "Colonial", Quoted = true },
             new Property() { Type = "string", Name = "Target", Quoted = true },
             new Property() { Type = "string", Name = "Vassal", Quoted = true },
             new Property() { Type = "string", Name = "OriginalAttacker", Quoted = true },

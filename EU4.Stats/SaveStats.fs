@@ -170,20 +170,21 @@ type SaveStats (save : Save) =
               losses2 = com2bs |> Seq.sumBy (fun x -> x.Losses); })
         |> Seq.sortBy (fun rivalry -> (~-) rivalry.battles)
 
-    member x.CountryTradeReport () =
-        nullToEmpty save.Trade
-        |> Seq.collect (fun x -> x.Powers)
-        |> Seq.groupBy (fun x -> x.Country)
-        |> Seq.map (fun (abbr, col) ->
-            { country = countryMap.[abbr].DisplayName
-              lightShips = col |> Seq.sumBy (fun x -> x.LightShip)
-              shipPower = col |> Seq.sumBy (fun x -> x.ShipPower)
-              power = col |> Seq.sumBy (fun x -> x.Current)
-              provincePower = col |> Seq.sumBy (fun x -> x.ProvincePower)
-              money = col |> Seq.sumBy (fun x -> x.Money)
-              total = col |> Seq.sumBy (fun x -> x.Total)
-            })
-        |> Seq.sortBy (fun x -> (~-) x.power)
+    member x.CountryTradeReport () : seq<PowerStats> =
+        Seq.empty
+//        nullToEmpty save.Trade
+//        |> Seq.collect (fun x -> x.Powers)
+//        |> Seq.groupBy (fun x -> x.Country)
+//        |> Seq.map (fun (abbr, col) ->
+//            { country = countryMap.[abbr].DisplayName
+//              lightShips = col |> Seq.sumBy (fun x -> x.LightShip)
+//              shipPower = col |> Seq.sumBy (fun x -> x.ShipPower)
+//              power = col |> Seq.sumBy (fun x -> x.Current)
+//              provincePower = col |> Seq.sumBy (fun x -> x.ProvincePower)
+//              money = col |> Seq.sumBy (fun x -> x.Money)
+//              total = col |> Seq.sumBy (fun x -> x.Total)
+//            })
+//        |> Seq.sortBy (fun x -> (~-) x.power)
 
     /// Returns the five number summaries of the correlations between
     /// the ledger information stored in the save file
