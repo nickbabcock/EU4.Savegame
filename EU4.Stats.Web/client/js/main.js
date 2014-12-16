@@ -50,12 +50,21 @@ function upload(file) {
     // If the user uploads a plain .eu4, compress the file before sending it.
     // This saves time and bandwidth.
     if (extension === ".eu4") {
-        statusUpdate('Compressing file');
         var reader = new FileReader();
         reader.onload = function(buf) {
-            var zip = new JSZip();
-            zip.file("dummy.eu4", this.result);
-            file = zip.generate({type: 'blob', compression: 'DEFLATE'});
+            // In newer version of EU4, players have the option of compressing
+            // the savegame. While the file extension is the same, the first
+            // couple bytes will let us know if we are looking at a zip file.
+            // If we are looking at a zip file, then we don't have to do any
+            // compression and we send the file along
+            var zipMagic = new Int32Array(this.result.slice(0, 4));
+            if (zipMagic[0] !== 0x4034B50) {
+                statusUpdate('Compressing file');
+                var zip = new JSZip();
+                zip.file("dummy.eu4", this.result);
+                file = zip.generate({type: 'blob', compression: 'DEFLATE'});
+            }
+
             xhr.setRequestHeader("X-FILE-EXTENSION", ".zip");
             xhr.send(file);
             statusUpdate('Uploading file');
