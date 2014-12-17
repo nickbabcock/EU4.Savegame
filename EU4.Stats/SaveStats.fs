@@ -279,10 +279,12 @@ type SaveStats (save : Save) =
 
 //        let buildings = x.CountryBuildings ()
         let buildings = save.Countries |> Seq.map (fun x -> (x, Seq.empty))
-        let playerCountries =
-            save.Countries
-            |> Seq.where (fun x -> x.WasPlayer.GetValueOrDefault())
+        let playerNarrower : (Country -> bool) =
+            match isNull save.PlayersCountries with
+            | true -> fun country -> country.Human.GetValueOrDefault()
+            | false -> fun country -> country.WasPlayer.GetValueOrDefault()
 
+        let playerCountries = save.Countries |> Seq.where playerNarrower
         let names =
             match isNull save.PlayersCountries with
             | true -> [((Seq.exactlyOne playerCountries).DisplayName, "human")] 
