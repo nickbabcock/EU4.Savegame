@@ -77,7 +77,10 @@
     </Compile>
     <Compile Include="Province.cs" />
     <Compile Include="TopFlags.cs" />
+    <Compile Include="TradeNode.cs" />
     <Compile Include="TradeNodeCollection.cs" />
+    <Compile Include="TradePower.cs" />
+    <Compile Include="TransferCollection.cs" />
     <Compile Include="War.cs" />
     <Compile Include="WarHistory.cs" />
   </ItemGroup>
