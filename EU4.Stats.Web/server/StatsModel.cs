@@ -14,6 +14,10 @@ namespace EU4.Stats.Web
         public DateTime Date { get; set; }
         public double Manpower { get; set; }
         public double PotentialManpower { get; set; }
+        public int RegimentCount { get; set; }
+        public double RegimentSum { get; set; }
+        public int ShipCount { get; set; }
+        public double ShipSum { get; set; }
         public IEnumerable<WarStats.LeaderReport> LeaderReport { get; set; }
         public IEnumerable<WarStats.WarReport> BiggestNavalWars { get; set; }
         public IEnumerable<WarStats.WarReport> BiggestLandWars { get; set; }

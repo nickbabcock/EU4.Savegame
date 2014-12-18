@@ -75,6 +75,8 @@ namespace EU4.Stats.Web
         public static StatsModel Aggregate(Save savegame)
         {
             var stats = new SaveStats(savegame);
+            var regiments = stats.WorldRegiments();
+            var ships = stats.WorldShips();
             return new StatsModel()
             {
                 Player = savegame.Player,
@@ -92,7 +94,11 @@ namespace EU4.Stats.Web
                 LedgerCorrelations = stats.LedgerCorrelations(),
                 ScoreStats = stats.ScoreRankings().Where(x => x.rank <= 10 || stats.IsPlayer(x.name)),
                 Debt = stats.CountryDebts().Take(10),
-                TradePower = stats.CountryTradeReport().Take(10)
+                TradePower = stats.CountryTradeReport().Take(10),
+                RegimentCount = regiments.Item1,
+                RegimentSum = regiments.Item2,
+                ShipCount = ships.Item1,
+                ShipSum = ships.Item2
             };
         }
     }

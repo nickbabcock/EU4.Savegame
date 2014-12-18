@@ -90,6 +90,18 @@ type SaveStats (save : Save) =
     member x.MaxWorldManpower () = 
         int ((existantCountries |> Seq.sumBy(fun x -> x.MaxManpower)) * 1000.0)
 
+    member x.WorldRegiments () =
+        existantCountries
+        |> Seq.collect (fun x -> x.Armies)
+        |> Seq.collect (fun x -> x.Regiments)
+        |> Seq.fold (fun (count, sum) unit -> (count + 1, sum + unit.Strength * 1000.0)) (0, 0.0)
+
+    member x.WorldShips () =
+        existantCountries
+        |> Seq.collect (fun x -> x.Navies)
+        |> Seq.collect (fun x -> x.Ships)
+        |> Seq.fold (fun (count, sum) unit -> (count + 1, sum + unit.Strength * 1000.0)) (0, 0.0)
+
     member x.LandWarReport () = warReport landDeployments
     member x.NavalWarReport () = warReport navalDeployments
 
