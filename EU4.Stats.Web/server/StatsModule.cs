@@ -90,6 +90,8 @@ namespace EU4.Stats.Web
                 LeaderReport = stats.LeaderReport(),
                 BiggestNavalWars = stats.NavalWarReport().Take(10),
                 BiggestLandWars = stats.LandWarReport().Take(10),
+                BiggestLandBattles = stats.LandBattleReport().Take(10),
+                BiggestNavalBattles = stats.NavalBattleReport().Take(10),
                 BiggestRivalries = stats.CommanderRivalries().Take(10),
                 LedgerCorrelations = stats.LedgerCorrelations(),
                 ScoreStats = stats.ScoreRankings().Where(x => x.rank <= 10 || stats.IsPlayer(x.name)),

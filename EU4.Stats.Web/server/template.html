@@ -185,6 +185,65 @@
         </tbody>
       </table>
 
+      <h2>Top 10 Biggest Naval Battles</h2>
+      <table class="pure-table pure-table-striped sort-table">
+        <thead>
+          <tr>
+            <th>War</th>
+            <th>Battle</th>
+            <th>Date</th>
+            <th>Attacking Forces</th>
+            <th>Attacking Losses</th>
+            <th>Defending Forces</th>
+            <th>Defending Losses</th>
+            <th>Winner</th>
+          </tr>
+        </thead>
+        <tbody>
+          @foreach (var x in @Model.BiggestNavalBattles) {
+          <tr>
+            <td>@x.warName</td>
+            <td>@x.battleName</td>
+            <td>@x.battleDate.ToString("d")</td>
+            <td>@x.forces1.ToString("N0")</td>
+            <td>@x.losses1.ToString("N0")</td>
+            <td>@x.forces2.ToString("N0")</td>
+            <td>@x.losses2.ToString("N0")</td>
+            <td>@(x.won ? "Attacker" : "Defender")</td>
+          </tr>
+          }
+        </tbody>
+      </table>
+
+      <h2>Top 10 Biggest Land Battles</h2>
+      <table class="pure-table pure-table-striped sort-table">
+        <thead>
+          <tr>
+            <th>War</th>
+            <th>Battle</th>
+            <th>Date</th>
+            <th>Attacking Forces</th>
+            <th>Attacking Losses</th>
+            <th>Defending Forces</th>
+            <th>Defending Losses</th>
+            <th>Winner</th>
+          </tr>
+        </thead>
+        <tbody>
+          @foreach (var x in @Model.BiggestLandBattles) {
+          <tr>
+            <td>@x.warName</td>
+            <td>@x.battleName</td>
+            <td>@x.battleDate.ToString("d")</td>
+            <td>@x.forces1.ToString("N0")</td>
+            <td>@x.losses1.ToString("N0")</td>
+            <td>@x.forces2.ToString("N0")</td>
+            <td>@x.losses2.ToString("N0")</td>
+            <td>@(x.won ? "Attacker" : "Defender")</td>
+          </tr>
+          }
+        </tbody>
+      </table>
 
       <h2>Top 10 Biggest Commander Rivalries</h2>
       <p>The same two commanders may find themselves facing each other quite

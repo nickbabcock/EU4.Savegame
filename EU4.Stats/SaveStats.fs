@@ -78,6 +78,26 @@ type SaveStats (save : Save) =
               defendingWins = Seq.length battles - attackingWins
             })
         |> Seq.sortBy (fun x -> (~-) x.battles)
+    
+    /// Computes the battles with the highest losses
+    let battleReport fn =
+        battles
+        |> Seq.collect (fun (war, allBattles) ->
+            allBattles |> Seq.map (fun x -> (war, x)))
+        |> Seq.map (fun (war, battle) ->
+            { warName = war.Name;
+              battleName = battle.Name;
+              battleDate = battle.EventDate;
+              forces1 = fn battle.Attacker;
+              losses1 = battle.Attacker.Losses;
+              forces2 = fn battle.Defender;
+              losses2 = battle.Defender.Losses;
+              won = battle.Result
+            })
+            
+            // Compare against 0 because of fn will return 0 for land/naval
+        |> Seq.where (fun x -> x.forces1 + x.forces2 > 0)
+        |> Seq.sortBy (fun x -> (~-) (x.losses1 + x.losses2))
 
     let existantCountries = nullToEmpty save.Countries 
                             |> Seq.where(fun x -> x.NumOfCities <> 0)
@@ -103,7 +123,9 @@ type SaveStats (save : Save) =
         |> Seq.fold (fun (count, sum) unit -> (count + 1, sum + unit.Strength * 1000.0)) (0, 0.0)
 
     member x.LandWarReport () = warReport landDeployments
+    member x.LandBattleReport () = battleReport landDeployments
     member x.NavalWarReport () = warReport navalDeployments
+    member x.NavalBattleReport () = battleReport navalDeployments
 
     /// For all the leaders that fought in a battle compile statistics based on
     /// their wins, losses, kills, etc.

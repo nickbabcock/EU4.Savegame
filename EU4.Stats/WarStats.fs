@@ -2,6 +2,7 @@ module EU4.Stats.WarStats
 
 open EU4.Savegame
 open EU4.Stats.Types
+open System
 
 type LeaderReport = {
     leader : Leader; forces: int; losses: int; faced: int; kills: int;
@@ -17,6 +18,11 @@ type WarReport = {
 type BiggestRivalries = {
     description: string; battles: int; forces1: int; losses1: int; wins1: int;
     forces2: int; losses2: int; wins2 : int;
+}
+
+type BiggestBattles = {
+    warName : string; battleName : string; battleDate : DateTime;
+    forces1 : int; losses1 : int; forces2 : int; losses2 : int; won : bool
 }
 
 type BattleReport = {

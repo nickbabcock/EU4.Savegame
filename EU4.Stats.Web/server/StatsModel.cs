@@ -21,6 +21,8 @@ namespace EU4.Stats.Web
         public IEnumerable<WarStats.LeaderReport> LeaderReport { get; set; }
         public IEnumerable<WarStats.WarReport> BiggestNavalWars { get; set; }
         public IEnumerable<WarStats.WarReport> BiggestLandWars { get; set; }
+        public IEnumerable<WarStats.BiggestBattles> BiggestLandBattles { get; set; }
+        public IEnumerable<WarStats.BiggestBattles> BiggestNavalBattles { get; set; }
         public IEnumerable<WarStats.BiggestRivalries> BiggestRivalries { get; set; }
         public LedgerStats.Correlations LedgerCorrelations { get; set; }
         public IEnumerable<CountryStats.CountryRankings> ScoreStats { get; set; }
