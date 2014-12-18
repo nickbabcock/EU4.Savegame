@@ -317,6 +317,7 @@ var classes = new[] {
             new Property() { Type = "string", Name = "TechnologyGroup" },
             new Property() { Type = "double", Name = "LibertyDesire" },
             new Property() { Type = "string", Name = "UnitType" },
+            new Property() { Type = "[ConsecutiveElements] IList<ArmyTemplate>", Name = "ArmyTemplates" },
             new Property() { Type = "Technology", Name = "Technology" },
             new Property() { Type = "IList<Rival>", Name = "Rivals" },
             new Property() { Type = "IList<string>", Name = "Enemies", Quoted = true },
@@ -533,6 +534,17 @@ var classes = new[] {
             new Property() { Type = "DateTime", Name = "Date" }     
         }
     },
+	new {
+		Name = "ArmyTemplate",
+		Props = new[] {
+			new Property() { Type = "string", Name = "Name", Quoted = true },
+			new Property() { Type = "int", Name = "Spread" },
+			new Property() { Type = "bool", Name = "Mercenary" },
+			new Property() { Type = "int", Name = "Infantry" },
+			new Property() { Type = "int", Name = "Cavalry" },
+			new Property() { Type = "int", Name = "Artillery" }
+		}
+	},
     new {
         Name = "Ai",
         Props = new[] {
