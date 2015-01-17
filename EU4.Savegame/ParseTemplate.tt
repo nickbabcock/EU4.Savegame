@@ -536,29 +536,29 @@ var classes = new[] {
             new Property() { Type = "DateTime", Name = "Date" }     
         }
     },
-	new {
-		Name = "ArmyTemplate",
-		Props = new[] {
-			new Property() { Type = "string", Name = "Name", Quoted = true },
-			new Property() { Type = "int", Name = "Spread" },
-			new Property() { Type = "bool", Name = "Mercenary" },
-			new Property() { Type = "int", Name = "Infantry" },
-			new Property() { Type = "int", Name = "Cavalry" },
-			new Property() { Type = "int", Name = "Artillery" }
-		}
-	},
-	new {
-		Name = "NavyTemplate",
-		Props = new[] {
-			new Property() { Type = "string", Name = "Name", Quoted = true },
-			new Property() { Type = "int", Name = "Spread" },
-			new Property() { Type = "bool", Name = "Mercenary" },
-			new Property() { Type = "int", Name = "HeavyShip" },
-			new Property() { Type = "int", Name = "LightShip" },
-			new Property() { Type = "int", Name = "Transport" },
-			new Property() { Type = "int", Name = "Galley" }
-		}
-	},
+    new {
+        Name = "ArmyTemplate",
+        Props = new[] {
+            new Property() { Type = "string", Name = "Name", Quoted = true },
+            new Property() { Type = "int", Name = "Spread" },
+            new Property() { Type = "bool", Name = "Mercenary" },
+            new Property() { Type = "int", Name = "Infantry" },
+            new Property() { Type = "int", Name = "Cavalry" },
+            new Property() { Type = "int", Name = "Artillery" }
+        }
+    },
+    new {
+        Name = "NavyTemplate",
+        Props = new[] {
+            new Property() { Type = "string", Name = "Name", Quoted = true },
+            new Property() { Type = "int", Name = "Spread" },
+            new Property() { Type = "bool", Name = "Mercenary" },
+            new Property() { Type = "int", Name = "HeavyShip" },
+            new Property() { Type = "int", Name = "LightShip" },
+            new Property() { Type = "int", Name = "Transport" },
+            new Property() { Type = "int", Name = "Galley" }
+        }
+    },
     new {
         Name = "Ai",
         Props = new[] {
@@ -780,17 +780,17 @@ var classes = new[] {
             new Property() { Type = "bool", Name = "DelayedDecay" }
         }
     },
-	new {
+    new {
         Name = "TradeCompany",
         Props = new[] {
             new Property() { Type = "string", Name = "Name", Quoted = true },
-			new Property() { Type = "IList<int>", Name = "Provinces" },
-			new Property() { Type = "double", Name = "Power" },
+            new Property() { Type = "IList<int>", Name = "Provinces" },
+            new Property() { Type = "double", Name = "Power" },
             new Property() { Type = "string", Name = "Owner", Quoted = true },
-			new Property() { Type = "double", Name = "TaxIncome" },
-			new Property() { Type = "bool", Name = "StrongCompany" }
-		}
-	},
+            new Property() { Type = "double", Name = "TaxIncome" },
+            new Property() { Type = "bool", Name = "StrongCompany" }
+        }
+    },
     new {
         Name = "Army",
         Props = new[] {
