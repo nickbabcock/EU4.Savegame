@@ -331,6 +331,7 @@ var classes = new[] {
             new Property() { Type = "bool?", Name = "IsProtectorate" },
             new Property() { Type = "string", Name = "Overlord", Quoted = true },
             new Property() { Type = "int?", Name = "Goldtype" },
+            new Property() { Type = "IList<TradeCompany>", Name = "TradeCompanies" },
             new Property() { Type = "string", Name = "CoalitionAgainstUs", Quoted = true },
             new Property() { Type = "string", Name = "CoalitionTarget" },
             new Property() { Type = "DateTime?", Name = "CoalitionDate" },
@@ -779,6 +780,17 @@ var classes = new[] {
             new Property() { Type = "bool", Name = "DelayedDecay" }
         }
     },
+	new {
+        Name = "TradeCompany",
+        Props = new[] {
+            new Property() { Type = "string", Name = "Name", Quoted = true },
+			new Property() { Type = "IList<int>", Name = "Provinces" },
+			new Property() { Type = "double", Name = "Power" },
+            new Property() { Type = "string", Name = "Owner", Quoted = true },
+			new Property() { Type = "double", Name = "TaxIncome" },
+			new Property() { Type = "bool", Name = "StrongCompany" }
+		}
+	},
     new {
         Name = "Army",
         Props = new[] {
