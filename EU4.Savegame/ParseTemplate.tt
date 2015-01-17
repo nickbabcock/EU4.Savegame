@@ -318,6 +318,7 @@ var classes = new[] {
             new Property() { Type = "double", Name = "LibertyDesire" },
             new Property() { Type = "string", Name = "UnitType" },
             new Property() { Type = "[ConsecutiveElements] IList<ArmyTemplate>", Name = "ArmyTemplates" },
+            new Property() { Type = "[ConsecutiveElements] IList<NavyTemplate>", Name = "NavyTemplates" },
             new Property() { Type = "Technology", Name = "Technology" },
             new Property() { Type = "IList<Rival>", Name = "Rivals" },
             new Property() { Type = "IList<string>", Name = "Enemies", Quoted = true },
@@ -543,6 +544,18 @@ var classes = new[] {
 			new Property() { Type = "int", Name = "Infantry" },
 			new Property() { Type = "int", Name = "Cavalry" },
 			new Property() { Type = "int", Name = "Artillery" }
+		}
+	},
+	new {
+		Name = "NavyTemplate",
+		Props = new[] {
+			new Property() { Type = "string", Name = "Name", Quoted = true },
+			new Property() { Type = "int", Name = "Spread" },
+			new Property() { Type = "bool", Name = "Mercenary" },
+			new Property() { Type = "int", Name = "HeavyShip" },
+			new Property() { Type = "int", Name = "LightShip" },
+			new Property() { Type = "int", Name = "Transport" },
+			new Property() { Type = "int", Name = "Galley" }
 		}
 	},
     new {
