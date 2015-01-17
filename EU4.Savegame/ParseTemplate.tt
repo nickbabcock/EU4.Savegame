@@ -1039,6 +1039,7 @@ var classes = new[] {
             new Property() { Type = "WarHistory", Name = "History" },
             new Property() { Type = "IList<string>", Name = "Attackers", Quoted = true },
             new Property() { Type = "IList<string>", Name = "Defenders", Quoted = true },
+            new Property() { Type = "IList<string>", Name = "FullAlly", Quoted = true },
             new Property() { Type = "IList<string>", Name = "JoinedWar", Quoted = true, Alias = "joined_war" },
             new Property() { Type = "string", Name = "Colonial", Quoted = true },
             new Property() { Type = "string", Name = "Target", Quoted = true },
