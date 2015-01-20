@@ -6,7 +6,7 @@ open System
 
 type LeaderReport = {
     leader : Leader; forces: int; losses: int; faced: int; kills: int;
-    battles: int; wins: int;
+    battles: int; wins: int; country: string;
 }
 
 type WarReport = {

@@ -103,6 +103,7 @@
         <thead>
           <tr>
             <th>Commander</th>
+            <th>Tag</th>
             <th>F</th>
             <th>S</th>
             <th>M</th>
@@ -119,6 +120,7 @@
         @foreach (var x in @Model.LeaderReport) {
           <tr>
             <td>@x.leader.Name</td>
+            <td>@x.country</td>
             <td>@x.leader.Fire</td>
             <td>@x.leader.Shock</td>
             <td>@x.leader.Manuever</td>
