@@ -153,7 +153,7 @@ type SaveStats (save : Save) =
                      w + (if win then 1 else 0))) (0,0,0,0,0)
             { leader = leader; forces = forces; losses = losses; faced = faces;
               kills = kills; battles = Seq.length battles; wins = wins;
-              country = countryMap.[leader.Country].DisplayName })
+              country = country.DisplayName })
 
 
 
