@@ -22,7 +22,6 @@ type BiggestRivalries = {
 
 type BiggestBattles = {
     warName : string; battleName : string; battleDate : DateTime;
-    attacker : string; defender : string;
     forces1 : int; losses1 : int; forces2 : int; losses2 : int; won : bool
 }
 
