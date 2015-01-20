@@ -79,6 +79,11 @@ type SaveStats (save : Save) =
             })
         |> Seq.sortBy (fun x -> (~-) x.battles)
     
+    let friendlyCountry country =
+        match (countryMap.TryFind country) with
+        | Some(x) -> x.DisplayName
+        | None -> "None"
+
     /// Computes the battles with the highest losses
     let battleReport fn =
         battles
@@ -88,8 +93,8 @@ type SaveStats (save : Save) =
             { warName = war.Name;
               battleName = battle.Name;
               battleDate = battle.EventDate;
-              attacker = countryMap.[battle.Attacker.Country].DisplayName;
-              defender = countryMap.[battle.Defender.Country].DisplayName;
+              attacker = friendlyCountry battle.Attacker.Country;
+              defender = friendlyCountry battle.Defender.Country;
               forces1 = fn battle.Attacker;
               losses1 = battle.Attacker.Losses;
               forces2 = fn battle.Defender;
