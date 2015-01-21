@@ -395,6 +395,12 @@
           }
           </tr>
           <tr>
+            <td>Total Base Tax</td>
+          @foreach (var x in @Model.PlayerCountries) {
+            <td>@x.baseTax</td>
+          }
+          </tr>
+          <tr>
             <td>Army Tradition</td>
           @foreach (var x in @Model.PlayerCountries) {
             <td>@x.armyTradition</td>

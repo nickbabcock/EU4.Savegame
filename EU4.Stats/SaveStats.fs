@@ -350,6 +350,12 @@ type SaveStats (save : Save) =
                 Some(playerName, country, builds)
             | _ -> None)
         |> Seq.map (fun (player, country, builds) ->
+            let tax =
+                save.Provinces
+                |> Seq.where (fun x -> x.Owner = country.Abbreviation)
+                |> Seq.map (fun x -> x.BaseTax.GetValueOrDefault())
+                |> Seq.sum
+
             { name = country.DisplayName;
               player = player;
               treasury = country.Treasury;
@@ -358,6 +364,7 @@ type SaveStats (save : Save) =
               inflation = country.Inflation;
               prestige = country.Prestige;
               cities = country.NumOfCities;
+              baseTax = tax;
               colonies = country.NumOfColonies;
               armyTradition = country.ArmyTradition;
               navyTradition = country.NavyTradition;
