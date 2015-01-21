@@ -31,7 +31,12 @@ namespace EU4.Savegame
             if (readMagic)
                 TokenCallback(parser, token);
             else if (!(readMagic = token == "EU4txt"))
+            {
+                if (token.StartsWith("EU4bin"))
+                    throw new ApplicationException("Ironman saves are not " +
+                        "supported at this time");
                 throw new ApplicationException("First token must be EU4txt");
+            }
         }
     }
 }
