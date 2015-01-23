@@ -356,6 +356,18 @@ type SaveStats (save : Save) =
                 |> Seq.map (fun x -> x.BaseTax.GetValueOrDefault())
                 |> Seq.sum
 
+            let forces (vals:seq<Unit>) =
+                vals
+                |> Seq.groupBy (fun x -> x.Type)
+                |> Seq.map (fun (typ, grp) -> (typ, grp |> Seq.length))
+                |> Seq.sortBy (snd >> (~-))
+                |> Seq.map (fun (typ, len) -> sprintf "%s (%d)" typ len)
+
+            let landForces =
+                forces (country.Armies |> Seq.collect (fun x -> x.Regiments))
+
+            let navalForces =
+                forces (country.Navies |> Seq.collect (fun x -> x.Ships))
             { name = country.DisplayName;
               player = player;
               treasury = country.Treasury;
@@ -371,6 +383,8 @@ type SaveStats (save : Save) =
               colonies = country.NumOfColonies;
               armyTradition = country.ArmyTradition;
               navyTradition = country.NavyTradition;
+              landForces = landForces;
+              navalForces = navalForces;
               mercantilism = country.Mercantilism;
               cultures = Seq.append [country.PrimaryCulture]
                   country.AcceptedCultures;

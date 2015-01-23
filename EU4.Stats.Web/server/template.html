@@ -430,6 +430,28 @@
             <td>@x.navyTradition</td>
           }
           </tr>
+            <tr>
+                <td>Land Forces</td>
+                @foreach (var x in @Model.PlayerCountries) {
+                <td>
+                    @foreach (var force in @x.landForces) {
+                    @force
+                    <br />
+                    }
+                </td>
+                }
+            </tr>
+            <tr>
+                <td>Naval Forces</td>
+                @foreach (var x in @Model.PlayerCountries) {
+                <td>
+                    @foreach (var force in @x.navalForces) {
+                    @force
+                    <br />
+                    }
+                </td>
+                }
+            </tr>
           <tr>
             <td>Mercantilism</td>
           @foreach (var x in @Model.PlayerCountries) {

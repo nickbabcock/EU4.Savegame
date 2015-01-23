@@ -13,6 +13,7 @@ type PlayerStats = {
     income: float;
     inflation : double; stability : float;
     cities : int; colonies : int; armyTradition : float;
+    navalForces : seq<string>; landForces : seq<string>;
     baseTax : float;
     admTech : byte; dipTech : byte; milTech : byte;
     navyTradition : float; mercantilism : float;
