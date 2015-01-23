@@ -130,7 +130,7 @@ EU4.Stats.Web.exe
 Then from another commandline you send the request in the format of:
 
 ```bash
-curl -X POST -H "X-FILE: <filepath>" -H "Content-Length: 0" -H "<file extension>" http://localhost:8888/games
+curl -X POST -H "X-FILE: <filepath>" -H "Content-Length: 0" -H "X-FILE-EXTENSION: <file extension>" http://localhost:8888/games
 ```
 
 so an example of this could be
