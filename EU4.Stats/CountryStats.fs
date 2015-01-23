@@ -14,6 +14,7 @@ type PlayerStats = {
     inflation : double; stability : float;
     cities : int; colonies : int; armyTradition : float;
     baseTax : float;
+    admTech : byte; dipTech : byte; milTech : byte;
     navyTradition : float; mercantilism : float;
     cultures : seq<string>; religion: string;
     government : string;

@@ -400,6 +400,24 @@
             <td>@x.baseTax</td>
           }
           </tr>
+            <tr>
+                <td>Adm Tech</td>
+                @foreach (var x in @Model.PlayerCountries) {
+                <td>@x.admTech</td>
+                }
+            </tr>
+            <tr>
+                <td>Dip Tech</td>
+                @foreach (var x in @Model.PlayerCountries) {
+                <td>@x.dipTech</td>
+                }
+            </tr>
+            <tr>
+                <td>Mil Tech</td>
+                @foreach (var x in @Model.PlayerCountries) {
+                <td>@x.milTech</td>
+                }
+            </tr>
           <tr>
             <td>Army Tradition</td>
           @foreach (var x in @Model.PlayerCountries) {
