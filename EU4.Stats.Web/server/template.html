@@ -419,6 +419,17 @@
           }
           </tr>
           <tr>
+            <td>Cultures</td>
+          @foreach (var x in @Model.PlayerCountries) {
+              <td>
+                  @foreach (var cult in @x.cultures) {
+                     @cult
+                     <br/>
+                  }
+              </td>
+          }
+          </tr>
+          <tr>
             <td>War Exhasution</td>
           @foreach (var x in @Model.PlayerCountries) {
             <td>@x.warExhaustion</td>
