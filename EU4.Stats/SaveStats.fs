@@ -43,17 +43,17 @@ type SaveStats (save : Save) =
             
             (country, leads))
 
-    let aggregateDip (dips:seq<DiplomacyEvent>) =
-        dips
+    let aggregateDip (fn: Save -> seq<DiplomacyEvent>) =
+        if (isNull save.Diplomacy) then Seq.empty else fn save
         |> Seq.collect (fun x ->
             seq { yield (x.First, x.Second); yield (x.Second, x.First) })
         |> Seq.groupBy fst
         |> Seq.map (fun (x, grp) -> (x, grp |> Seq.map snd))
         |> Map.ofSeq
 
-    let royals = aggregateDip save.Diplomacy.RoyalMarriages
-    let allies = aggregateDip save.Diplomacy.Alliances
-    let vassals = aggregateDip save.Diplomacy.Vassals
+    let royals = aggregateDip (fun x -> x.Diplomacy.RoyalMarriages |> Seq.map id)
+    let allies = aggregateDip (fun x -> x.Diplomacy.Alliances |> Seq.map id)
+    let vassals = aggregateDip (fun x -> x.Diplomacy.Vassals |> Seq.map id)
 
     // Creates map of leader names to leaders
     let leaderMap =
