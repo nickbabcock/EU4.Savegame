@@ -23,5 +23,7 @@ type PlayerStats = {
     manpower : float; maxManpower : float;
     colonists : int; missionaries : int; diplomats : int; merchants : int;
     marriages : seq<string>;
+    vassals : seq<string>;
+    allies : seq<string>;
     buildings : seq<string * int>
 }

@@ -500,6 +500,28 @@
           }
           </tr>
             <tr>
+                <td>Allies</td>
+                @foreach (var x in @Model.PlayerCountries) {
+                <td>
+                    @foreach (var ally in @x.allies) {
+                    @ally
+                    <br />
+                    }
+                </td>
+                }
+            </tr>
+            <tr>
+                <td>Vassals</td>
+                @foreach (var x in @Model.PlayerCountries) {
+                <td>
+                    @foreach (var vassal in @x.vassals) {
+                    @vassal
+                    <br />
+                    }
+                </td>
+                }
+            </tr>
+            <tr>
                 <td>Marriages</td>
                 @foreach (var x in @Model.PlayerCountries) {
                 <td>

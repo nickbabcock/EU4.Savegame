@@ -43,13 +43,17 @@ type SaveStats (save : Save) =
             
             (country, leads))
 
-    let royals =
-        save.Diplomacy.RoyalMarriages
+    let aggregateDip (dips:seq<DiplomacyEvent>) =
+        dips
         |> Seq.collect (fun x ->
             seq { yield (x.First, x.Second); yield (x.Second, x.First) })
         |> Seq.groupBy fst
         |> Seq.map (fun (x, grp) -> (x, grp |> Seq.map snd))
         |> Map.ofSeq
+
+    let royals = aggregateDip save.Diplomacy.RoyalMarriages
+    let allies = aggregateDip save.Diplomacy.Alliances
+    let vassals = aggregateDip save.Diplomacy.Vassals
 
     // Creates map of leader names to leaders
     let leaderMap =
@@ -86,7 +90,7 @@ type SaveStats (save : Save) =
               defendingWins = Seq.length battles - attackingWins
             })
         |> Seq.sortBy (fun x -> (~-) x.battles)
-    
+
     let friendlyCountry country =
         match (countryMap.TryFind country) with
         | Some(x) -> x.DisplayName
@@ -377,8 +381,8 @@ type SaveStats (save : Save) =
             let navalForces =
                 forces (country.Navies |> Seq.collect (fun x -> x.Ships))
 
-            let marriages =
-                match (royals.TryFind country.Abbreviation) with
+            let mapDips (dips:Map<string, seq<string>>) =
+                match (dips.TryFind country.Abbreviation) with
                 | Some(x) -> x |> Seq.map friendlyCountry
                 | None -> Seq.empty
 
@@ -411,7 +415,9 @@ type SaveStats (save : Save) =
               missionaries = Seq.length country.Missionaries;
               merchants = Seq.length country.Merchants;
               diplomats = Seq.length country.Diplomats;
-              marriages = marriages;
+              allies = mapDips allies;
+              marriages = mapDips royals;
+              vassals = mapDips vassals;
               buildings = builds
             })
 
