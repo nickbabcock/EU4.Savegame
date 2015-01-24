@@ -499,6 +499,17 @@
             <td>@x.religion</td>
           }
           </tr>
+            <tr>
+                <td>Marriages</td>
+                @foreach (var x in @Model.PlayerCountries) {
+                <td>
+                    @foreach (var marriage in @x.marriages) {
+                    @marriage
+                    <br />
+                    }
+                </td>
+                }
+            </tr>
         </tbody>
       </table>
 

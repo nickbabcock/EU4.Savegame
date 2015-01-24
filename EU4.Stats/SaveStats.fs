@@ -43,6 +43,14 @@ type SaveStats (save : Save) =
             
             (country, leads))
 
+    let royals =
+        save.Diplomacy.RoyalMarriages
+        |> Seq.collect (fun x ->
+            seq { yield (x.First, x.Second); yield (x.Second, x.First) })
+        |> Seq.groupBy fst
+        |> Seq.map (fun (x, grp) -> (x, grp |> Seq.map snd))
+        |> Map.ofSeq
+
     // Creates map of leader names to leaders
     let leaderMap =
         leaders
@@ -368,6 +376,12 @@ type SaveStats (save : Save) =
 
             let navalForces =
                 forces (country.Navies |> Seq.collect (fun x -> x.Ships))
+
+            let marriages =
+                match (royals.TryFind country.Abbreviation) with
+                | Some(x) -> x |> Seq.map friendlyCountry
+                | None -> Seq.empty
+
             { name = country.DisplayName;
               player = player;
               treasury = country.Treasury;
@@ -397,6 +411,7 @@ type SaveStats (save : Save) =
               missionaries = Seq.length country.Missionaries;
               merchants = Seq.length country.Merchants;
               diplomats = Seq.length country.Diplomats;
+              marriages = marriages;
               buildings = builds
             })
 
