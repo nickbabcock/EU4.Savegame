@@ -532,6 +532,17 @@
                 </td>
                 }
             </tr>
+            <tr>
+                <td>Advisors</td>
+                @foreach (var x in @Model.PlayerCountries) {
+                <td>
+                    @foreach (var advisor in @x.advisors) {
+                    @(advisor.Type + " (" + advisor.Skill + ")")
+                    <br />
+                    }
+                </td>
+                }
+            </tr>
         </tbody>
       </table>
 

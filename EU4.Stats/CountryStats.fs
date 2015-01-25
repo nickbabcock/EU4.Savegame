@@ -25,5 +25,6 @@ type PlayerStats = {
     marriages : seq<string>;
     vassals : seq<string>;
     allies : seq<string>;
+    advisors : seq<Advisor>;
     buildings : seq<string * int>
 }

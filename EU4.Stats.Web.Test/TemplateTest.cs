@@ -13,6 +13,10 @@ namespace EU4.Stats.Web.Test
         [Test]
         public void TemplateRendersSuccessfully()
         {
+#if !__MonoCS__
+            var a = new TradeStats.PowerStats("a", 1, 1, 1, 1, 1, 1);
+#endif
+
             var tmpl = new Templater("template.html");
             var save = new Save();
             save.Player = "MEE";

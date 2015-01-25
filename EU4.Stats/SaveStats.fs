@@ -42,6 +42,17 @@ type SaveStats (save : Save) =
                 }
             
             (country, leads))
+    
+    let advisors =
+        nullToEmpty save.Provinces
+        |> Seq.collect (fun prov ->
+            if isNull prov.History then Seq.empty else seq {
+                for event in prov.History do
+                    match event with
+                    | :? Advisor as a -> yield (a.Id.Id, a)
+                    | _ -> ()
+            })
+        |> Map.ofSeq
 
     let aggregateDip (fn: Save -> seq<DiplomacyEvent>) =
         if (isNull save.Diplomacy) then Seq.empty else fn save
@@ -386,6 +397,10 @@ type SaveStats (save : Save) =
                 | Some(x) -> x |> Seq.map friendlyCountry
                 | None -> Seq.empty
 
+            let advs =
+                nullToEmpty country.Advisors
+                |> Seq.choose (fun id -> advisors.TryFind id.Id)
+            
             { name = country.DisplayName;
               player = player;
               treasury = country.Treasury;
@@ -418,6 +433,7 @@ type SaveStats (save : Save) =
               allies = mapDips allies;
               marriages = mapDips royals;
               vassals = mapDips vassals;
+              advisors = advs;
               buildings = builds
             })
 
