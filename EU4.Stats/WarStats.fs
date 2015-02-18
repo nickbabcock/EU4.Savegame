@@ -33,6 +33,10 @@ type BattleReport = {
     won : bool
 }
 
+type CountryMilitary = {
+    name : string; menFielded : int; menLost : int; shipsFielded : int; shipsLost : int;
+}
+
 /// Summation of all the naval units a side deployed in a naval battle
 let navalDeployments (combatant:HistoricCombatant) =
     combatant.HeavyShip.GetValueOrDefault() +

@@ -24,6 +24,7 @@
         <li><a href="#biggest-naval-battles">Biggest Naval Battles</a></li>
         <li><a href="#biggest-land-battles">Biggest Land Battles</a></li>
         <li><a href="#biggest-rivalries">Commander Rivalries</a></li>
+        <li><a href="#country-kills-and-losses">Country Kills and Losses</a></li>
         <li><a href="#score-rankings">Score Rankings</a></li>
         <li><a href="#debt">Debt</a></li>
         <li><a href="#players">Players</a></li>
@@ -263,6 +264,30 @@
             <td>@x.forces2.ToString("N0")</td>
             <td>@x.losses2.ToString("N0")</td>
             <td>@(x.won ? "Attacker" : "Defender")</td>
+          </tr>
+          }
+        </tbody>
+      </table>
+
+      <h2 id="country-kills-and-losses">Country Kills and Losses</h2>
+      <table class="pure-table pure-table-striped sort-table">
+        <thead>
+          <tr>
+            <th>Country</th>
+            <th>Men Fielded</th>
+            <th>Men Lost</th>
+            <th>Ships Fielded</th>
+            <th>Ships Lost</th>
+          </tr>
+        </thead>
+        <tbody>
+          @foreach (var x in @Model.CountryMilitaryStats) {
+          <tr>
+            <td>@x.name</td>
+            <td>@x.menFielded.ToString("N0")</td>
+            <td>@x.menLost.ToString("N0")</td>
+            <td>@x.shipsFielded.ToString("N0")</td>
+            <td>@x.shipsLost.ToString("N0")</td>
           </tr>
           }
         </tbody>

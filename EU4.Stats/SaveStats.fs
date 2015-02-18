@@ -237,6 +237,32 @@ type SaveStats (save : Save) =
               losses2 = com2bs |> Seq.sumBy (fun x -> x.Losses); })
         |> Seq.sortBy (fun rivalry -> (~-) rivalry.battles)
 
+    member x.CountryKillsAndLosses () =
+        battles
+        |> Seq.collect snd
+        |> Seq.collect (fun x -> seq { yield x.Attacker; yield x.Defender; })
+        |> Seq.where (fun x -> x.Country <> "")
+        |> Seq.groupBy (fun x -> x.Country)
+        |> Seq.map(fun (abbr, bats) ->
+            let lands, sea =
+                bats
+                |> Array.ofSeq
+                |> Array.partition (WarStats.navalDeployments >> (=) 0)
+
+            let menfielded = Seq.map WarStats.landDeployments lands |> Seq.sum
+            let shifielded = Seq.map WarStats.navalDeployments sea |> Seq.sum
+            let menLost = lands |> Seq.fold (fun mem x -> mem + x.Losses) 0
+            let shiLost = sea |> Seq.fold (fun mem x -> mem + x.Losses) 0
+
+            { name = countryMap.[abbr].DisplayName
+              menFielded = menfielded
+              shipsFielded = shifielded
+              menLost = menLost
+              shipsLost = shiLost
+            })
+        |> Seq.sortBy ((fun x -> x.menFielded) >> (~-))
+
+
     member x.CountryTradeReport () =
         nullToEmpty save.Trade
         |> Seq.collect (fun x -> x.Powers)

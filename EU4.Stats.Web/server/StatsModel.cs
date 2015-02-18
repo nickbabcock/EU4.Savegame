@@ -28,5 +28,6 @@ namespace EU4.Stats.Web
         public IEnumerable<CountryStats.CountryRankings> ScoreStats { get; set; }
         public IEnumerable<Tuple<string, int, int>> Debt { get; set; }
         public IEnumerable<TradeStats.PowerStats> TradePower { get; set; }
+        public IEnumerable<WarStats.CountryMilitary> CountryMilitaryStats { get; set; }
     }
 }
