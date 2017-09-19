@@ -1,5 +1,5 @@
 language: csharp
-mono: 5.2.0.215
+mono: latest
 dist: trusty
 script:
  - mono .nuget/nuget.exe restore
