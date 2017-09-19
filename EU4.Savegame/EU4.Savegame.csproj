@@ -98,11 +98,4 @@
     <Exec Condition=" '$(OS)' != 'Windows_NT'" WorkingDirectory="$(SolutionDir)\packages\Pdoxcl2Sharp.0.5.2\lib\net40\" Command="mono $(SolutionDir)dependencies\t4\TextTransform.exe -o $(MSBuildProjectDirectory)\ParseTemplate.cs $(MSBuildProjectDirectory)\ParseTemplate.tt" />
     <Exec Condition=" '$(OS)' == 'Windows_NT'" WorkingDirectory="$(SolutionDir)\packages\Pdoxcl2Sharp.0.5.2\lib\net40\" Command="$(SolutionDir)dependencies\t4\TextTransform.exe -o $(MSBuildProjectDirectory)\ParseTemplate.cs $(MSBuildProjectDirectory)\ParseTemplate.tt" />
   </Target>
-  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
-  </Target>
 </Project>
