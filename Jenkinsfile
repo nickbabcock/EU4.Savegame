@@ -14,10 +14,7 @@ msbuild EU4.Savegame.sln /p:Configuration=Release'''
     }
     stage('Test') {
       steps {
-        dir(path: 'EU4.Savegame.Test/bin') {
-          sh 'mono ../../packages/NUnit.ConsoleRunner.3.7.0/tools/nunit3-console.exe EU4.Savegame.Test.dll'
-        }
-        
+        sh '(cd EU4.Savegame.Test/bin && mono ../../packages/NUnit.ConsoleRunner.3.7.0/tools/nunit3-console.exe EU4.Savegame.Test.dll)'
       }
     }
   }
