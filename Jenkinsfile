@@ -15,11 +15,7 @@ msbuild EU4.Savegame.sln /p:Configuration=Release'''
     stage('Test') {
       steps {
         sh '(cd EU4.Savegame.Test/bin && mono ../../packages/NUnit.ConsoleRunner.3.7.0/tools/nunit3-console.exe EU4.Savegame.Test.dll)'
-      }
-    }
-    stage('Report') {
-      steps {
-        junit '**/TestResult.xml'
+        junit 'EU4.Savegame.Test/bin/TestResult.xml'
       }
     }
   }
