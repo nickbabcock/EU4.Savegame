@@ -8,4 +8,4 @@ COPY --from=builder /tmp/EU4.Stats.Web/server/bin/ /eu4stats/bin
 EXPOSE 8888
 VOLUME /eu4stats/games
 VOLUME /tmp
-CMD cd /eu4stats/bin && mono EU4.Stats.Web.exe
+CMD cd /eu4stats/bin && mono EU4.Stats.Web.exe -d

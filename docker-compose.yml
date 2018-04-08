@@ -1,0 +1,26 @@
+version: "2.1"
+
+services:
+  frontend:
+    build:
+      context: '.'
+      dockerfile: Dockerfile.frontend
+    restart: 'unless-stopped'
+    volumes:
+      - "temporary:/tmp"
+      - "/data/games:/usr/share/nginx/html/games"
+    ports:
+      - "80"
+    links:
+      - app
+  app:
+    build:
+      context: '.'
+      dockerfile: Dockerfile.backend
+    restart: 'unless-stopped'
+    volumes:
+      - "temporary:/tmp"
+      - "/data/games:/eu4stats/games"
+
+volumes:
+  temporary:
