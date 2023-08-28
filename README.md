@@ -1,3 +1,6 @@
+**This project has be superseded by [pdx.tools](https://pdx.tools)** 
+
+
 # EU4.Savegame
 
 (.Net 4.5/Mono 3.x) [![Build status](https://ci.appveyor.com/api/projects/status/re6omq30w699ue7v)](https://ci.appveyor.com/project/nickbabcock/eu4-savegame) [![Build Status2](http://img.shields.io/travis/nickbabcock/EU4.Savegame.svg?branch=master&style=flat)](https://travis-ci.org/nickbabcock/EU4.Savegame)
